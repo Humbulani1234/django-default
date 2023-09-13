@@ -1,0 +1,41 @@
+
+{% extends 'logistic/model/base_features.html' %}
+{% load static %}
+
+{% block static_links %}
+    <link rel="stylesheet" type="text/css" href="{% static 'logistic/css/log_style.css' %}">
+{% endblock static_links %}
+
+{% block peformance %}
+    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="{% url 'roc-log' %}">ROC</a> 
+        <a class="dropdown-item" href="{% url 'confusion-log' %}">Confusion Matrix</a> 
+    </div>
+{% endblock peformance %}
+
+{% block diagnostic %}
+    <span><li class="nav-item dropdown">
+     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Diagnostics</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{% url 'residuals' %}">Residuals</a> 
+              <a class="dropdown-item" href="{% url 'student_residuals' %}">Student Residuals</a> 
+              <a class="dropdown-item" href="{% url 'normal_plot' %}">Normal Plot</a> 
+              <a class="dropdown-item" href="{% url 'cooks_plot' %}">Cooks Distance</a> 
+              <a class="dropdown-item" href="{% url 'partial_plot' %}">Partial Plot</a> 
+          </div>
+    </li></span>
+{% endblock diagnostic %}
+
+{% block image %}
+    <div class="container contained enter">
+       <img src="{% static 'logistic/files/data.png' %}" alt="No Picture" class="image">
+    </div>
+{% endblock image %}
+
+{% block probability %}
+
+<div class="probability-container">
+    <label>Calculated Probability</label>
+    <input type="text" id="probability-result" readonly>
+</div>
+{% endblock probability %}

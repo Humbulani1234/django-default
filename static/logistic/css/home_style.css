@@ -1,0 +1,251 @@
+
+/*--------------------------------------------------Center the three lines--------------------------------------------------*/
+
+.center-link {
+
+    display: block;
+    text-align: center;
+}
+
+/*--------------------------------------------------Loading message--------------------------------------------------*/
+
+#loading-message {
+
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    line-height: 100vh;
+    z-index: 9999;
+}
+
+/*--------------------------------------------------Prediction Text--------------------------------------------------*/
+
+.d {
+
+    display: flex;
+    justify-content: center;
+    background-color: floralwhite;
+    box-shadow: 20px 20px 40px rgba(0.8, 0.6, 0.4, 1);
+    margin-top: 15%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: -10%;
+    animation: changeColor 1s infinite alternate;
+    height: 10%;
+    padding-top: 15px;
+    color: blue;
+    padding-bottom: 10px;
+}
+
+/*--------------------------------------------------Left and Right Side three lines--------------------------------------------------*/
+
+.e {
+            
+    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.5);
+    background-color: lightblue;
+    color: blue;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 1px solid black;
+    text-align: center; 
+    margin-right: 5px;
+
+}
+
+.f {
+    
+    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.5);
+    background-color: lightblue;
+    color: blue;
+    white-space: nowrap;
+    overflow: hidden;
+    border-left: 1px solid black;
+    text-align: center;
+    margin-left: 5px; 
+
+}
+
+@keyframes changeColor {
+
+    from {
+
+      background-color: lightgreen;
+    }
+
+    to {
+
+      background-color: lightyellow;
+    }
+
+}
+
+/*--------------------------------------------------Screen Sizes--------------------------------------------------*/
+
+@media (max-width:1200px) {
+
+    .d {
+
+        margin-bottom: -45%;
+        height: 5%;
+        padding-top: 10px;
+    }
+}
+
+@media (max-height:600px) {
+
+    .d {
+
+        margin-bottom: 5%;
+        height: 5%;
+        padding-top: 10px;
+    }
+}
+
+/*--------------------------------------------------Center line--------------------------------------------------*/
+
+.vertical-line {
+
+    width: 2px;
+    height: 100px;
+    background-color: #000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding-top: 130px;
+    margin-top: 60px;
+ }
+
+/*--------------------------------------------------Body--------------------------------------------------*/
+
+body {
+
+    transition: background-color 0.5s;
+    margin: 0;
+    padding: 0;
+}
+
+/*--------------------------------------------------Overall Div--------------------------------------------------*/
+
+.containerd {
+
+    display: flex;
+    justify-content: inline-block;
+    align-items: center;
+    padding: 20px;
+    height: 100vh;
+}
+
+/*--------------------------------------------------Box for two sides Divs--------------------------------------------------*/
+
+.box {
+
+    flex: 1;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+}
+
+/*--------------------------------------------------Clicks button Models--------------------------------------------------*/
+
+.mybtn {
+
+   background-color: floralwhite;
+   text-align: center;
+   display: inline-block;
+   font-size: 15px;
+   cursor: pointer;
+   padding: 5px 8px;
+   border:2px solid #000;
+   border-radius: 30px;
+   text-decoration: none;
+   color: #000;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+   font-weight: bold;
+   transition: box-shadow 0.3s ease;
+}
+
+.mybtn:hover {
+     background-color: floralwhite;
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+/*--------------------------------------------------Footer--------------------------------------------------*/
+
+.footer{
+
+background:whitesmoke;
+padding:30px 0px;
+font-family: 'Play', sans-serif;
+text-align:center;
+
+}
+
+.footer .row{
+
+width:100%;
+margin:1% 0%;
+padding:0.6% 0%;
+color:gray;
+font-size:0.8em;
+
+}
+
+.footer .row a{
+
+text-decoration:none;
+color:gray;
+transition:0.5s;
+
+}
+
+.footer .row a:hover{
+
+color:#fff;
+
+}
+
+.footer .row ul{
+
+width:100%;
+
+}
+
+.footer .row ul li{
+
+display:inline-block;
+margin:0px 30px;
+
+}
+
+.footer .row a i{
+
+font-size:2em;
+margin:0% 1%;
+
+}
+
+@media (max-width:1200px){
+
+.footer{
+
+text-align:left;
+padding:5%;
+
+}
+.footer .row ul li{
+
+display:block;
+margin:10px 0px;
+text-align:left;
+
+}
+
+.footer .row a i{
+
+margin:0% 3%;
+}
+
+}

@@ -1,0 +1,51 @@
+
+/*-------------------------------------------------------Body---------------------------------------------*/
+
+body {
+
+  transition: background-color 0.5s;
+  margin: 0;
+  padding: 0;
+
+}
+
+/*------------------------------------------------------------Image-----------------------------------------------*/
+
+.image {
+
+    max-width: 100%;
+    height:auto;
+}
+
+.image.enter {
+
+    opacity: 1;
+    transform: translateX(0);
+}
+
+@keyframes enter {
+
+  0% {
+
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  
+  100% {
+
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.image.enter {
+
+  animation: enter 3s ease-in-out;
+}
+
+/*---------------------------------------------------------------------------------------------------------------*/
+
+/*.nav-color {
+
+    background-color: #417690;
+}*/

@@ -1,0 +1,29 @@
+
+{% extends 'decision/model/base_features.html' %}
+{% load static %}
+
+{% block static_links %}
+    <link rel="stylesheet" type="text/css" href="{% static 'decision/css/dec_style.css' %}">
+{% endblock static_links %}
+
+{% block peformance %}
+    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="{% url 'cross_validate-dec' %}">Cross Validate</a> 
+        <a class="dropdown-item" href="{% url 'confusion-dec' %}">Confusion Matrix</a> 
+        <a class="dropdown-item" href="{% url 'tree-dec' %}">Decision Tree</a> 
+    </div>
+{% endblock peformance %}
+
+{% block image %}
+    <div class="container contained enter">
+       <img src="{% static 'decision/files/data2.png' %}" alt="No Picture" class="image">
+    </div>
+{% endblock image %}
+
+{% block probability %}
+
+<div class="probability-container">
+    <label>Calculated Probability</label>
+    <input type="text" id="probability-result" readonly>
+</div>
+{% endblock probability %}
