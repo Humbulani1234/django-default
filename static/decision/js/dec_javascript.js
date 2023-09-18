@@ -19,6 +19,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
 /*---------------------------------------------------------------AJAX---------------------------------------------------*/
 
+function getCookie(name) {
+    
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+const csrftoken = getCookie('csrftoken');
 const form = document.getElementById('probability-form');
 const resetButton = document.getElementById('reset-button');
 const probabilityResult = document.getElementById('probability-result');
@@ -31,11 +39,14 @@ const probabilityResult = document.getElementById('probability-result');
       
       // Send form data to the server using AJAX
 
-      fetch('http://localhost:80/decision/decisionfeatures/', {
+      const headers = new Headers();
+      headers.append('X-CSRFToken', csrftoken);
+
+      fetch('http://localhost:80/logistic/features/', {
 
         method: 'POST',
-        body: formData
-
+        body: formData,
+        headers: headers
       })
 
       .then(response => response.json())
@@ -52,6 +63,7 @@ const probabilityResult = document.getElementById('probability-result');
       probabilityResult.value = '';
 
 });
+
 
 /*-------------------------------------------------------Go back----------------------------------------------------------*/
 

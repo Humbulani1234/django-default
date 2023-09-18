@@ -1,9 +1,7 @@
 
-from django.contrib import admin
-from django.urls import path, include
 
+from django.urls import path
 from . import views
-
 
 urlpatterns = [
 
@@ -15,6 +13,7 @@ urlpatterns = [
     # Models-Logistic
 
     path('features/',views.inputs, name='features-log'),
+    path('github-django-pd/',views.github_django_pd, name='github_django_pd'),
 
     # Peformance
 

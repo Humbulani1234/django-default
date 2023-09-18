@@ -64,16 +64,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
 /*----------------------------------------Page Loading---------------------------------------------------*/
 
-document.addEventListener('DOMContentLoaded', function() {
+// document.addEventListener('DOMContentLoaded', function() {
 
-    setTimeout(function() {
-    document.getElementById('loading-message').style.display = 'none'
-    }, 100000);
-});
+//     setTimeout(function() {
+//     document.getElementById('loading-message').style.display = 'none'
+//     }, 100000);
+// });
 
-document.addEventListener('load', function() {
-    setTimeout(function() {
-    document.getElementById('loading-message').style.display = 'none'
-    }, 100000)
-});
+// document.addEventListener('load', function() {
+//     setTimeout(function() {
+//     document.getElementById('loading-message').style.display = 'none'
+//     }, 100000)
+// });
 

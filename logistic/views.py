@@ -16,6 +16,7 @@ from django.http import HttpResponse
 from django.http import JsonResponse
 from django.core.cache import cache
 from django.db import transaction
+from django.contrib.auth.decorators import login_required
 
 sys.path.append('/home/humbulani/django-pd/django_ref/refactored_pd')
 
@@ -70,7 +71,7 @@ def confusion_logistic(request):
 
     cache.set(cache_key, image_base64, 3600)
 
-    return render (request, 'logistic/diagnostics/log_peformance_confusion.html', {'image_base64':image_base64})
+    return render (request, 'logistic/peformance/log_peformance_confusion.html', {'image_base64':image_base64})
 
 #-------------------------------------------------------------------Model Diagnostics-----------------------------------------------------
 
@@ -166,9 +167,16 @@ def about(request):
 
     return render(request, 'logistic/general/about_page.html')
 
-def inputs(request):
+@login_required
+def github_django_pd(request):
 
-    # from django.core.cache import cache
+    external_url = "https://github.com/Humbulani1234/Django_Anyway/"
+
+    return redirect(external_url) 
+    
+    # return render(request, 'logistic/repos/github_django_pd.html', {'external_url': external_url})
+
+def inputs(request):
 
     answer = ""
 
@@ -179,8 +187,6 @@ def inputs(request):
             with transaction.atomic():
 
                 instance = form.save()
-                # probability_row = Probability(log_features_key=instance)
-                # probability_row.save()
                 saved_pk = instance.pk
 
             # Float features
@@ -355,23 +361,12 @@ def inputs(request):
             try:
 
                 with transaction.atomic():
-
-                    # probability_row = Probability(log_features_key=instance)
-                    # probability_row.probability = answer
-                    # probability_row.default = 'default'
-                    # probability_row.save()  
-
-                    # log_features_object = LogFeatures.objects.create(name='instance')
-                    # probability_instance = log_features_object.probability
-                    # probability_instance.probability = answer
-                    # probability_instance.save()
-
+                    
                     log_features_object = LogFeatures.objects.get(pk=saved_pk)
-                    probability_instance = Probability(log_features_key=log_features_object)
+                    probability_instance = Probability(log_features_key=log_features_object) # Django class/instance creation
                     probability_instance.probability = answer
                     probability_instance.default = 'default' if answer1 > 0.47 else 'nodefault'
                     probability_instance.save()
-
 
             except LogFeatures.DoesNotExist:
 

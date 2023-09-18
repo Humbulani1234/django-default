@@ -19,9 +19,19 @@
         <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Play&display=swap" rel="stylesheet"> 
     </head>             
     <body>
-        <!-- <div id="loading-message"> Loading...</div> -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button> 
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
+        </button>
+         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav nav navbar-nav navbar-logo mr-auto">
+               {% if user.is_authenticated %}
+                 <span><li><a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a></li></span>
+               {% else %}
+                 <span><li><a class="nav-item nav-link" href="{% url 'login' %}">Login</a></li></span>
+                 <span><li><a class="nav-item nav-link" href="{% url 'register' %}">Register</a></li></span>
+               {% endif %}   
+            </ul>
+          </div>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav nav navbar-nav navbar-logo mr-auto"></ul>
             <form class="form-inline my-2 my-lg-0">
@@ -46,7 +56,7 @@
             <div class="vertical-line"></div>
             <div class="box">
                     <h4 class="f"></h4>
-                    <span class="center-link"><a href="https://github.com/Humbulani1234/Django_Anyway/" target="_self" title="Visit Logistic"><button class="mybtn" style="margin-top: 15px;">Enter Credit PD repository</button></a></span>
+                    <span class="center-link"><a href="{% url 'github_django_pd' %}" target="_self" title="Visit Logistic"><button class="mybtn" style="margin-top: 15px;">Enter Credit PD repository</button></a></span>
                     <legend></legend>
                     <span class="center-link"><a href="https://github.com/Humbulani1234/Streamlit/" target="_self" title="Visit Decision"><button class="mybtn">Streamlit PD repo</button></a></span>
                     <legend></legend>

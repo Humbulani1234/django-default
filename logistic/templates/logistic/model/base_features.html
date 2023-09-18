@@ -16,16 +16,22 @@
   </head>
   <body>
       <nav class="navbar navbar-expand-lg navbar-light bg-light nav-shadow">
-        <!-- <button class="goback" onclick="goBack()">Go Back</button> -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
-        </button> 
+        </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav nav navbar-nav navbar-logo mr-auto">
               <span><li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Performance</a>
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" 
+                  aria-haspopup="true" aria-expanded="false">Performance</a>
                   {% block peformance %} {% endblock %}
                </li></span>
                {% block diagnostic %} {% endblock %}
+               {% if user.is_authenticated %}
+                 <span><li><a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a></li></span>
+               {% else %}
+                 <span><li><a class="nav-item nav-link" href="{% url 'login' %}">Login</a></li></span>
+                 <span><li><a class="nav-item nav-link" href="{% url 'register' %}">Register</a></li></span>
+               {% endif %}   
             </ul>
            <form class="form-inline my-2 my-lg-0">
               <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">

@@ -1,5 +1,4 @@
 
-
 import pandas as pd
 import numpy as np
 import pickle
@@ -14,6 +13,7 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.db import transaction
 from django.core.cache import cache
+from django.contrib.auth.decorators import login_required
 
 from .models import DecFeatures, DecProbability
 from .forms import Inputs
@@ -37,11 +37,9 @@ def image_generator(f):
 
     return image_base64
 
-#-------------------------------------------------------------------Perfomance----------------------------------------------
+#-------------------------------------------------------------------Perfomance-------------------------------------------------------
 
 def confusion_decision(request):
-
-    # from django.core.cache import cache
 
     f = data.d.dt_pruned_confmatrix(data.ccpalpha, data.threshold_1, data.threshold_2,
                                     data.x_test_orig, data.y_test_orig)
@@ -60,8 +58,6 @@ def confusion_decision(request):
 
 def decision_tree(request):
 
-    # from django.core.cache import cache
-
     f = data.d.dt_pruned_tree(data.ccpalpha, data.threshold_1, data.threshold_2)
 
     cache_key = 'decisiontree_plot'
@@ -79,8 +75,6 @@ def decision_tree(request):
 
 def cross_validate(request):
 
-    # from django.core.cache import cache
-
     f = data.d.cross_validate_alphas(data.ccpalpha)[1]
     cache_key = 'cooks_plot'
     cached_result = cache.get(cache_key)
@@ -95,6 +89,7 @@ def cross_validate(request):
 
     return render (request, 'decision/peformance/cross_validate.html', {'image_base64':image_base64})
 
+@login_required
 def tree(request):
 
     answer = ""
@@ -106,8 +101,6 @@ def tree(request):
             with transaction.atomic():
 
                 instance = form.save()
-                # probability_row = Probability(log_features_key=instance)
-                # probability_row.save()
                 saved_pk = instance.pk
 
             # Float features
