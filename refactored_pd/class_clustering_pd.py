@@ -51,7 +51,6 @@ class ClusterProbability(ModelPeformance, object):
 
         np.random.seed(0)
         pd_values = np.random.uniform(0, 0.5, 1000).reshape(-1, 1)  # Reshape for clustering
-        # print(pd_values)
 
     def _elbow_max_cluster(self):
 
