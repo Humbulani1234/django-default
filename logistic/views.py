@@ -18,14 +18,12 @@ from django.core.cache import cache
 from django.db import transaction
 from django.contrib.auth.decorators import login_required
 
-sys.path.append('/home/humbulani/django-pd/django_ref/refactored_pd')
-
 import data
 from .forms import Inputs
 from .models import LogFeatures
 from .models import Probability
 
-#-------------------------------------------------------------------Defined variables----------------------------------------------------
+sys.path.append('/home/humbulani/django-pd/django_ref/refactored_pd')
 
 def image_generator(f):
 
