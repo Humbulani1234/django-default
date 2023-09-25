@@ -2,7 +2,7 @@
 # test_my_math.py
 
 import unittest
-from test_class_unittest import add, subtract
+from operators import add, subtract
 
 def test_add():
     # Test addition with positive numbers
