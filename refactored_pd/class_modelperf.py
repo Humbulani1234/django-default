@@ -20,6 +20,7 @@ import pandas as pd
 import statsmodels.api as sm
 import pickle
 import sys
+import re
 
 from class_traintest import OneHotEncoding
 from class_base import Base
@@ -28,63 +29,64 @@ from class_missing_values import ImputationCat
 from glm_binomial import glm_binomial_fit
 
 sys.path.append('/home/humbulani/django/django_ref/refactored_pd')
-
-# --------------------------------------------------------Model Perfomance class----------------------------------------------------------
-
 with open('refactored_pd/glm_binomial.pkl','rb') as file:
         loaded_model = pickle.load(file)
 
-class ModelPerfomance(Base):
+class ModelPerfomance(Base, object):
 
     def __init__(self, custom_rcParams, x_test, y_test, threshold):
 
-        super().__init__(custom_rcParams)
-
+        super(ModelPerfomance, self).__init__(custom_rcParams)
         self.x_test = x_test
         self.y_test = y_test
         self.threshold = threshold
-        self.predict_glm = loaded_model.predict(self.x_test)
-        self.fpr, self.tpr, self.thresholds = metrics.roc_curve(self.y_test, self.predict_glm)
+
+    def __str__(self):
+        
+        pattern = re.compile(r'^_')
+        method_names = []
+        for name, func in ModelPerfomance.__dict__.items():
+            if not pattern.match(name) and callable(func):
+                method_names.append(name)
+
+        return f"This is Class {self.__class__.__name__} with methods {method_names}"
+
+    def _predict_glm(self):
+
+        predict_glm = loaded_model.predict(self.x_test)
+        return predict_glm
 
     def roc_curve_analytics(self):
     
         """ Roc curve analytics and plot """
 
+        fpr, tpr, thresholds = metrics.roc_curve(self.y_test, self._predict_glm())
         self.fig, self.axs = plt.subplots(1,1)
-        self.axs.plot(self.fpr, self.tpr)
-
-        super().plotting("Roc Curve", "fpr", "tpr")
+        self.axs.plot(fpr, tpr)
+        super(ModelPerfomance, self)._plotting("Roc Curve", "fpr", "tpr")
 
         return self.fig
    
     def optimal_threshold(self):
 
-        self.optimal_idx = np.argmax(self.tpr - self.fpr)
-        self.optimal_thres = self.thresholds[self.optimal_idx]
+        optimal_idx = np.argmax(self.tpr - self.fpr)
+        optimal_thres = self.thresholds[optimal_idx]
         
-        return self.optimal_thres
+        return optimal_thres
 
     def binary_prediction(self):
          
         """ Prediction Function @ maximal threshold """
 
-        self.k = self.predict_glm.tolist()
-        self.predict_binary = self.k.copy()
-
+        predict_binary = self._predict_glm().tolist()        
         for i in range(self.y_test.shape[0]):
-
-            if self.predict_binary[i] < self.threshold:
-
-                self.predict_binary[i] = 1               
-        
+            if predict_binary[i] < self.threshold:
+               predict_binary[i] = 1                   
             else: 
+                predict_binary[i] = 0            
+                predict_binary = pd.Series(predict_binary)
 
-                self.predict_binary[i] = 0
-            
-            self.predict_binary = pd.Series(self.predict_binary)
-
-        return self.predict_binary
-
+        return  predict_binary
 
     def confusion_matrix_plot(self):
         
@@ -103,7 +105,7 @@ class ModelPerfomance(Base):
 
     def probability_prediction(self):
          
-        self._z = [round(i,10) for i in self.predict_glm.tolist()]
-        prediction_prob = self._z.copy()
-
+        prediction_prob = [round(i,10) for i in self._predict_glm().tolist()]
+        
         return prediction_prob
+

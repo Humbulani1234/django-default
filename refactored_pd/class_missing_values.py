@@ -1,14 +1,14 @@
 
+"""
+  ==============================
+  MCAR adhoc tests vs MNAR, MAR
+  ==============================
 
-# ==============================
-# MCAR adhoc tests vs MNAR, MAR
-# ==============================
+  ======
+  Plots
+  ======
+"""
 
-# ======
-# Plots
-# ======
-
-#import ED
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.impute import SimpleImputer
@@ -19,17 +19,25 @@ import logging
 
 from pd_download import data_cleaning 
 
-# --------------------------------------------------------Class Imputation----------------------------------------------------
-
 class ImputationCat:
 
     def __init__(self, df_cat):
 
         self.df_cat = df_cat
 
+    def __str__(self):
+        
+        pattern = re.compile(r'^_')
+        method_names = []
+        for name, func in ImputationCat.__dict__.items():
+            if not pattern.match(name) and callable(func):
+                method_names.append(name)
+
+        return f"This is Class {self.__class__.__name__} with methods {method_names}"
+
     def simple_imputer_mode(self):
 
-        """ Simple Imputation -- through Python API's """
+        """ Simple Imputation """
         
         df_cat_mode = self.df_cat.copy(True)
         mode_imputer = SimpleImputer(strategy="most_frequent")
@@ -52,12 +60,9 @@ class ImputationCat:
         
         y = OrdinalEncoder()                  # instatiate ordinal encoder class
         name = independent_series             # pass in the independent series for a missing column, (name = name of column)
-
         name_not_null = independent_series[independent_series.notnull()]    # removes null values from column
-
         reshaped_vals = name_not_null.values.reshape(-1,1)               # extract series values only and reshape them for
         encoded_vals = y.fit_transform(reshaped_vals)                     # function takes in array
-
         dataframe.loc[independent_series.notnull(), independent_series.name] = np.squeeze(encoded_vals)
         
         return dataframe

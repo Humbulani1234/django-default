@@ -1,14 +1,13 @@
 
+"""
+    ==============================
+    MCAR adhoc tests vs MNAR, MAR
+    ==============================
 
-# ==============================
-# MCAR adhoc tests vs MNAR, MAR
-# ==============================
-
-# ======
-# Plots
-# ======
-
-import ED
+    ======
+    Plots
+    ======
+"""
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.impute import SimpleImputer
@@ -17,109 +16,98 @@ from sklearn.preprocessing import OrdinalEncoder
 import numpy as np
 import logging
 
+from class_base import Base
+
 # ---------------------------------------------------------Charts Class-----------------------------------------------------
 
+class Charts(Base, objects):
 
-class Charts(Base):
+    def __str__(self):
+        
+        pattern = re.compile(r'^_')
+        method_names = []
+        for name, func in Charts.__dict__.items():
+            if not pattern.match(name) and callable(func):
+                method_names.append(name)
 
-	def Categorical_missingness_Crosstab_Plot(independent, target):
-	    
-	    '''Plot cross tab'''
-	    
-	    missingness = independent.isnull()
-	    cross_tab = pd.crosstab(target, missingness, normalize="columns", dropna=True).apply(lambda r: round(r,2), axis=1)
+        return f"This is Class {self.__class__.__name__} with methods {method_names}"
 
-	    ax = cross_tab.plot(kind='bar', width=0.15, ylabel="Number Absorbed",color=["#003A5D","#A19958"]\
-	   ,edgecolor="tab:grey",linewidth=1.5)
+    def cat_missing_crosstab_plot(self):
+        
+        """ Plot cross tab """
 
-	    l = {"Not-Absorbed":"#003A5D", "Absorbed":"#A19958"}
-	    labels = list(l.keys())
-	    handles = [plt.Rectangle((5,5),10,10, color=l[label]) for label in labels]
-	    plt.legend(handles, labels, fontsize=7, bbox_to_anchor=(1.13,1.17), loc="upper left", title="legend",shadow=True)
+        self.fig, self.axs = plt.subplots(1,1)
+        missingness = independent.isnull()
+        cross_tab = pd.crosstab(target, missingness, normalize="columns", dropna=True).apply(lambda r: round(r,2),
+                                 axis=1)
+        cross_tab.plot(kind='bar', width=0.15, ylabel="Number Absorbed",color=["#003A5D","#A19958"]\
+       ,edgecolor="tab:grey",linewidth=1.5, ax=self.axs)
+         
+        return self.fig, cross_tab
 
-	    plt.title("Number Absorbed for each Gender", fontsize=9, pad=12)
-	    plt.xlabel("Gender",fontsize=7.5)
-	    plt.xticks(fontsize=7.5)
-	    plt.ylabel('Number Absorbed', fontsize = 7.5)
-	    plt.yticks(fontsize=7.5)
-	    plt.rcParams["figure.figsize"] = (2.7,2.5)
-	    plt.rcParams["legend.title_fontsize"] = 7
+    def cat_missing_pivot_plot(self):
+          
+        """ Categorical Plot for greater than 2 categories """
 
-	    for pos in ["right", "top"]:
-	        plt.gca().spines[pos].set_visible(False)
-	        
-	    for c in ax.containers:
-	        ax.bar_label(c, label_type='edge', fontsize=7)
-	     
-	    return cross_tab
+        self.fig, self.axs = plt.subplots(1,1)
+        missingness = self.independent.isnull()
+        df = pd.concat([missingness, self.target], axis=1) 
+        df_pivot = pd.pivot_table(df, index=self.independent.name, values=self.target.name, aggfunc=len,
+                                  fill_value=0) #.apply(lambda x: x/float(x.sum()))
+        df_pivot.plot(kind="bar", width=0.1, color=["#003A5D","#A19958"], fontsize=7.5\
+                             , edgecolor="tab:grey",linewidth=1.5, ax=self.axs)
 
+        return self.fig, df_pivot
 
-	def Categorical_missingness_Pivot_Plot(independent, target):
-	      
-	    '''Categorical Plot for greater than 2 categories'''
-	    
-	    missingness = independent.isnull()
-	    df = pd.concat([missingness, target], axis=1) 
-	    df_pivot = pd.pivot_table(df, index=independent.name, values=target.name, aggfunc=len, fill_value=0)\
-	                                          #.apply(lambda x: x/float(x.sum()))
+    def cat_crosstab_plot(self):
+        
+        """ Plot cross tab """
 
-	    d = df_pivot.plot(kind="bar", width=0.1, color=["#003A5D","#A19958"], fontsize=7.5\
-	                         , edgecolor="tab:grey",linewidth=1.5)
+        self.fig, self.axs = plt.subplots(1,1)
+        h = pd.crosstab(target,independent, normalize="columns")
+        bars = self.axs.bar(self.independent, self.target, color='blue')
+        key_color = {self.independent.name:"#003A5D", self.target.name:"#A19958"}
 
-	    d.legend(title="legend", bbox_to_anchor=(1, 1.02), loc='upper left', fontsize=6.5, shadow=True)
-	    
-	    plt.title("Race and Absorption for Gender", fontsize=7.5, pad=12)
-	    plt.xlabel('Absorbed', fontsize=7)
-	    plt.xticks(fontsize=7)
-	    plt.ylabel('Number Absorbed', fontsize = 7)
-	    plt.yticks(fontsize=7)
-	    plt.xlabel(" ")
-	    plt.rcParams["figure.figsize"] = (2.7,2.5)
-	    plt.rcParams["legend.title_fontsize"] = 7
+        return self.fig, h
 
-	    for pos in ["right", "top"]:
-	        plt.gca().spines[pos].set_visible(False)
+    def cat_pivot_plot(self):
+          
+        """ Categorical Plot for greater than 2 categories """
 
+        self.fig, self.axs = plt.subplots(1,1)
+        df = pd.concat([self.independent, self.target], axis=1) 
+        df_pivot = pd.pivot_table(df, index=self.independent.name, columns=self.target.name,
+                                  aggfunc=len, fill_value=0).apply(lambda x: x/float(x.sum()))        
+        df_pivot.plot(kind="bar", ax=self.axs)
 
-	    return df_pivot
+        return self.fig, df_pivot
 
+    def scatter_plot(self):
+        
+        """ Scatter plot between numerical variables """
 
-	def Categorical_Crosstab_Plot(independent, target):
-	    
-	    ''' Plot cross tab '''
+        self.fig, self.axs = plt.subplots(1,1)
+        self.axs.scatter(self.independent, self.target)
 
-	    h = pd.crosstab(target,independent, normalize="columns")
-	    bar = plt.bar(target, independent)
-	    return plt.show(), h
+        return self.fig   
 
+    def correlation_plot(self):
+        
+        """ Independent variables correlation plot """
 
-	def Categorical_Pivot_Plot(independent, target):
-	      
-	    '''Categorical Plot for greater than 2 categories'''
-	    
-	    df = pd.concat([independent, target], axis=1) 
-	    df_pivot = pd.pivot_table(df, index=independent.name, columns=target.name, aggfunc=len, fill_value=0)\
-	                                                                       .apply(lambda x: x/float(x.sum()))
-	    
-	    return df_pivot.plot(kind="bar"), df_pivot
+        self.fig, self.axs = plt.subplots(1,1)
+        self.dataframe.corr(ax=self.axs)
 
+        return self.fig
 
-	def Scatter_Plot(independent, target):
-	    
-	    '''Scatter plot between numerical variables'''
-	    
-	    scatter = plt.scatter(target, independent)
-	    return plt.show()   
+    def point_biserial_plot(self):
 
-	def Correlation_Plot(dataframe):
-	    
-	    '''Independent variables correlation plot'''
+        """ Point Biserial Plots """
 
-	    return dataframe.corr()
+        self.fig, self.axs = plt.subplots(1,1)
+        sns.set_theme(style="ticks", color_codes = True)
+        data = pd.concat([self.independent, self.target], axis=1)        
+        sns.catplot(x = self.independent, y = self.target, kind="box", data = data, ax=self.axs) 
 
-	def Point_Biserial_Plot(independent, target):
-	    
-	    sns.set_theme(style="ticks", color_codes = True)
-	    data = pd.concat([independent, target], axis=1)
-	    
-	    return sns.catplot(x = independent, y = target, kind="box", data = data)   
+        return self.fig 
+

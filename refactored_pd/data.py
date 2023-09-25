@@ -7,6 +7,7 @@ import types
 import io
 import base64
 import statsmodels.api as sm
+from matplotlib import pyplot as plt
 
 import pd_download
 from class_traintest import OneHotEncoding
@@ -16,7 +17,7 @@ import class_diagnostics
 from class_modelperf import ModelPerfomance
 from class_decision_tree import DecisionTree
 from class_diagnostics import (ResidualsPlot, BreushPaganTest, NormalityTest, DurbinWatsonTest,
-                               PartialPlots, LevStudQuaRes, CooksDisQuantRes)
+                               PartialPlots, LevStudQuaRes, CooksDisQuantRes, QuantileResiduals)
 
 #----------------------------------------------------------------Data------------------------------------------------
 
@@ -29,6 +30,8 @@ miss = ImputationCat(df_loan_categorical)
 imputer_cat = miss.simple_imputer_mode()
 
 custom_rcParams = {"figure.figsize": (9, 8), "axes.labelsize": 12}
+threshold = -1
+randomstate = 42
 
 instance_mach = OneHotEncoding(custom_rcParams, imputer_cat, "machine")
 
@@ -46,14 +49,15 @@ x_train = instance_stats.split_xtrain_ytrain(df_loan_float, target=df_loan_float
 x_test = sm.add_constant(x_test.values)
 y_test = instance_stats.split_xtrain_ytrain(df_loan_float, target=df_loan_float["GB"])[3]
 
+m = ModelPerfomance(custom_rcParams, x_test, y_test, threshold)
+
 sample = 0
-threshold = 0.47
-randomstate = 42
 ccpalpha = 0
 threshold_1=0.0019
 threshold_2=0.0021
 
 b = ResidualsPlot(custom_rcParams, x_test, y_test, threshold)
+# print(b)
 e = BreushPaganTest(custom_rcParams, x_test, y_test, threshold)
 k = NormalityTest(custom_rcParams, x_test, y_test, threshold)
 g = DurbinWatsonTest(custom_rcParams, x_test, y_test, threshold)
@@ -64,4 +68,13 @@ j = CooksDisQuantRes(custom_rcParams, x_test, y_test, threshold)
 c = ModelPerfomance(custom_rcParams, x_test, y_test, threshold)
 d = DecisionTree(custom_rcParams, imputer_cat, "machine", y_test_orig,
                  df_loan_float, df_loan_float["GB"], threshold, randomstate)
+m = QuantileResiduals(custom_rcParams, x_test, y_test, threshold)
+print(m)
+
+
+#---------------------------------------------Execution-----------------------------------------
+
+# m.roc_curve_analytics()
+# plt.show()
+
 

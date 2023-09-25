@@ -9,36 +9,23 @@ from pd_download import data_cleaning
 from class_missing_values import ImputationCat
 import warnings
 
-# -----------------------------------------------GLM BINOMIAL----------------------------------------------------
-
-
 def glm_binomial_fit(y_train, x_train):
     
     ''' GLM Binomial fit '''
 
     try:
-
         if y_train is list:
-
             raise TypeError("target not an instance of a list") 
-
     except TypeError as t:
-
         print("Error:", t)
-
-
-    else:
-        
+    else:        
         x_train = sm.add_constant(x_train.values)
         glm_binom = sm.GLM(y_train, x_train, family=sm.families.Binomial())   
         res = glm_binom.fit()
 
         return res.summary(), res
 
-# ----------------------------------------------Testing------------------------------------------------------------
-
 if __name__ == "__main__":
-
 
     file_path = "./KGB.sas7bdat"
     data_types, df_loan_categorical, df_loan_float = data_cleaning(file_path)    
@@ -59,3 +46,5 @@ if __name__ == "__main__":
     y_train_shape = y_train.values.reshape(-1,1)
 
     model = (glm_binomial_fit(y_train_shape, x_train))[1]
+
+
