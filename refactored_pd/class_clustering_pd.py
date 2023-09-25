@@ -55,6 +55,7 @@ class ClusterProbability(ModelPeformance, object):
     def _elbow_max_cluster(self):
 
         # Determine the optimal number of clusters using the "elbow method"
+        
         self.fig, self.axs = plt.subplots(1,1)
         inertia = []
         for n_clusters in range(1, 11):
@@ -62,7 +63,8 @@ class ClusterProbability(ModelPeformance, object):
             kmeans.fit(pd_values)
             inertia.append(kmeans.inertia_)
 
-        Plot the "elbow" curve to choose the number of clusters
+        #Plot the "elbow" curve to choose the number of clusters
+
         plt.figure(figsize=(8, 4))
         plt.plot(range(1, 11), inertia, marker='o', linestyle='--')
         plt.xlabel('Number of Clusters')
