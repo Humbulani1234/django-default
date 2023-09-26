@@ -21,6 +21,7 @@ import statsmodels.api as sm
 import pickle
 import sys
 import re
+import logging
 
 from class_traintest import OneHotEncoding
 from class_base import Base

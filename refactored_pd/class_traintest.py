@@ -20,11 +20,18 @@ import numpy as np
 from matplotlib.ticker import PercentFormatter
 from sklearn.model_selection import train_test_split
 import warnings
+import logging
 
 from class_base import Base
 from pd_download import data_cleaning
 from class_missing_values import ImputationCat
 
+diagnostics_logger = logging.getLogger("class_traintest")
+diagnostics_logger.setLevel(logging.DEBUG)
+console_handler = logging.StreamHandler()
+console_handler.setFormatter(logging.Formatter(fmt="{levelname}:{name}:{message}", style="{"))
+diagnostics_logger.addHandler(console_handler)
+diagnostics_logger.info("CLASS TRAINTEST USING ONEHOT ENCODING")
 
 class OneHotEncoding(Base, object):
 

@@ -18,6 +18,7 @@ from class_modelperf import ModelPerfomance
 from class_decision_tree import DecisionTree
 from class_diagnostics import (ResidualsPlot, BreushPaganTest, NormalityTest, DurbinWatsonTest,
                                PartialPlots, LevStudQuaRes, CooksDisQuantRes, QuantileResiduals)
+from class_clustering_pd import ClusterProbability
 
 with open('glm_binomial.pkl','rb') as file:
         loaded_model = pickle.load(file)
@@ -48,7 +49,7 @@ x_test = sm.add_constant(x_test.values)
 y_test = instance_stats.split_xtrain_ytrain(df_loan_float, target=df_loan_float["GB"])[3]
 
 m = ModelPerfomance(custom_rcParams, x_test, y_test, threshold)
-type(m.prediction_probability())
+q = ClusterProbability(custom_rcParams, x_test, y_test, threshold)
 
 sample = 0
 ccpalpha = 0
@@ -66,3 +67,7 @@ c = ModelPerfomance(custom_rcParams, x_test, y_test, threshold)
 d = DecisionTree(custom_rcParams, imputer_cat, "machine", y_test_orig,
                  df_loan_float, df_loan_float["GB"], threshold, randomstate)
 m = QuantileResiduals(custom_rcParams, x_test, y_test, threshold)
+
+q._elbow_max_cluster()
+plt.show()
+
