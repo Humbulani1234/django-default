@@ -21,6 +21,7 @@ import statsmodels.api as sm
 import pickle
 import sys
 import re
+import logging
 
 from class_traintest import OneHotEncoding
 from class_base import Base
@@ -28,8 +29,15 @@ from pd_download import data_cleaning
 from class_missing_values import ImputationCat
 from glm_binomial import glm_binomial_fit
 
+diagnostics_logger = logging.getLogger("class_modelperf")
+diagnostics_logger.setLevel(logging.DEBUG)
+console_handler = logging.StreamHandler()
+console_handler.setFormatter(logging.Formatter(fmt="{levelname}:{name}:{message}", style="{"))
+diagnostics_logger.addHandler(console_handler)
+diagnostics_logger.info("MODEL PERFOMANCE ARE INCLUDED")
+
 sys.path.append('/home/humbulani/django/django_ref/refactored_pd')
-with open('refactored_pd/glm_binomial.pkl','rb') as file:
+with open('glm_binomial.pkl','rb') as file:
         loaded_model = pickle.load(file)
 
 class ModelPerfomance(Base, object):

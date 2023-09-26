@@ -33,11 +33,10 @@ class Base(object):
 
     def _plot_legend(self, key_color: dict):
 
-        key_color = {"Not-Absorbed":"#003A5D", "Absorbed":"#A19958"} # to be provided
         labels = list(key_color.keys())
-        handles = [plt.Rectangle((5,5),10,10, color=key_color[label]) for label in labels]        
-        legend = self.axs.legend(handles, labels, fontsize=7, bbox_to_anchor=(1.13,1.17), loc="upper left", 
-                                 title="legend",shadow=True)
+        handles = [plt.Rectangle((5, 5), 10, 10, color=key_color[label], label=label) for label in labels]
+        self.axs.legend(handles=handles, fontsize=7, bbox_to_anchor=(0.9, 1.05), loc="upper left",
+                        title="Legend", shadow=True)
 
     def _customization_bar(self):
 
@@ -67,3 +66,4 @@ class Base(object):
                             autopct=absolute_value,colors=["#003A5D","#A19958","#808080"],
                             wedgeprops={"edgecolor":"white","linewidth":2},
                             labels=None,textprops={"size":7.5},radius=0.8)
+        

@@ -47,7 +47,7 @@ console_handler = logging.StreamHandler()
 console_handler.setFormatter(logging.Formatter(fmt="{levelname}:{name}:{message}", style="{"))
 diagnostics_logger.addHandler(console_handler)
 diagnostics_logger.info("MODEL DIAGNOSTICS ARE INCLUDED")
-with open('refactored_pd/glm_binomial.pkl','rb') as file:
+with open('glm_binomial.pkl','rb') as file:
         loaded_model = pickle.load(file)
 
 class QuantileResiduals(ModelPerfomance, object):

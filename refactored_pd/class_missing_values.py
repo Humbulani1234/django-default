@@ -19,6 +19,14 @@ import logging
 
 from pd_download import data_cleaning 
 
+diagnostics_logger = logging.getLogger("class_missing_values")
+diagnostics_logger.setLevel(logging.DEBUG)
+console_handler = logging.StreamHandler()
+console_handler.setFormatter(logging.Formatter(fmt="{levelname}:{name}:{message}", style="{"))
+diagnostics_logger.addHandler(console_handler)
+diagnostics_logger.info("CLASS LISSING VALUES HANDLING MISSING VALUES")
+
+
 class ImputationCat:
 
     def __init__(self, df_cat):

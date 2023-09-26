@@ -1,29 +1,83 @@
 
-
 import unittest
-from operators import add, subtract
+import pandas as pd
+import numpy as np
+import sys
+import re
+import logging
 
-def test_add():
-    # Test addition with positive numbers
-    assert add(2, 3) == 5
+sys.path.append('/home/humbulani/django/django_ref/refactored_pd')
 
-    # Test addition with negative numbers
-    assert add(-2, -3) == -5
+import data
+from class_modelperf import ModelPerfomance
 
-    # Test addition of a positive and a negative number
-    assert add(5, -3) == 2
+diagnostics_logger = logging.getLogger("class_logistic_unittest")
+diagnostics_logger.setLevel(logging.DEBUG)
+console_handler = logging.StreamHandler()
+console_handler.setFormatter(logging.Formatter(fmt="{levelname}:{name}:{message}", style="{"))
+diagnostics_logger.addHandler(console_handler)
+diagnostics_logger.info("LOGISTIC REGRESSION UNIT TESTS")
 
-def test_subtract():
-    # Test subtraction with positive numbers
-    assert subtract(5, 3) == 2
+class TestDataframe(unittest.TestCase):
 
-    # Test subtraction with negative numbers
-    assert subtract(-5, -3) == -2
+    def __str__(self):
 
-    # Test subtraction of a positive and a negative number
-    assert subtract(5, -3) == 8
+        """  This executed when calling print on this object """
+        
+        pattern = re.compile(r'^_')
+        method_names = []
+        for name, func in TestDataframe.__dict__.items():
+            if not pattern.match(name) and callable(func):
+                method_names.append(name)
 
-if __name__ == '__main__':
-    test_add()
-    test_subtract()
-    print("All tests passed.")
+        return f"This is Class {self.__class__.__name__} with methods {method_names}"
+
+    def test_no_missing_values(self):
+
+        """ Here we are testing if our Imputation methods worked form the Imputation class """
+
+        dataframe = data.imputer_cat
+        self.assertFalse(dataframe.isnull().values.any(), "Dataframe contains missing values")
+
+    def test_zeros_and_ones_values(self):
+
+        """ Here we are testing if Onehot Encoding worked from OneHotEncoding class """
+
+        dataframe = data.instance_stats
+        self.assertTrue((dataframe.onehot_encoding().applymap(lambda x: x in [0,1])).all().all(),
+                         "Dataframe contains values other than zero or one")
+
+class TestProbability(unittest.TestCase, object):
+
+    def __str__(self):
+
+        """  This executed when calling print on this object """
+        
+        pattern = re.compile(r'^_')
+        method_names = []
+        for name, func in TestProbability.__dict__.items():
+            if not pattern.match(name) and callable(func):
+                method_names.append(name)
+
+        return f"This is Class {self.__class__.__name__} with methods {method_names}"
+
+    def test_no_values_less_than_one(self):
+
+        """ Here we are testing if our Logistic regression does not return nonsensical values,
+        e.g. values less than zero"""
+
+        values = np.array(data.m.probability_prediction())
+        self.assertFalse((values < 0).any(),"Prediction contains missing values less than 0")
+
+    def test_no_values_greater_than_one(self):
+
+
+        """ Here we are testing if our Logistic regression does not return nonsensical values,
+        e.g. values greater than one"""
+
+        values = np.array(data.m.probability_prediction())
+        self.assertFalse((values > 1).any(),"Prediction contains missing values less than 0")
+
+if __name__ == "__main__":
+    unittest.main()
+
