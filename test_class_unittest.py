@@ -21,6 +21,8 @@ diagnostics_logger.info("LOGISTIC REGRESSION UNIT TESTS")
 class TestDataframe(unittest.TestCase):
 
     def __str__(self):
+
+        """  This executed when calling print on this object """
         
         pattern = re.compile(r'^_')
         method_names = []
@@ -32,10 +34,14 @@ class TestDataframe(unittest.TestCase):
 
     def test_no_missing_values(self):
 
+        """ Here we are testing if our Imputation methods worked form the Imputation class """
+
         dataframe = data.imputer_cat
         self.assertFalse(dataframe.isnull().values.any(), "Dataframe contains missing values")
 
     def test_zeros_and_ones_values(self):
+
+        """ Here we are testing if Onehot Encoding worked from OneHotEncoding class """
 
         dataframe = data.instance_stats
         self.assertTrue((dataframe.onehot_encoding().applymap(lambda x: x in [0,1])).all().all(),
@@ -44,6 +50,8 @@ class TestDataframe(unittest.TestCase):
 class TestProbability(unittest.TestCase, object):
 
     def __str__(self):
+
+        """  This executed when calling print on this object """
         
         pattern = re.compile(r'^_')
         method_names = []
@@ -55,10 +63,17 @@ class TestProbability(unittest.TestCase, object):
 
     def test_no_values_less_than_one(self):
 
+        """ Here we are testing if our Logistic regression does not return nonsensical values,
+        e.g. values less than zero"""
+
         values = np.array(data.m.probability_prediction())
         self.assertFalse((values < 0).any(),"Prediction contains missing values less than 0")
 
     def test_no_values_greater_than_one(self):
+
+
+        """ Here we are testing if our Logistic regression does not return nonsensical values,
+        e.g. values greater than one"""
 
         values = np.array(data.m.probability_prediction())
         self.assertFalse((values > 1).any(),"Prediction contains missing values less than 0")
