@@ -37,7 +37,7 @@ diagnostics_logger.addHandler(console_handler)
 diagnostics_logger.info("MODEL PERFOMANCE ARE INCLUDED")
 
 sys.path.append('/home/humbulani/django/django_ref/refactored_pd')
-with open('glm_binomial.pkl','rb') as file:
+with open('refactored_pd/glm_binomial.pkl','rb') as file:
         loaded_model = pickle.load(file)
 
 class ModelPerfomance(Base, object):
