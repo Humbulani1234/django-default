@@ -39,7 +39,7 @@
     margin-top: 15%;
     margin-left: 10%;
     margin-right: 10%;
-    margin-bottom: -10%;
+    margin-bottom: 2%;
     animation: changeColor 1s infinite alternate;
     height: 10%;
     padding-top: 15px;
@@ -142,7 +142,8 @@ body {
     justify-content: inline-block;
     align-items: center;
     padding: 20px;
-    height: 100vh;
+    height: 30vh;
+    background-color: green;
 }
 
 /*--------------------------------------------------Box for two sides Divs--------------------------------------------------*/

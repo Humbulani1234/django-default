@@ -20,16 +20,16 @@ from class_diagnostics import (ResidualsPlot, BreushPaganTest, NormalityTest, Du
                                PartialPlots, LevStudQuaRes, CooksDisQuantRes, QuantileResiduals)
 from class_clustering_pd import ClusterProbability
 
-with open('glm_binomial.pkl','rb') as file:
+with open('refactored_pd/glm_binomial.pkl','rb') as file:
         loaded_model = pickle.load(file)
 
-file_path = "KGB.sas7bdat"
+file_path = "refactored_pd/KGB.sas7bdat"
 data_types, df_loan_categorical, df_loan_float = pd_download.data_cleaning(file_path)    
 miss = ImputationCat(df_loan_categorical)
 imputer_cat = miss.simple_imputer_mode()
 
 custom_rcParams = {"figure.figsize": (9, 8), "axes.labelsize": 12}
-threshold = -1
+threshold = 0.47
 randomstate = 42
 
 instance_mach = OneHotEncoding(custom_rcParams, imputer_cat, "machine")
@@ -67,7 +67,3 @@ c = ModelPerfomance(custom_rcParams, x_test, y_test, threshold)
 d = DecisionTree(custom_rcParams, imputer_cat, "machine", y_test_orig,
                  df_loan_float, df_loan_float["GB"], threshold, randomstate)
 m = QuantileResiduals(custom_rcParams, x_test, y_test, threshold)
-
-q._elbow_max_cluster()
-plt.show()
-

@@ -26,6 +26,7 @@
                   {% block peformance %} {% endblock %}
                </li></span>
                {% block diagnostic %} {% endblock %}
+               {% block risk %} {% endblock %}
                {% if user.is_authenticated %}
                  <span><li><a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a></li></span>
                {% else %}
