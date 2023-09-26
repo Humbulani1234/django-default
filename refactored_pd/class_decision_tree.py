@@ -1,7 +1,6 @@
 
 
 """
-
     ===================================
     MODEL ALTERNATIVES - Decision Tree
     ===================================
@@ -15,8 +14,6 @@
     ===============
     Fit a base tree
     ===============
-
-
 """
 
 from sklearn.tree import DecisionTreeClassifier
@@ -33,27 +30,40 @@ from class_base import Base
 from pd_download import data_cleaning
 from class_missing_values import ImputationCat
 
-# -----------------------------------------------------------------Class DecisionTree------------------------------------------------
+diagnostics_logger = logging.getLogger("class_decision_tree")
+diagnostics_logger.setLevel(logging.DEBUG)
+console_handler = logging.StreamHandler()
+console_handler.setFormatter(logging.Formatter(fmt="{levelname}:{name}:{message}", style="{"))
+diagnostics_logger.addHandler(console_handler)
+diagnostics_logger.info("DECISION TREE ALGORITHM PREDICTION")
 
-class DecisionTree(OneHotEncoding):
+class DecisionTree(OneHotEncoding, object):
 
     """ Fit a base tree """
 
     def __init__(self, custom_rcParams, df_nomiss_cat, type_, y_test,
                   df_loan_float, target, threshold, randomstate):
 
-        super().__init__(custom_rcParams, df_nomiss_cat, type_)
-        
-        # self.fig, self.axs = plt.subplots(1,1)  
+        super(DecisionTree, self).__init__(custom_rcParams, df_nomiss_cat, type_)
         self.df_loan_float = df_loan_float
         self.target = target
         self.randomstate = randomstate
-        self.x_train = super().split_xtrain_ytrain(self.df_loan_float, self.target)[0]
-        self.y_train = super().split_xtrain_ytrain(self.df_loan_float, self.target)[2]
+        self.x_train = super(DecisionTree,self).split_xtrain_ytrain(self.df_loan_float, self.target)[0]
+        self.y_train = super(DecisionTree,self).split_xtrain_ytrain(self.df_loan_float, self.target)[2]
 
-    def dt_classification_fit(self, ccpalpha):
+    def __str__(self):
+
+        pattern = re.compile(r'^_')
+        method_names = []
+        for name, func in DecisionTree.__dict__.items():
+            if not pattern.match(name) and callable(func):
+                method_names.append(name)
+
+        return f"This is class: {self.__class__.__name__}, and this is the public interface: {method_names}"
+
+    def _dt_classification_fit(self, ccpalpha):
         
-        ''' DT Classification fit '''
+        """ DT Classification fit """
         
         clf_dt = DecisionTreeClassifier(random_state=self.randomstate, ccp_alpha=ccpalpha)
         clf_dt = clf_dt.fit(self.x_train, self.y_train)
@@ -62,10 +72,9 @@ class DecisionTree(OneHotEncoding):
 
     def dt_probability_prediction(self, sample, x_test1, ccpalpha):
         
-        ''' Base tree prediction '''
+        """ Base tree prediction """
         
-        predict_dt = self.dt_classification_fit(ccpalpha).predict_proba(x_test1).round(10)
-
+        predict_dt = self._dt_classification_fit(ccpalpha).predict_proba(x_test1).round(10)
         if predict_dt[sample][1] >= 0.47:
 
             return predict_dt[sample][1]
@@ -79,8 +88,7 @@ class DecisionTree(OneHotEncoding):
         """ Base tree Confusion matrix """
 
         self.fig, self.axs = plt.subplots(1,1)  
-
-        predict_dt_series = pd.Series(self.dt_classification_fit(ccpalpha).predict(x_test))       
+        predict_dt_series = pd.Series(self._dt_classification_fit(ccpalpha).predict(x_test))       
         conf_matrix = confusion_matrix(y_test, predict_dt_series)
         conf_matrix_plot = ConfusionMatrixDisplay(conf_matrix, display_labels = ["No Default", "Yes Default"])
         conf_matrix_plot.plot(cmap="Blues", ax=self.axs, values_format="d")       
@@ -90,44 +98,39 @@ class DecisionTree(OneHotEncoding):
 
         return self.fig
 
-    def plot_dt(self, ccpalpha):
+    def _plot_dt(self, ccpalpha):
 
         """ Base tree plot """
 
         self.fig, self.axs = plt.subplots(1,1)  
-
-        clf_dt = self.dt_classification_fit(ccpalpha)
+        clf_dt = self._dt_classification_fit(ccpalpha)
         plot_tree(clf_dt, filled = True, rounded = True, 
                    feature_names = self.x_train.columns.tolist(), ax = self.axs)   
 
         return self.fig
 
-    def pruning(self, ccpalpha):
+    def _pruning(self, ccpalpha):
 
         """ Extracting alphas for pruning """
         
-        clf_dt = self.dt_classification_fit(ccpalpha)
+        clf_dt = self._dt_classification_fit(ccpalpha)
         path = clf_dt.cost_complexity_pruning_path(self.x_train, self.y_train) 
         ccp_alphas = path.ccp_alphas 
         ccp_alphas = ccp_alphas[:-1] 
         
         return ccp_alphas
 
-    def cross_validate_alphas(self, ccpalpha):
+    def _cross_validate_alphas(self, ccpalpha):
         
         """ Cross validation for best alpha """
 
         self.fig, self.axs = plt.subplots(1,1)  
-
         alpha_loop_values = []        
-        ccp_alphas = self.pruning(ccpalpha)
-
+        ccp_alphas = self._pruning(ccpalpha)
         for ccp_alpha in ccp_alphas:
-
             clf_dt = DecisionTreeClassifier(random_state=self.randomstate, ccp_alpha=ccp_alpha)
             scores = cross_val_score(clf_dt, self.x_train, self.y_train, cv=5)
-            alpha_loop_values.append([ccp_alpha, np.mean(scores), np.std(scores)])
-        
+            alpha_loop_values.append([ccp_alpha, np.mean(scores), np.std(scores)])        
         alpha_results = pd.DataFrame(alpha_loop_values, columns=["alpha", "mean_accuracy", "std"])
         alpha_results.plot(ax = self.axs, x = "alpha", y = "mean_accuracy", yerr = "std", marker = "o" , linestyle = "--")
         self.axs.spines["top"].set_visible(False)  
@@ -135,21 +138,21 @@ class DecisionTree(OneHotEncoding):
         
         return alpha_results, self.fig
 
-    def ideal_alpha(self, ccpalpha, threshold_1, threshold_2):
+    def _ideal_alpha(self, ccpalpha, threshold_1, threshold_2):
         
         """ Extraction of ideal alpha """
 
-        alpha_results = self.cross_validate_alphas(ccpalpha)[0]       
+        alpha_results = self._cross_validate_alphas(ccpalpha)[0]       
         ideal_ccp_alpha = alpha_results[(alpha_results["alpha"] > threshold_1) & (alpha_results["alpha"] < threshold_2)]["alpha"]
         ideal_ccp_alpha = ideal_ccp_alpha.values.tolist()
         
         return ideal_ccp_alpha[0]
 
-    def dt_pruned_alpha(self, ccpalpha, threshold_1, threshold_2):
+    def _dt_pruned_alpha(self, ccpalpha, threshold_1, threshold_2):
 
         """ Ideal alpha value for pruning the tree """
 
-        ideal_ccp_alpha = self.ideal_alpha(ccpalpha, threshold_1, threshold_2)
+        ideal_ccp_alpha = self._ideal_alpha(ccpalpha, threshold_1, threshold_2)
 
         return ideal_ccp_alpha
 
@@ -157,8 +160,8 @@ class DecisionTree(OneHotEncoding):
 
         """ Pruned tree fitting """
 
-        ideal_ccp_alpha = self.dt_pruned_alpha(ccpalpha, threshold_1, threshold_2)
-        pruned_clf_dt = self.ideal_alpha(ideal_ccp_alpha)
+        ideal_ccp_alpha = self._dt_pruned_alpha(ccpalpha, threshold_1, threshold_2)
+        pruned_clf_dt = self._ideal_alpha(ideal_ccp_alpha)
 
         return pruned_clf_dt
 
@@ -166,7 +169,7 @@ class DecisionTree(OneHotEncoding):
 
         """ Prediction and perfomance analytics """
 
-        ideal_ccp_alpha = self.dt_pruned_alpha(ccpalpha, threshold_1, threshold_2)
+        ideal_ccp_alpha = self._dt_pruned_alpha(ccpalpha, threshold_1, threshold_2)
         pruned_predict_dt = self.dt_probability_prediction(sample, x_test1, ideal_ccp_alpha)
 
         return pruned_predict_dt
@@ -175,7 +178,7 @@ class DecisionTree(OneHotEncoding):
 
         """ Confusion matrix plot """
 
-        ideal_ccp_alpha = self.dt_pruned_alpha(ccpalpha, threshold_1, threshold_2)
+        ideal_ccp_alpha = self._dt_pruned_alpha(ccpalpha, threshold_1, threshold_2)
         pruned_confusion_matrix = self.dt_confusion_matrix_plot(x_test, y_test, ideal_ccp_alpha)
 
         return pruned_confusion_matrix
@@ -184,7 +187,7 @@ class DecisionTree(OneHotEncoding):
 
         """ Plot final tree """
 
-        ideal_ccp_alpha = self.dt_pruned_alpha(ccpalpha, threshold_1, threshold_2)
-        pruned_plot_tree = self.plot_dt(ideal_ccp_alpha)
+        ideal_ccp_alpha = self._dt_pruned_alpha(ccpalpha, threshold_1, threshold_2)
+        pruned_plot_tree = self._plot_dt(ideal_ccp_alpha)
 
         return pruned_plot_tree  
