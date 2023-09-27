@@ -339,7 +339,7 @@ def inputs(request):
             try:
                 with transaction.atomic():                    
                     log_features_object = LogFeatures.objects.get(pk=saved_pk)
-                    probability_instance = Probability(log_features_key=log_features_object) # Django class/instance creation
+                    probability_instance = Probability(CUSTOMER_ID=log_features_object) # Django class/instance creation
                     probability_instance.probability = answer
                     probability_instance.default = 'default' if answer1 > 0.47 else 'nodefault'
                     probability_instance.save()

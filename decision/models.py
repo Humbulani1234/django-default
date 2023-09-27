@@ -1,13 +1,13 @@
 
 from django.db import models
 from django.db.models.fields import BLANK_CHOICE_DASH
+from django.utils import timezone
 
 class DecFeatures(models.Model):
 
-    # Floating features
+    """ Floating features """
 
     NAME_CUSTOMER = models.CharField(max_length=100)
-
     AGE = models.FloatField()
     CHILDREN = models.FloatField()
     PERS_H =  models.FloatField()
@@ -27,7 +27,7 @@ class DecFeatures(models.Model):
     DIV = models.FloatField() 
     CASH = models.FloatField() 
 
-    # Categorical features
+    """ Categorical features """
 
     GENRE_CHOICES_1 = BLANK_CHOICE_DASH+[('H','H'), ('R','R')]
     GENRE_CHOICES_2 = BLANK_CHOICE_DASH+[('V','V'), ('U','U'), ('G','G'), ('E','E'), ('T','T'), ('W','W')]
@@ -58,10 +58,22 @@ class DecFeatures(models.Model):
     PROF = models.CharField(max_length=20, choices=GENRE_CHOICES_6)
     CAR = models.CharField(max_length=20, choices=GENRE_CHOICES_7)
     CARDS = models.CharField(max_length=20, choices=GENRE_CHOICES_8)
+    CUSTOMER_ID = models.AutoField(primary_key=True)
+
+    def __str__(self):
+
+        return f"{self.__class__.__name__} inputs to calculate the probability"
 
 class DecProbability(models.Model):
 
-    probability = models.FloatField(null=True)
+    CUSTOMER_ID = models.OneToOneField(DecFeatures, on_delete=models.CASCADE, related_name='dec_probability', to_field='CUSTOMER_ID')
+    probability = models.CharField(max_length=20, null=True)
     default = models.CharField(max_length=20, null=True)
-    dec_features_key = models.OneToOneField(DecFeatures, on_delete=models.CASCADE, related_name='probability')
+    PROBABILITY_ID = models.AutoField(primary_key=True)
+    DATE = models.DateTimeField(default=timezone.now)
+    PROBABILITY_ID = models.AutoField(primary_key=True)
+
+    def __str__(self):
+        
+        return f"{self.__class__.__name__} of a customer defaulting"
 

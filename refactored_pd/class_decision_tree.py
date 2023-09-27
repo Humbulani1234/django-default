@@ -24,6 +24,7 @@ import pandas as pd
 import numpy as np
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 import matplotlib.pyplot as plt
+import logging
 
 from class_traintest import OneHotEncoding
 from class_base import Base
