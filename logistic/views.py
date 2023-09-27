@@ -93,16 +93,11 @@ def probability_cluster(request):
 def normal_plot(request):
 
     f = data.k.plot_normality_quantile()
-
     cache_key = 'normal_plot'
     cached_result = cache.get(cache_key)
-
     if cached_result is not None:
-
         render (request, 'logistic/diagnostics/normal_plot.html', {'image_base64':cached_result})
-
     image_base64 = image_generator(f)
-
     cache.set(cache_key, image_base64, 3600)
 
     return render (request, 'logistic/diagnostics/normal_plot.html', {'image_base64':image_base64})
@@ -110,16 +105,11 @@ def normal_plot(request):
 def residuals(request):
 
     f = data.b.plot_quantile_residuals()
-
     cache_key = 'residuals_plot'
     cached_result = cache.get(cache_key)
-
     if cached_result is not None:
-
         render (request, 'logistic/diagnostics/residuals.html', {'image_base64':cached_result})
-
     image_base64 = image_generator(f)
-
     cache.set(cache_key, image_base64, 3600)
 
     return render (request, 'logistic/diagnostics/residuals.html', {'image_base64':image_base64})
@@ -127,16 +117,11 @@ def residuals(request):
 def partial(request):
 
     f = data.h.partial_plots_quantile(data.ind_var)
-
     cache_key = 'partial_plot'
     cached_result = cache.get(cache_key)
-
     if cached_result is not None:
-
         render (request, 'logistic/diagnostics/partial.html', {'image_base64':cached_result})
-
     image_base64 = image_generator(f)
-
     cache.set(cache_key, image_base64, 3600)
 
     return render (request, 'logistic/diagnostics/partial.html', {'image_base64':image_base64})
@@ -146,11 +131,8 @@ def student(request):
     f = data.i.plot_lev_stud_quantile()
     cache_key = 'student_plot'
     cached_result = cache.get(cache_key)
-
     if cached_result is not None:
-
         render (request, 'logistic/diagnostics/student_residuals.html', {'image_base64':cached_result})
-
     image_base64 = image_generator(f)
     cache.set(cache_key, image_base64, 3600)
 
@@ -161,13 +143,9 @@ def cooks(request):
     f = data.j.plot_cooks_dis_quantile()
     cache_key = 'cooks_plot'
     cached_result = cache.get(cache_key)
-
     if cached_result is not None:
-
         render (request, 'logistic/diagnostics/cooks.html', {'image_base64':cached_result})
-
     image_base64 = image_generator(f)
-
     cache.set(cache_key, image_base64, 3600)
 
     return render (request, 'logistic/diagnostics/cooks.html', {'image_base64':image_base64})
@@ -188,23 +166,18 @@ def github_django_pd(request):
     external_url = "https://github.com/Humbulani1234/Django_Anyway/"
 
     return redirect(external_url) 
-    
-    # return render(request, 'logistic/repos/github_django_pd.html', {'external_url': external_url})
 
 def inputs(request):
 
     answer = ""
-
     if request.method == 'POST':
         form = Inputs(request.POST)
         if form.is_valid():
-
             with transaction.atomic():
-
                 instance = form.save()
                 saved_pk = instance.pk
 
-            # Float features
+            """ Float features """
             
             NAME = form.cleaned_data.get("NAME")
             AGE = form.cleaned_data.get("AGE")
@@ -226,20 +199,17 @@ def inputs(request):
             DIV = form.cleaned_data.get("DIV")
             CASH = form.cleaned_data.get("CASH")
                         
-            # Categorical features
+            """ Categorical features """
             
             TITLE = form.cleaned_data.get("TITLE")
-
             H = 0
 
             if TITLE == 'H':
                 H=1
-    
             else:
                 H=0
             
             STATUS = form.cleaned_data.get("STATUS")
-
             V, U, G, E, T = 0,0,0,0,0    
 
             if STATUS == 'V':
@@ -256,7 +226,6 @@ def inputs(request):
                 V, U, G, E, T = 0,0,0,0,0  
 
             PRODUCT = form.cleaned_data.get("PRODUCT") 
-
             Furniture_Carpet, Dept_Store_Mail, Leisure,Cars, OT = 0,0,0,0,0    
 
             if PRODUCT=='Furniture_Carpet':
@@ -273,17 +242,14 @@ def inputs(request):
                 Furniture_Carpet, Dept_Store_Mail, Leisure,Cars, OT = 0,0,0,0,0   
 
             RESID = form.cleaned_data.get("RESID")
-
             Lease = 0    
 
             if RESID=='Lease':
                 Lease=1    
-
             else:
                 Lease=0
 
             NAT = form.cleaned_data.get("NAT")
-
             German, Turkish, RS, Greek ,Italian, Other_European, Spanish_Portugue = 0,0,0,0,0,0,0    
 
             if NAT=='German':
@@ -304,7 +270,6 @@ def inputs(request):
                 German, Turkish, RS, Greek ,Italian, Other_European, Spanish_Portugue = 0,0,0,0,0,0,0 
 
             PROF = form.cleaned_data.get("PROF")  
-
             Others, Civil_Service_M , Self_employed_pe, Food_Building_Ca, Chemical_Industr\
             ,Pensioner ,Sea_Vojage_Gast, Military_Service = 0,0,0,0,0,0,0,0    
 
@@ -329,7 +294,6 @@ def inputs(request):
                 ,Pensioner ,Sea_Vojage_Gast, Military_Service = 0,0,0,0,0,0,0,0 
 
             CAR = form.cleaned_data.get("CAR")   
-
             Car,Car_and_Motor_bi= 0,0    
 
             if CAR=='Car':
@@ -339,11 +303,10 @@ def inputs(request):
             else:
                 Car,Car_and_Motor_bi= 0,0    
 
+            CARDS = form.cleaned_data.get("CARDS")
             Cheque_card, Mastercard_Euroc, VISA_mybank,VISA_Others\
             ,Other_credit_car, American_Express = 0,0,0,0,0,0  
-
-            CARDS = form.cleaned_data.get("CARDS")  
-
+  
             if CARDS=='Cheque_card':
                 no_credit_cards=1
             elif CARDS=='Mastercard_Euroc':
@@ -366,7 +329,7 @@ def inputs(request):
             Car_and_Motor_bi, American_Express, Cheque_card, Mastercard_Euroc, Other_credit_car, VISA_Others, VISA_mybank]
             
             inputs2 = [ 1, CHILDREN, PERS_H, AGE, TMADD, TMJOB1, TEL, NMBLOAN, FINLOAN, INCOME, EC_CARD, INC, INC1, BUREAU, 
-                        LOCATION, LOANS, REGN, DIV, CASH ]    
+                        LOCATION, LOANS, REGN, DIV, CASH ]   
 
             list_ = inputs2 + inputs1
             inputs = np.array(list_).reshape(1,-1)
@@ -374,23 +337,17 @@ def inputs(request):
             answer = "{: .10f}".format(answer1[0])
 
             try:
-
-                with transaction.atomic():
-                    
+                with transaction.atomic():                    
                     log_features_object = LogFeatures.objects.get(pk=saved_pk)
                     probability_instance = Probability(log_features_key=log_features_object) # Django class/instance creation
                     probability_instance.probability = answer
                     probability_instance.default = 'default' if answer1 > 0.47 else 'nodefault'
                     probability_instance.save()
-
             except LogFeatures.DoesNotExist:
-
                 print('Model does not exixt')
 
             return JsonResponse({"probability": answer})
-
     else:
-
         form = Inputs()
 
     return render(request, 'logistic/model/log_features.html', {'form':form, 'answer':answer})
