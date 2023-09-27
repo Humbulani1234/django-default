@@ -18,12 +18,13 @@ from django.core.cache import cache
 from django.db import transaction
 from django.contrib.auth.decorators import login_required
 
+sys.path.append('/home/humbulani/django-pd/django_ref/refactored_pd')
+
 import data
+
 from .forms import Inputs
 from .models import LogFeatures
 from .models import Probability
-
-sys.path.append('/home/humbulani/django-pd/django_ref/refactored_pd')
 
 def image_generator(f):
 
@@ -35,21 +36,16 @@ def image_generator(f):
 
     return image_base64
 
-#------------------------------------------------------------------ Performance measures-------------------------------------------------
+#------------------------------------------------------------------ Performance measures--------------------------------------------
 
 def roc(request):
 
     f = data.c.roc_curve_analytics()
-
     cache_key = 'roc_plot'
     cached_result = cache.get(cache_key)
-
     if cached_result is not None:
-
         render (request, 'logistic/peformance/log_peformance_roc.html', {'image_base64':cached_result})
-
     image_base64 = image_generator(f)
-
     cache.set(cache_key, image_base64, 3600)                
 
     return render (request, 'logistic/peformance/log_peformance_roc.html', {'image_base64':image_base64})
@@ -57,19 +53,40 @@ def roc(request):
 def confusion_logistic(request):
 
     f = data.c.confusion_matrix_plot()
-
     cache_key = 'logconfusion_plot'
     cached_result = cache.get(cache_key)
-
     if cached_result is not None:
-
         render (request, 'logistic/peformance/log_peformance_confusion.html', {'image_base64':cached_result})
-
     image_base64 = image_generator(f)
-
     cache.set(cache_key, image_base64, 3600)
 
     return render (request, 'logistic/peformance/log_peformance_confusion.html', {'image_base64':image_base64})
+
+#------------------------------------------------------------------ Probability Clustering--------------------------------------------
+
+def elbow_plot(request):
+
+    f = data.q._elbow_max_cluster()
+    cache_key = 'elbow_plot'
+    cached_result = cache.get(cache_key)
+    if cached_result is not None:
+        render (request, 'logistic/risk/log_elbow.html', {'image_base64':cached_result})
+    image_base64 = image_generator(f)
+    cache.set(cache_key, image_base64, 3600)                
+
+    return render (request, 'logistic/risk/log_elbow.html', {'image_base64':image_base64})
+
+def probability_cluster(request):
+
+    f = data.q.kmeans_cluster_plot()
+    cache_key = 'probability_cluster'
+    cached_result = cache.get(cache_key)
+    if cached_result is not None:
+        render (request, 'logistic/risk/log_probability_cluster.html', {'image_base64':cached_result})
+    image_base64 = image_generator(f)
+    cache.set(cache_key, image_base64, 3600)
+
+    return render (request, 'logistic/risk/log_probability_cluster.html', {'image_base64':image_base64})
 
 #-------------------------------------------------------------------Model Diagnostics-----------------------------------------------------
 

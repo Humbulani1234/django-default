@@ -26,6 +26,16 @@
     </li></span>
 {% endblock diagnostic %}
 
+{% block risk %}
+    <span><li class="nav-item dropdown">
+     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Risk</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{% url 'probability_risk_cluster' %}">Clustering PD</a> 
+              <a class="dropdown-item" href="{% url 'elbow-plot' %}">Elbow Method</a> 
+          </div>
+    </li></span>
+{% endblock risk %}
+
 {% block image %}
     <div class="container contained enter">
        <img src="{% static 'logistic/files/data.png' %}" alt="No Picture" class="image">
