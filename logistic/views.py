@@ -23,8 +23,7 @@ sys.path.append('/home/humbulani/django-pd/django_ref/refactored_pd')
 import data
 
 from .forms import Inputs
-from .models import LogFeatures
-from .models import Probability
+from .models import Probability, LogFeatures
 
 def image_generator(f):
 
@@ -150,22 +149,7 @@ def cooks(request):
 
     return render (request, 'logistic/diagnostics/cooks.html', {'image_base64':image_base64})
 
-# -------------------------------------------------------------------General Views-----------------------------------------------------
-
-def home(request):
-
-    return render(request, 'logistic/general/home_page.html')
-    
-def about(request):
-
-    return render(request, 'logistic/general/about_page.html')
-
-@login_required
-def github_django_pd(request):
-
-    external_url = "https://github.com/Humbulani1234/Django_Anyway/"
-
-    return redirect(external_url) 
+# -------------------------------------------------------------------Model Views-----------------------------------------------------
 
 def inputs(request):
 
