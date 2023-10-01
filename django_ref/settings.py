@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "users.apps.UsersConfig",
     "logistic.apps.LogisticConfig",
     "decision.apps.DecisionConfig",
+    "search.apps.SearchConfig",
 
     "django.contrib.admin",
     "django.contrib.auth",
