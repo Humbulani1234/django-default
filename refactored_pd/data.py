@@ -67,3 +67,4 @@ c = ModelPerfomance(custom_rcParams, x_test, y_test, threshold)
 d = DecisionTree(custom_rcParams, imputer_cat, "machine", y_test_orig,
                  df_loan_float, df_loan_float["GB"], threshold, randomstate)
 m = QuantileResiduals(custom_rcParams, x_test, y_test, threshold)
+print(QuantileResiduals.__mro__)
