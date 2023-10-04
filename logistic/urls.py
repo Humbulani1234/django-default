@@ -5,16 +5,10 @@ from . import views
 
 urlpatterns = [
 
-    # General
-
-    path('',views.home, name='home_page'),
-    path('about/',views.about, name='about'),
-
     # Models-Logistic
 
     path('features/',views.inputs, name='features-log'),
-    path('github-django-pd/',views.github_django_pd, name='github_django_pd'),
-
+    
     # Peformance
 
     path('roc/',views.roc, name='roc-log'),

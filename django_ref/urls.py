@@ -28,10 +28,11 @@ urlpatterns = [
 
     path("admin/", admin.site.urls),
 
-    path("", include('logistic.urls'), name='logistic_home'),
+    path("", include('search.urls'), name='search_home'),
 
     path('logistic/', include('logistic.urls'), name='logistic'),
     path('decision/', include('decision.urls'), name='decision'),
+    path('search/', include('search.urls'), name='search'),
 
     # caches
 
