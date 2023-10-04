@@ -6,7 +6,7 @@ import sys
 import re
 import logging
 
-sys.path.append('/home/humbulani/django/django_ref/refactored_pd')
+sys.path.append('/home/humbulani/django-pd/django_ref/refactored_pd')
 
 import data
 from class_modelperf import ModelPerfomance
