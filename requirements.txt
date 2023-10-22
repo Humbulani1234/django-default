@@ -53,3 +53,4 @@ whitenoise==6.5.0
 zope.event==5.0
 zope.interface==6.0
 pytest==6.2.4
+sympy
