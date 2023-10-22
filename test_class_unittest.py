@@ -65,7 +65,7 @@ class TestProbability(unittest.TestCase, object):
 
         """ Here we are testing if our Logistic regression does not return nonsensical values,
         e.g. values less than zero """
-        x_test = sm.add_constant(data.x_test_glm.values, has_constant='add')
+        x_test = sm.add_constant(data.m.x_test_glm.values, has_constant='add')
         values = np.array(data.m.glm_probability_prediction(x_test))
         self.assertFalse((values < 0).any(),"Prediction contains missing values less than 0")
 
@@ -75,7 +75,7 @@ class TestProbability(unittest.TestCase, object):
         """ Here we are testing if our Logistic regression does not return nonsensical values,
         e.g. values greater than one """
 
-        x_test = sm.add_constant(data.x_test_glm.values, has_constant='add')
+        x_test = sm.add_constant(data.m.x_test_glm.values, has_constant='add')
         values = np.array(data.m.glm_probability_prediction(x_test))
         self.assertFalse((values > 1).any(),"Prediction contains missing values less than 0")
 
