@@ -1,8 +1,9 @@
 
 
 from django.db import models
-from django.db.models.fields import BLANK_CHOICE_DASH
+from django.db.models.fields import BLANK_CHOICE_DASH, CharField
 from django.utils import timezone
+from django.urls import reverse
 
 class LogFeatures(models.Model):
 
@@ -62,7 +63,6 @@ class LogFeatures(models.Model):
     CUSTOMER_ID = models.AutoField(primary_key=True)
 
     def __str__(self):
-
         return f"{self.__class__.__name__} inputs to calculate the probability"
 
 class Probability(models.Model):
@@ -74,6 +74,5 @@ class Probability(models.Model):
     DATE = models.DateTimeField(default=timezone.now)
     PROBABILITY_ID = models.AutoField(primary_key=True)
 
-    def __str__(self):
-        
+    def __str__(self):        
         return f"{self.__class__.__name__} of a customer defaulting"

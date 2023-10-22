@@ -1,0 +1,30 @@
+
+name: Deploy to EC2 Instance
+
+on:
+  push:
+    branches:
+      - main  # Replace with your target branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up SSH key
+      run: |
+        mkdir -p ~/.ssh
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H your-ec2-instance-ip >> ~/.ssh/known_hosts
+
+    - name: Deploy to EC2
+      run: |
+        scp -r * username@your-ec2-instance-ip:/path/to/deployment/directory
+
+    - name: SSH into EC2 and restart application
+      run: |
+        ssh -i ~/.ssh/id_rsa username@your-ec2-instance-ip "cd /path/to/deployment/directory && ./restart.sh"  # Modify the restart command as needed

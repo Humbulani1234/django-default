@@ -4,7 +4,7 @@ name: Python CI
 on:
   push:
     branches:
-      - clean_code  # Change to your main branch name
+      - main  # Change to your main branch name
 
 jobs:
   build:
@@ -17,7 +17,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.10.12  # Specify your desired Python version
+        python-version: 3.10.12  # Specify your desired Python ver
 
     - name: Install dependencies
       run: pip install -r requirements.txt  # If you have any dependencies
