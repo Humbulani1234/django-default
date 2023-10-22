@@ -20,10 +20,10 @@ from django.contrib.auth.decorators import login_required
 
 sys.path.append('/home/humbulani/django-pd/django_ref/refactored_pd')
 
-import data
-
 from .forms import Inputs
 from .models import Probability, LogFeatures
+
+import data
 
 def image_generator(f):
 
@@ -32,7 +32,6 @@ def image_generator(f):
     buffer.seek(0)
     image_base64 = base64.b64encode(buffer.getvalue()).decode()
     buffer.close()
-
     return image_base64
 
 #------------------------------------------------------------------ Performance measures--------------------------------------------
@@ -46,7 +45,6 @@ def roc(request):
         render (request, 'logistic/peformance/log_peformance_roc.html', {'image_base64':cached_result})
     image_base64 = image_generator(f)
     cache.set(cache_key, image_base64, 3600)                
-
     return render (request, 'logistic/peformance/log_peformance_roc.html', {'image_base64':image_base64})
 
 def confusion_logistic(request):
@@ -58,7 +56,6 @@ def confusion_logistic(request):
         render (request, 'logistic/peformance/log_peformance_confusion.html', {'image_base64':cached_result})
     image_base64 = image_generator(f)
     cache.set(cache_key, image_base64, 3600)
-
     return render (request, 'logistic/peformance/log_peformance_confusion.html', {'image_base64':image_base64})
 
 #------------------------------------------------------------------ Probability Clustering--------------------------------------------
@@ -72,7 +69,6 @@ def elbow_plot(request):
         render (request, 'logistic/risk/log_elbow.html', {'image_base64':cached_result})
     image_base64 = image_generator(f)
     cache.set(cache_key, image_base64, 3600)                
-
     return render (request, 'logistic/risk/log_elbow.html', {'image_base64':image_base64})
 
 def probability_cluster(request):
@@ -84,7 +80,6 @@ def probability_cluster(request):
         render (request, 'logistic/risk/log_probability_cluster.html', {'image_base64':cached_result})
     image_base64 = image_generator(f)
     cache.set(cache_key, image_base64, 3600)
-
     return render (request, 'logistic/risk/log_probability_cluster.html', {'image_base64':image_base64})
 
 #-------------------------------------------------------------------Model Diagnostics-----------------------------------------------------
@@ -98,7 +93,6 @@ def normal_plot(request):
         render (request, 'logistic/diagnostics/normal_plot.html', {'image_base64':cached_result})
     image_base64 = image_generator(f)
     cache.set(cache_key, image_base64, 3600)
-
     return render (request, 'logistic/diagnostics/normal_plot.html', {'image_base64':image_base64})
 
 def residuals(request):
@@ -110,7 +104,6 @@ def residuals(request):
         render (request, 'logistic/diagnostics/residuals.html', {'image_base64':cached_result})
     image_base64 = image_generator(f)
     cache.set(cache_key, image_base64, 3600)
-
     return render (request, 'logistic/diagnostics/residuals.html', {'image_base64':image_base64})
 
 def partial(request):
@@ -122,7 +115,6 @@ def partial(request):
         render (request, 'logistic/diagnostics/partial.html', {'image_base64':cached_result})
     image_base64 = image_generator(f)
     cache.set(cache_key, image_base64, 3600)
-
     return render (request, 'logistic/diagnostics/partial.html', {'image_base64':image_base64})
 
 def student(request):
@@ -134,7 +126,6 @@ def student(request):
         render (request, 'logistic/diagnostics/student_residuals.html', {'image_base64':cached_result})
     image_base64 = image_generator(f)
     cache.set(cache_key, image_base64, 3600)
-
     return render (request, 'logistic/diagnostics/student_residuals.html', {'image_base64':image_base64})
 
 def cooks(request):
@@ -146,7 +137,6 @@ def cooks(request):
         render (request, 'logistic/diagnostics/cooks.html', {'image_base64':cached_result})
     image_base64 = image_generator(f)
     cache.set(cache_key, image_base64, 3600)
-
     return render (request, 'logistic/diagnostics/cooks.html', {'image_base64':image_base64})
 
 # -------------------------------------------------------------------Model Views-----------------------------------------------------
@@ -319,7 +309,6 @@ def inputs(request):
             inputs = np.array(list_).reshape(1,-1)
             answer1 = np.array(data.loaded_model.predict(inputs.reshape(1,-1)))
             answer = "{: .10f}".format(answer1[0])
-
             try:
                 with transaction.atomic():                    
                     log_features_object = LogFeatures.objects.get(pk=saved_pk)
@@ -329,10 +318,8 @@ def inputs(request):
                     probability_instance.save()
             except LogFeatures.DoesNotExist:
                 print('Model does not exixt')
-
             return JsonResponse({"probability": answer})
     else:
         form = Inputs()
-
     return render(request, 'logistic/model/log_features.html', {'form':form, 'answer':answer})
 

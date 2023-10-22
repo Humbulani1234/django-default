@@ -24,7 +24,8 @@ from class_lgclassifier import LogRegression
 
 class ModelComparison(ModelPerfomance, DecisionTree, LogRegression, object):
 
-    """ This class gathers all the model classes and performs model comparison """
+    """ This class gathers all the model classes and performs model comparison 
+    for this class to be more useful it has to be made independent of the models it is comparing"""
 
     def __init__(self, custom_rcParams, df_nomiss_cat, type_1, type_2,
                   df_loan_float, target, randomstate, grid_search:Type[GridSearchCV], threshold=None):
@@ -36,19 +37,6 @@ class ModelComparison(ModelPerfomance, DecisionTree, LogRegression, object):
         LogRegression.__init__(self, custom_rcParams, df_nomiss_cat, type_2,
                          df_loan_float, target, randomstate, grid_search, threshold)
 
-    def generate(axs, conf):
-
-            im = axs.matshow(conf, cmap='Blues')
-            axs.set_xticklabels(['', 'No Default', 'Yes Default'])
-            axs.set_yticklabels(['', 'No Default', 'Yes Default'], rotation=90, va='center')
-            axs.set_xlabel('Predicted')
-            axs.set_ylabel('Actual')
-            axs.set_title('Confusion Matrix')
-            for i in range(2):
-                for j in range(2):
-                    axs.text(j, i, str(conf[i,j]), ha="center")
-            return im
-
     def cmp_performance_metrics(self, ccpalpha, threshold_1, threshold_2, threshold=None):
 
         """ Calculation of recall, precision, accuracy and F1 score based on user supplied threshold
@@ -57,8 +45,8 @@ class ModelComparison(ModelPerfomance, DecisionTree, LogRegression, object):
         """ Run analytics for GLM Logistic Regression """
 
         self.x_val_glm_n = sm.add_constant(self.x_val_glm.values, has_constant='add')
-        threshold_glm, accuracy_glm, f1_glm, auc_glm = \
-                                           super(ModelComparison, self).glm_perf_analytics(self.x_val_glm_n, self.y_val_glm)[1],\
+        threshold_glm, accuracy_glm, f1_glm, auc_glm = super(ModelComparison, self).glm_perf_analytics(self.x_val_glm_n, 
+                                                                                                       self.y_val_glm)[1],\
                                            super(ModelComparison, self).glm_perf_analytics(self.x_val_glm_n, self.y_val_glm)[2],\
                                            super(ModelComparison, self).glm_perf_analytics(self.x_val_glm_n, self.y_val_glm)[3],\
                                            super(ModelComparison, self).glm_perf_analytics(self.x_val_glm_n, self.y_val_glm)[4],\
@@ -80,7 +68,8 @@ class ModelComparison(ModelPerfomance, DecisionTree, LogRegression, object):
 
         """ Run analtics for LogRegression """
 
-        threshold_lg, accuracy_lg, f1_lg, auc_lg = super(DecisionTree, self).lg_perf_analytics(self.x_val_lg, self.y_val_lg, threshold)[1],\
+        threshold_lg, accuracy_lg, f1_lg, auc_lg = super(DecisionTree, self).lg_perf_analytics(self.x_val_lg, self.y_val_lg,
+                                                                                               threshold)[1],\
                                            super(DecisionTree, self).lg_perf_analytics(self.x_val_lg, self.y_val_lg, threshold)[2],\
                                            super(DecisionTree, self).lg_perf_analytics(self.x_val_lg, self.y_val_lg, threshold)[3],\
                                            super(DecisionTree, self).lg_perf_analytics(self.x_val_lg, self.y_val_lg, threshold)[4]
@@ -101,7 +90,6 @@ class ModelComparison(ModelPerfomance, DecisionTree, LogRegression, object):
             print(f"F1 Score for LG Regression is: {f1_lg}")
             print(f"AUC for LG Regression is: {auc_lg}")
 
-        plt.close('all')
         self.fig, (self.axs1, self.axs2, self.axs3)  = plt.subplots(1, 3)
         plt.subplots_adjust(wspace=0.4) 
         data1 = pd.DataFrame({
@@ -116,6 +104,7 @@ class ModelComparison(ModelPerfomance, DecisionTree, LogRegression, object):
         "Metric": ["thres", "acc", "f1", "auc"],
         "Value": [threshold_lg, accuracy_lg, f1_lg, auc_lg]
         })  
+
         def generate(data, axs, title_):
             sns.set_theme(style="ticks", color_codes=True)    
             sns.barplot(x="Metric", y="Value", data=data, ax=axs)
@@ -126,6 +115,7 @@ class ModelComparison(ModelPerfomance, DecisionTree, LogRegression, object):
                 axs.annotate(f"{p.get_height().round(1)}", (p.get_x().round(2)+p.get_width().round(2)/2.,
                                    p.get_height().round(2)), ha="center",va="center",fontsize=12, color="black",
                                    xytext=(0,5),textcoords="offset points")  
+
         generate(data1, self.axs1, "GLM")
         generate(data2, self.axs2, "DT")
         generate(data3, self.axs3, "LG")      
@@ -196,8 +186,8 @@ class ModelComparison(ModelPerfomance, DecisionTree, LogRegression, object):
         plt.close('all')
         self.fig, (self.axs1, self.axs2, self.axs3)  = plt.subplots(1, 3)
         plt.subplots_adjust(wspace=0.4) 
-        def generate(axs, conf, title_):
 
+        def generate(axs, conf, title_):
             im = axs.matshow(conf, cmap='viridis')
             axs.set_xticklabels(['', 'No Default', 'Yes Default'])
             axs.xaxis.set_ticks_position('bottom')
@@ -209,6 +199,7 @@ class ModelComparison(ModelPerfomance, DecisionTree, LogRegression, object):
                 for j in range(2):
                     axs.text(j, i, str(conf[i,j]), ha="center")
             return im
+
         generate(self.axs1, glm_conf_matrix, 'Confusion Matrix GLM')
         generate(self.axs2, dt_conf_matrix, 'Confusion Matrix DT')
         generate(self.axs3, lg_conf_matrix, 'Confusion Matrix LG')          

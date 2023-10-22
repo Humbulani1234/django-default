@@ -17,11 +17,6 @@ from django.core.cache import cache
 
 from .forms import Inputs
 
-from class_decision_tree import DecisionTree
-from class_missing_values import ImputationCat
-from class_traintest import OneHotEncoding
-from class_base import Base
-from pd_download import data_cleaning
 import data
 
 #-------------------------------------------------------------------Defined variables----------------------------------------------------
@@ -33,7 +28,6 @@ def image_generator(f):
     buffer.seek(0)
     image_base64 = base64.b64encode(buffer.getvalue()).decode()
     buffer.close()
-
     return image_base64
 
 #-------------------------------------------------------------------Perfomance----------------------------------------------
@@ -49,7 +43,6 @@ def confusion_decision(request):
     image_base64 = image_generator(f)
     cache.set(cache_key, image_base64, 3600)
     image_base64 = image_generator(f)                 
-
     return render (request, 'decision/peformance/confusion_decision.html', {'image_base64':image_base64})
 
 def decision_tree(request):
@@ -62,7 +55,6 @@ def decision_tree(request):
     image_base64 = image_generator(f)
     cache.set(cache_key, image_base64, 3600)
     image_base64 = image_generator(f)  
-
     return render (request, 'decision/peformance/decision_tree.html', {'image_base64':image_base64}) 
 
 def cross_validate(request):
@@ -75,7 +67,6 @@ def cross_validate(request):
     image_base64 = image_generator(f)
     cache.set(cache_key, image_base64, 3600)
     image_base64 = image_generator(f)   
-
     return render (request, 'decision/peformance/cross_validate.html', {'image_base64':image_base64})
 
 #-------------------------------------------------------------------Comparison----------------------------------------------
@@ -90,7 +81,6 @@ def confusion_cmp(request):
     image_base64 = image_generator(f)
     cache.set(cache_key, image_base64, 3600)
     image_base64 = image_generator(f)                 
-
     return render (request, 'decision/comparison/confusion_cmp.html', {'image_base64':image_base64})
 
 def overfitting_cmp(request):
@@ -103,7 +93,6 @@ def overfitting_cmp(request):
     image_base64 = image_generator(f)
     cache.set(cache_key, image_base64, 3600)
     image_base64 = image_generator(f)  
-
     return render (request, 'decision/comparison/overfitting.html', {'image_base64':image_base64}) 
 
 def perf_analytics_cmp(request):
@@ -116,7 +105,6 @@ def perf_analytics_cmp(request):
     image_base64 = image_generator(f)
     cache.set(cache_key, image_base64, 3600)
     image_base64 = image_generator(f)   
-
     return render (request, 'decision/comparison/perf_analytics.html', {'image_base64':image_base64})
 
 #------------------------------------------------------------Calculation------------------------------------------
@@ -125,7 +113,6 @@ def perf_analytics_cmp(request):
 def tree(request):
 
     answer = ""
-
     if request.method == 'POST':
         form = Inputs(request.POST)
         if form.is_valid():
@@ -160,12 +147,10 @@ def tree(request):
 
             if TITLE == 'H':
                 H=1
-
             else:
                 R=0
            
             STATUS = form.cleaned_data.get("STATUS")
-
             W,V, U, G, E, T = 0,0,0,0,0,0    
 
             if STATUS == 'V':
@@ -182,7 +167,6 @@ def tree(request):
                 W = 0 
 
             PRODUCT = form.cleaned_data.get("PRODUCT") 
-
             Radio_TV_Hifi, Furniture_Carpet, Dept_Store_Mail, Leisure,Cars, OT = 0,0,0,0,0,0    
 
             if PRODUCT=='Furniture_Carpet':
@@ -199,17 +183,14 @@ def tree(request):
                 Radio_TV_Hifi = 0   
 
             RESID = form.cleaned_data.get("RESID")
-
             Owner,Lease = 0,0    
 
             if RESID=='Lease':
                 Lease=1    
-
             else:
                 Owner=0
 
             NAT = form.cleaned_data.get("NAT")
-
             Yugoslav,German, Turkish, RS, Greek ,Italian, Other_European, Spanish_Portugue = 0,0,0,0,0,0,0,0    
 
             if NAT=='German':
@@ -230,7 +211,6 @@ def tree(request):
                 Yugoslav = 1 
 
             PROF = form.cleaned_data.get("PROF")  
-
             State_Steel_Ind,Others, Civil_Service_M , Self_employed_pe, Food_Building_Ca, Chemical_Industr\
             ,Pensioner ,Sea_Vojage_Gast, Military_Service = 0,0,0,0,0,0,0,0,0    
 
@@ -254,7 +234,6 @@ def tree(request):
                 State_Steel_Ind = 1 
 
             CAR = form.cleaned_data.get("CAR")   
-
             Without_Vehicle,Car,Car_and_Motor_bi= 0,0,0    
 
             if CAR=='Car':
@@ -266,7 +245,6 @@ def tree(request):
 
             Cheque_card,no_credit_cards, Mastercard_Euroc, VISA_mybank,VISA_Others\
             ,Other_credit_car, American_Express = 0,0,0,0,0,0,0  
-
             CARDS = form.cleaned_data.get("CARDS")  
 
             if CARDS=='no_credit_cards':
@@ -294,7 +272,6 @@ def tree(request):
                        REGN, DIV, CASH]    
 
             list_ = inputs2 + inputs1
-
             inputs = np.array([list_]).reshape(1,-1)           
             answer = data.d.dt_pruned_probability(data.ccpalpha, data.threshold_1, data.threshold_2,
                                                         data.sample, data.sample, inputs)
