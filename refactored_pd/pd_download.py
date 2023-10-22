@@ -29,4 +29,3 @@ def data_cleaning(file_path):
     df_cat['NAT'] = df_cat['NAT'].replace('Others','RS')
 
     return data_types, df_cat, df_float
-

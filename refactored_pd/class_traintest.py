@@ -20,18 +20,10 @@ import numpy as np
 from matplotlib.ticker import PercentFormatter
 from sklearn.model_selection import train_test_split
 import warnings
-import logging
 
 from class_base import Base
 from pd_download import data_cleaning
 from class_missing_values import ImputationCat
-
-diagnostics_logger = logging.getLogger("class_traintest")
-diagnostics_logger.setLevel(logging.DEBUG)
-console_handler = logging.StreamHandler()
-console_handler.setFormatter(logging.Formatter(fmt="{levelname}:{name}:{message}", style="{"))
-diagnostics_logger.addHandler(console_handler)
-diagnostics_logger.info("CLASS TRAINTEST USING ONEHOT ENCODING")
 
 class OneHotEncoding(Base, object):
 
@@ -53,7 +45,9 @@ class OneHotEncoding(Base, object):
 
     def onehot_encoding(self):
     
-        '''One Hot Encoding Function'''
+        '''One Hot Encoding Function
+        Test that no matter how you write the code the dataframe has no missing values
+        and contains zero and ones for categorical data'''
 
         if self.type == "machine":    
             encoded_dataframes = []
@@ -91,17 +85,6 @@ class OneHotEncoding(Base, object):
             
             return x, y
 
-    def sample_imbalance(self, df_float, target):
-    
-        x, y = self.create_xy_frames(df_float, target)
-        self.fig, self.axs = plt.subplots(1,1)        
-        self.axs.hist(y, weights = np.ones(len(y))/len(y))
-        super().plotting("Normality Test", "x", "y")
-        self.axs.hist(y, weights = np.ones(len(y))/len(y))
-        self.axs.yaxis.set_major_formatter(PercentFormatter(1))
-        
-        return self.fig
-
     def split_xtrain_ytrain(self, df_float, target):
     
         x, y = self.create_xy_frames(df_float, target)
@@ -110,4 +93,12 @@ class OneHotEncoding(Base, object):
         x_test_pd = x_test_pd.drop(labels=["_freq_"], axis=1) # temp
    
         return x_train_pd, x_test_pd, y_train_pd, y_test_pd
+
+    def train_val_test(self, df_float, target):
+
+        """ This method creates the Trainning, Validation and Testing datasets """
+
+        x_train_pd, x_split_pd, y_train_pd, y_split_pd = self.split_xtrain_ytrain(df_float, target)
+        x_val_pd, x_test_pd, y_val_pd, y_test_pd = train_test_split(x_split_pd, y_split_pd, test_size=0.3, random_state=42)
+        return x_train_pd, y_train_pd, x_val_pd, y_val_pd, x_test_pd, y_test_pd
 

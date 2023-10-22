@@ -1,4 +1,8 @@
-
+<<<<<<< HEAD
+#files
+=======
+# files
+>>>>>>> decision_tree
 name: Python CI
 
 on:
@@ -17,7 +21,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.10.12  # Specify your desired Python version
+        python-version: 3.10.12  # Specify your desired Python ver
 
     - name: Install dependencies
       run: pip install -r requirements.txt  # If you have any dependencies

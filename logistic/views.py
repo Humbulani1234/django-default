@@ -20,10 +20,10 @@ from django.contrib.auth.decorators import login_required
 
 sys.path.append('/home/humbulani/django-pd/django_ref/refactored_pd')
 
-import data
-
 from .forms import Inputs
 from .models import Probability, LogFeatures
+
+import data
 
 def image_generator(f):
 
@@ -32,33 +32,30 @@ def image_generator(f):
     buffer.seek(0)
     image_base64 = base64.b64encode(buffer.getvalue()).decode()
     buffer.close()
-
     return image_base64
 
 #------------------------------------------------------------------ Performance measures--------------------------------------------
 
 def roc(request):
 
-    f = data.c.roc_curve_analytics()
+    f = data.c.roc_curve_analytics(data.m.x_test_glm, data.m.y_test_glm)[1]
     cache_key = 'roc_plot'
     cached_result = cache.get(cache_key)
     if cached_result is not None:
         render (request, 'logistic/peformance/log_peformance_roc.html', {'image_base64':cached_result})
     image_base64 = image_generator(f)
     cache.set(cache_key, image_base64, 3600)                
-
     return render (request, 'logistic/peformance/log_peformance_roc.html', {'image_base64':image_base64})
 
 def confusion_logistic(request):
 
-    f = data.c.confusion_matrix_plot()
+    f = data.m.confusion_matrix_plot(data.m.x_test_glm, data.m.y_test_glm)
     cache_key = 'logconfusion_plot'
     cached_result = cache.get(cache_key)
     if cached_result is not None:
         render (request, 'logistic/peformance/log_peformance_confusion.html', {'image_base64':cached_result})
     image_base64 = image_generator(f)
     cache.set(cache_key, image_base64, 3600)
-
     return render (request, 'logistic/peformance/log_peformance_confusion.html', {'image_base64':image_base64})
 
 #------------------------------------------------------------------ Probability Clustering--------------------------------------------
@@ -72,7 +69,6 @@ def elbow_plot(request):
         render (request, 'logistic/risk/log_elbow.html', {'image_base64':cached_result})
     image_base64 = image_generator(f)
     cache.set(cache_key, image_base64, 3600)                
-
     return render (request, 'logistic/risk/log_elbow.html', {'image_base64':image_base64})
 
 def probability_cluster(request):
@@ -84,69 +80,63 @@ def probability_cluster(request):
         render (request, 'logistic/risk/log_probability_cluster.html', {'image_base64':cached_result})
     image_base64 = image_generator(f)
     cache.set(cache_key, image_base64, 3600)
-
     return render (request, 'logistic/risk/log_probability_cluster.html', {'image_base64':image_base64})
 
 #-------------------------------------------------------------------Model Diagnostics-----------------------------------------------------
 
 def normal_plot(request):
 
-    f = data.k.plot_normality_quantile()
+    f = data.k.plot_normality_quantile(data.m.x_test_glm)
     cache_key = 'normal_plot'
     cached_result = cache.get(cache_key)
     if cached_result is not None:
         render (request, 'logistic/diagnostics/normal_plot.html', {'image_base64':cached_result})
     image_base64 = image_generator(f)
     cache.set(cache_key, image_base64, 3600)
-
     return render (request, 'logistic/diagnostics/normal_plot.html', {'image_base64':image_base64})
 
 def residuals(request):
 
-    f = data.b.plot_quantile_residuals()
+    f = data.b.plot_quantile_residuals(data.m.x_test_glm)
     cache_key = 'residuals_plot'
     cached_result = cache.get(cache_key)
     if cached_result is not None:
         render (request, 'logistic/diagnostics/residuals.html', {'image_base64':cached_result})
     image_base64 = image_generator(f)
     cache.set(cache_key, image_base64, 3600)
-
     return render (request, 'logistic/diagnostics/residuals.html', {'image_base64':image_base64})
 
 def partial(request):
 
-    f = data.h.partial_plots_quantile(data.ind_var)
+    f = data.h.partial_plots_quantile(data.ind_var, data.m.x_test_glm)
     cache_key = 'partial_plot'
     cached_result = cache.get(cache_key)
     if cached_result is not None:
         render (request, 'logistic/diagnostics/partial.html', {'image_base64':cached_result})
     image_base64 = image_generator(f)
     cache.set(cache_key, image_base64, 3600)
-
     return render (request, 'logistic/diagnostics/partial.html', {'image_base64':image_base64})
 
 def student(request):
 
-    f = data.i.plot_lev_stud_quantile()
+    f = data.i.plot_lev_stud_quantile(data.m.x_test_glm)
     cache_key = 'student_plot'
     cached_result = cache.get(cache_key)
     if cached_result is not None:
         render (request, 'logistic/diagnostics/student_residuals.html', {'image_base64':cached_result})
     image_base64 = image_generator(f)
     cache.set(cache_key, image_base64, 3600)
-
     return render (request, 'logistic/diagnostics/student_residuals.html', {'image_base64':image_base64})
 
 def cooks(request):
 
-    f = data.j.plot_cooks_dis_quantile()
+    f = data.j.plot_cooks_dis_quantile(data.m.x_test_glm)
     cache_key = 'cooks_plot'
     cached_result = cache.get(cache_key)
     if cached_result is not None:
         render (request, 'logistic/diagnostics/cooks.html', {'image_base64':cached_result})
     image_base64 = image_generator(f)
     cache.set(cache_key, image_base64, 3600)
-
     return render (request, 'logistic/diagnostics/cooks.html', {'image_base64':image_base64})
 
 # -------------------------------------------------------------------Model Views-----------------------------------------------------
@@ -319,7 +309,6 @@ def inputs(request):
             inputs = np.array(list_).reshape(1,-1)
             answer1 = np.array(data.loaded_model.predict(inputs.reshape(1,-1)))
             answer = "{: .10f}".format(answer1[0])
-
             try:
                 with transaction.atomic():                    
                     log_features_object = LogFeatures.objects.get(pk=saved_pk)
@@ -329,10 +318,8 @@ def inputs(request):
                     probability_instance.save()
             except LogFeatures.DoesNotExist:
                 print('Model does not exixt')
-
             return JsonResponse({"probability": answer})
     else:
         form = Inputs()
-
     return render(request, 'logistic/model/log_features.html', {'form':form, 'answer':answer})
 

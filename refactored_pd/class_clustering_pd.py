@@ -5,6 +5,8 @@ from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 import seaborn as sns
 import logging
+import re
+import statsmodels.api as sm
 
 from class_modelperf import ModelPerfomance
 from class_base import Base
@@ -18,24 +20,21 @@ diagnostics_logger.info("PROBABILITY CLUSTERING ACCORDING TO RISK")
 
 class ClusterProbability(ModelPerfomance, Base, object):
 
-    def __init__(self, custom_rcParams, x_test, y_test, threshold):
-
-        super(ClusterProbability,self).__init__(custom_rcParams, x_test, y_test, threshold)
-        super(ModelPerfomance,self).__init__(custom_rcParams)
-        self.pd_values = super().probability_prediction()
+    def __init__(self, custom_rcParams, df_nomiss_cat, type_, df_loan_float, target, randomstate, threshold=None):
+        super(ClusterProbability,self).__init__(custom_rcParams, df_nomiss_cat, type_, df_loan_float, target, randomstate, threshold)
+        Base.__init__(self, custom_rcParams)
+        self.x_test_glm_o = sm.add_constant(self.x_val_glm.values, has_constant='add')
+        self.pd_values = super().glm_probability_prediction(self.x_test_glm_o)
 
     def __str__(self):
-
         pattern = re.compile(r'^_')
         method_names = []
         for name, func in ClusterProbability.__dict__.items():
             if not pattern.match(name) and callable(func):
                 method_names.append(name)
-
         return f"This is class: {self.__class__.__name__}, with methods: {method_names}"
     
-    def decile_method(self):
-        
+    def decile_method(self):        
         self.fig, self.axs = plt.subplots(1,1)
         predict_probability = self.pd_values
         sorted_indices = np.argsort(self.pd_values)[::-1]
