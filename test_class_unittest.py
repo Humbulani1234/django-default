@@ -5,6 +5,7 @@ import numpy as np
 import sys
 import re
 import logging
+import statsmodels.api as sm
 
 sys.path.append('refactored_pd/')
 
@@ -63,18 +64,19 @@ class TestProbability(unittest.TestCase, object):
     def test_no_values_less_than_one(self):
 
         """ Here we are testing if our Logistic regression does not return nonsensical values,
-        e.g. values less than zero"""
-
-        values = np.array(data.m.glm_probability_prediction(data.m.x_test_glm))
+        e.g. values less than zero """
+        x_test = sm.add_constant(data.x_test_glm.values, has_constant='add')
+        values = np.array(data.m.glm_probability_prediction(x_test))
         self.assertFalse((values < 0).any(),"Prediction contains missing values less than 0")
 
     def test_no_values_greater_than_one(self):
 
 
         """ Here we are testing if our Logistic regression does not return nonsensical values,
-        e.g. values greater than one"""
+        e.g. values greater than one """
 
-        values = np.array(data.m.glm_probability_prediction(data.m.x_test_glm))
+        x_test = sm.add_constant(data.x_test_glm.values, has_constant='add')
+        values = np.array(data.m.glm_probability_prediction(x_test))
         self.assertFalse((values > 1).any(),"Prediction contains missing values less than 0")
 
 if __name__ == "__main__":
