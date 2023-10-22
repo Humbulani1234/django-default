@@ -58,7 +58,6 @@ class TestProbability(unittest.TestCase, object):
         for name, func in TestProbability.__dict__.items():
             if not pattern.match(name) and callable(func):
                 method_names.append(name)
-
         return f"This is Class {self.__class__.__name__} with methods {method_names}"
 
     def test_no_values_less_than_one(self):
