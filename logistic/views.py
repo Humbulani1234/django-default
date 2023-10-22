@@ -39,7 +39,7 @@ def image_generator(f):
 
 def roc(request):
 
-    f = data.c.roc_curve_analytics()
+    f = data.c.roc_curve_analytics(data.m.x_test_glm, data.m.y_test_glm)[1]
     cache_key = 'roc_plot'
     cached_result = cache.get(cache_key)
     if cached_result is not None:
@@ -51,7 +51,7 @@ def roc(request):
 
 def confusion_logistic(request):
 
-    f = data.c.confusion_matrix_plot()
+    f = data.m.confusion_matrix_plot(data.m.x_test_glm, data.m.y_test_glm)
     cache_key = 'logconfusion_plot'
     cached_result = cache.get(cache_key)
     if cached_result is not None:
@@ -91,7 +91,7 @@ def probability_cluster(request):
 
 def normal_plot(request):
 
-    f = data.k.plot_normality_quantile()
+    f = data.k.plot_normality_quantile(data.m.x_test_glm)
     cache_key = 'normal_plot'
     cached_result = cache.get(cache_key)
     if cached_result is not None:
@@ -103,7 +103,7 @@ def normal_plot(request):
 
 def residuals(request):
 
-    f = data.b.plot_quantile_residuals()
+    f = data.b.plot_quantile_residuals(data.m.x_test_glm)
     cache_key = 'residuals_plot'
     cached_result = cache.get(cache_key)
     if cached_result is not None:
@@ -115,7 +115,7 @@ def residuals(request):
 
 def partial(request):
 
-    f = data.h.partial_plots_quantile(data.ind_var)
+    f = data.h.partial_plots_quantile(data.ind_var, data.m.x_test_glm)
     cache_key = 'partial_plot'
     cached_result = cache.get(cache_key)
     if cached_result is not None:
@@ -127,7 +127,7 @@ def partial(request):
 
 def student(request):
 
-    f = data.i.plot_lev_stud_quantile()
+    f = data.i.plot_lev_stud_quantile(data.m.x_test_glm)
     cache_key = 'student_plot'
     cached_result = cache.get(cache_key)
     if cached_result is not None:
@@ -139,7 +139,7 @@ def student(request):
 
 def cooks(request):
 
-    f = data.j.plot_cooks_dis_quantile()
+    f = data.j.plot_cooks_dis_quantile(data.m.x_test_glm)
     cache_key = 'cooks_plot'
     cached_result = cache.get(cache_key)
     if cached_result is not None:
