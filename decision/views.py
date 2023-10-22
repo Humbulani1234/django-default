@@ -1,22 +1,19 @@
 
+
 import pandas as pd
 import numpy as np
 import pickle
 import sys
 import io
 import base64
-import logging
 
-sys.path.append('/home/humbulani/django-pd/django_ref/refactored_pd')
+sys.path.append('/home/humbulani/django/django_ref/refactored_pd')
 
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.http import JsonResponse
-from django.db import transaction
-from django.core.cache import cache
 from django.contrib.auth.decorators import login_required
 
-from .models import DecFeatures, DecProbability
 from .forms import Inputs
 
 from class_decision_tree import DecisionTree
@@ -26,12 +23,7 @@ from class_base import Base
 from pd_download import data_cleaning
 import data
 
-diagnostics_logger = logging.getLogger("class_decsion_tree")
-diagnostics_logger.setLevel(logging.DEBUG)
-console_handler = logging.StreamHandler()
-console_handler.setFormatter(logging.Formatter(fmt="{levelname}:{name}:{message}", style="{"))
-diagnostics_logger.addHandler(console_handler)
-diagnostics_logger.info("PROBABILITY PREDICTION USING DECISION TREE")
+#-------------------------------------------------------------------Defined variables----------------------------------------------------
 
 def image_generator(f):
 
@@ -43,57 +35,66 @@ def image_generator(f):
 
     return image_base64
 
-#-------------------------------------------------------------------Perfomance-------------------------------------------------------
+#-------------------------------------------------------------------Perfomance----------------------------------------------
 
 def confusion_decision(request):
 
-    f = data.d.dt_pruned_confmatrix(data.ccpalpha, data.threshold_1, data.threshold_2,
-                                    data.x_test_orig, data.y_test_orig)
-    cache_key = 'decconfusion_plot'
-    cached_result = cache.get(cache_key)
-    if cached_result is not None:
-        render (request, 'decision/peformance/confusion_decision.html', {'image_base64':cached_result})
-    image_base64 = image_generator(f)
-    cache.set(cache_key, image_base64, 3600)              
+    f = data.d.dt_pruned_conf_matrix(data.ccpalpha, data.threshold_1, data.threshold_2,
+                                    data.d.x_test_dt, data.d.y_test_dt)
+    image_base64 = image_generator(f)                 
 
     return render (request, 'decision/peformance/confusion_decision.html', {'image_base64':image_base64})
 
 def decision_tree(request):
 
     f = data.d.dt_pruned_tree(data.ccpalpha, data.threshold_1, data.threshold_2)
-    cache_key = 'decisiontree_plot'
-    cached_result = cache.get(cache_key)
-    if cached_result is not None:
-        render (request, 'decision/peformance/decision_tree.html', {'image_base64':cached_result})
-    image_base64 = image_generator(f)
-    cache.set(cache_key, image_base64, 3600)
+    image_base64 = image_generator(f)  
 
     return render (request, 'decision/peformance/decision_tree.html', {'image_base64':image_base64}) 
 
 def cross_validate(request):
 
     f = data.d.cross_validate_alphas(data.ccpalpha)[1]
-    cache_key = 'cooks_plot'
-    cached_result = cache.get(cache_key)
-    if cached_result is not None:
-        render (request, 'decision/peformance/cross_validate.html', {'image_base64':cached_result})
-    image_base64 = image_generator(f)
-    cache.set(cache_key, image_base64, 3600)
+    image_base64 = image_generator(f)   
 
     return render (request, 'decision/peformance/cross_validate.html', {'image_base64':image_base64})
 
-@login_required
+#-------------------------------------------------------------------Comparison----------------------------------------------
+
+def confusion_cmp(request):
+
+    f = data.o.cmp_confusion_matrix_plot(data.ccpalpha, data.threshold_1, data.threshold_2, data.threshold)
+    image_base64 = image_generator(f)                 
+
+    return render (request, 'decision/comparison/confusion_cmp.html', {'image_base64':image_base64})
+
+def overfitting_cmp(request):
+
+    f = data.o.cmp_overfitting(data.ccpalpha, data.threshold_1, data.threshold_2, *np.arange(0.1, 0.9, 0.05))
+    image_base64 = image_generator(f)  
+
+    return render (request, 'decision/comparison/overfitting.html', {'image_base64':image_base64}) 
+
+def perf_analytics_cmp(request):
+
+    f = data.o.cmp_performance_metrics(data.ccpalpha, data.threshold_1, data.threshold_2, data.threshold)
+    image_base64 = image_generator(f)   
+
+    return render (request, 'decision/comparison/perf_analytics.html', {'image_base64':image_base64})
+
+#------------------------------------------------------------Calculation------------------------------------------
+
+# @login_required
 def tree(request):
 
     answer = ""
+
     if request.method == 'POST':
         form = Inputs(request.POST)
         if form.is_valid():
-            with transaction.atomic():
-                instance = form.save()
-                saved_pk = instance.pk
+            form.save()
 
-            """ Float features """
+            # Float features
             
             NAME = form.cleaned_data.get("NAME")
             AGE = form.cleaned_data.get("AGE")
@@ -115,17 +116,19 @@ def tree(request):
             DIV = form.cleaned_data.get("DIV")
             CASH = form.cleaned_data.get("CASH")
                         
-            """ Categorical features """
+            # Categorical features
             
             TITLE = form.cleaned_data.get("TITLE")
             R,H = 0,0
 
             if TITLE == 'H':
                 H=1
+
             else:
                 R=0
            
             STATUS = form.cleaned_data.get("STATUS")
+
             W,V, U, G, E, T = 0,0,0,0,0,0    
 
             if STATUS == 'V':
@@ -142,6 +145,7 @@ def tree(request):
                 W = 0 
 
             PRODUCT = form.cleaned_data.get("PRODUCT") 
+
             Radio_TV_Hifi, Furniture_Carpet, Dept_Store_Mail, Leisure,Cars, OT = 0,0,0,0,0,0    
 
             if PRODUCT=='Furniture_Carpet':
@@ -158,14 +162,17 @@ def tree(request):
                 Radio_TV_Hifi = 0   
 
             RESID = form.cleaned_data.get("RESID")
+
             Owner,Lease = 0,0    
 
             if RESID=='Lease':
                 Lease=1    
+
             else:
                 Owner=0
 
             NAT = form.cleaned_data.get("NAT")
+
             Yugoslav,German, Turkish, RS, Greek ,Italian, Other_European, Spanish_Portugue = 0,0,0,0,0,0,0,0    
 
             if NAT=='German':
@@ -186,6 +193,7 @@ def tree(request):
                 Yugoslav = 1 
 
             PROF = form.cleaned_data.get("PROF")  
+
             State_Steel_Ind,Others, Civil_Service_M , Self_employed_pe, Food_Building_Ca, Chemical_Industr\
             ,Pensioner ,Sea_Vojage_Gast, Military_Service = 0,0,0,0,0,0,0,0,0    
 
@@ -209,6 +217,7 @@ def tree(request):
                 State_Steel_Ind = 1 
 
             CAR = form.cleaned_data.get("CAR")   
+
             Without_Vehicle,Car,Car_and_Motor_bi= 0,0,0    
 
             if CAR=='Car':
@@ -216,11 +225,12 @@ def tree(request):
             elif CAR=='Car_and_Motor_bi':
                 Car_and_Motor_bi=1
             else:
-                Without_Vehicle= 1     
+                Without_Vehicle= 1    
+
+            Cheque_card,no_credit_cards, Mastercard_Euroc, VISA_mybank,VISA_Others\
+            ,Other_credit_car, American_Express = 0,0,0,0,0,0,0  
 
             CARDS = form.cleaned_data.get("CARDS")  
-            Cheque_card,no_credit_cards, Mastercard_Euroc, VISA_mybank,VISA_Others\
-            ,Other_credit_car, American_Express = 0,0,0,0,0,0,0 
 
             if CARDS=='no_credit_cards':
                 no_credit_cards=1
@@ -247,23 +257,11 @@ def tree(request):
                        REGN, DIV, CASH]    
 
             list_ = inputs2 + inputs1
+
             inputs = np.array([list_]).reshape(1,-1)           
-            answer = data.d.dt_pruned_prediction(data.ccpalpha, data.threshold_1, data.threshold_2,
-                                                        data.sample, inputs)
-
-            try:
-                with transaction.atomic():
-                    dec_features_object = DecFeatures.objects.get(pk=saved_pk)
-                    probability_instance = DecProbability(CUSTOMER_ID=dec_features_object)
-                    probability_instance.probability = answer
-                    probability_instance.default = 'default' if answer > 0.47 else 'nodefault'
-                    probability_instance.save()
-            except DecFeatures.DoesNotExist:
-                print('Model doesnt not exixt')
-
+            answer = data.d.dt_pruned_probability(data.ccpalpha, data.threshold_1, data.threshold_2,
+                                                        data.sample, data.sample, inputs)
             return JsonResponse({"probability": answer})
-
     else:
         form = Inputs()
-
     return render(request, 'decision/model/decision.html', {'form':form, 'answer':answer})

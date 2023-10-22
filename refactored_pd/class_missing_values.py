@@ -19,14 +19,6 @@ import logging
 
 from pd_download import data_cleaning 
 
-diagnostics_logger = logging.getLogger("class_missing_values")
-diagnostics_logger.setLevel(logging.DEBUG)
-console_handler = logging.StreamHandler()
-console_handler.setFormatter(logging.Formatter(fmt="{levelname}:{name}:{message}", style="{"))
-diagnostics_logger.addHandler(console_handler)
-diagnostics_logger.info("CLASS LISSING VALUES HANDLING MISSING VALUES")
-
-
 class ImputationCat:
 
     def __init__(self, df_cat):
@@ -83,3 +75,24 @@ class ImputationCat:
         df_total_no_missing = pd.concat([dataframefloat, dataframecategorical], axis = 1)
         
         return df_total_no_missing
+
+
+if __name__ == "__main__":
+
+    file_path = "KGB.sas7bdat"
+    data_types, df_loan_categorical, df_loan_float = data_cleaning(file_path)    
+    miss = ImputationCat(df_loan_categorical)
+    imputer_cat = miss.simple_imputer_mode()
+    print(imputer_cat)
+    print(df_loan_float)
+    
+    # Alternative one hot encoding scheme
+
+    from sklearn.preprocessing import OneHotEncoder
+    encoder = OneHotEncoder(sparse_output=False, drop="first")
+    encoded_data = encoder.fit_transform(imputer_cat[["TITLE"]])
+    column_names = encoder.get_feature_names_out(["TITLE"])
+    encoded_data = pd.DataFrame(encoded_data, columns=column_names)
+    print(encoded_data)
+    reference_category = encoder.categories_[0][0]
+    print(reference_category)

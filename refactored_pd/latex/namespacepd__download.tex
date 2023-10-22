@@ -1,0 +1,96 @@
+\hypertarget{namespacepd__download}{}\doxysection{pd\+\_\+download Namespace Reference}
+\label{namespacepd__download}\index{pd\_download@{pd\_download}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{namespacepd__download_adef219b489663a8020285717a62202be}{data\+\_\+download\+\_\+sas}} (file\+\_\+path)
+\item 
+def \mbox{\hyperlink{namespacepd__download_a41b82ada1638d21640032a490423e395}{data\+\_\+cleaning}} (file\+\_\+path)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacepd__download_a41b82ada1638d21640032a490423e395}\label{namespacepd__download_a41b82ada1638d21640032a490423e395}} 
+\index{pd\_download@{pd\_download}!data\_cleaning@{data\_cleaning}}
+\index{data\_cleaning@{data\_cleaning}!pd\_download@{pd\_download}}
+\doxysubsubsection{\texorpdfstring{data\_cleaning()}{data\_cleaning()}}
+{\footnotesize\ttfamily def pd\+\_\+download.\+data\+\_\+cleaning (\begin{DoxyParamCaption}\item[{}]{file\+\_\+path }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb} Various data cleaning functionalities \end{DoxyVerb}
+ 
+
+Definition at line 17 of file pd\+\_\+download.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{17 \textcolor{keyword}{def }\mbox{\hyperlink{namespacepd__download_a41b82ada1638d21640032a490423e395}{data\_cleaning}}(file\_path):}
+\DoxyCodeLine{18     }
+\DoxyCodeLine{19     \textcolor{stringliteral}{''' Various data cleaning functionalities '''}}
+\DoxyCodeLine{20     }
+\DoxyCodeLine{21     dataframe = \mbox{\hyperlink{namespacepd__download_adef219b489663a8020285717a62202be}{data\_download\_sas}}(file\_path)}
+\DoxyCodeLine{22     data\_types = dataframe.dtypes}
+\DoxyCodeLine{23     df\_cat = dataframe.select\_dtypes(object)}
+\DoxyCodeLine{24     df\_float = dataframe.select\_dtypes(float)}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26     \textcolor{keywordflow}{for} i \textcolor{keywordflow}{in} range(df\_cat.shape[0]):}
+\DoxyCodeLine{27         \textcolor{keywordflow}{for} j \textcolor{keywordflow}{in} range(df\_cat.shape[1]):}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29             \textcolor{keywordflow}{if} type(df\_cat.iloc[i,j]) == bytes:}
+\DoxyCodeLine{30                 }
+\DoxyCodeLine{31                 y = df\_cat.iloc[i,j].decode(\textcolor{stringliteral}{"{}utf-\/8"{}})}
+\DoxyCodeLine{32                 df\_cat.replace(df\_cat.iloc[i,j], y, inplace=\textcolor{keyword}{True})}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34             \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{35                 \textcolor{keywordflow}{pass}}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37     df\_cat[\textcolor{stringliteral}{'PRODUCT'}] = df\_cat[\textcolor{stringliteral}{'PRODUCT'}].replace(\textcolor{stringliteral}{'Others'},\textcolor{stringliteral}{'OT'})}
+\DoxyCodeLine{38     df\_cat[\textcolor{stringliteral}{'NAT'}] = df\_cat[\textcolor{stringliteral}{'NAT'}].replace(\textcolor{stringliteral}{'Others'},\textcolor{stringliteral}{'RS'})}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40     \textcolor{keywordflow}{return} data\_types, df\_cat, df\_float}
+\DoxyCodeLine{41 }
+
+\end{DoxyCode}
+
+
+References data\+\_\+download\+\_\+sas().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacepd__download_a41b82ada1638d21640032a490423e395_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacepd__download_adef219b489663a8020285717a62202be}\label{namespacepd__download_adef219b489663a8020285717a62202be}} 
+\index{pd\_download@{pd\_download}!data\_download\_sas@{data\_download\_sas}}
+\index{data\_download\_sas@{data\_download\_sas}!pd\_download@{pd\_download}}
+\doxysubsubsection{\texorpdfstring{data\_download\_sas()}{data\_download\_sas()}}
+{\footnotesize\ttfamily def pd\+\_\+download.\+data\+\_\+download\+\_\+sas (\begin{DoxyParamCaption}\item[{}]{file\+\_\+path }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb} Data Download function \end{DoxyVerb}
+ 
+
+Definition at line 8 of file pd\+\_\+download.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{8 \textcolor{keyword}{def }\mbox{\hyperlink{namespacepd__download_adef219b489663a8020285717a62202be}{data\_download\_sas}}(file\_path):}
+\DoxyCodeLine{9     }
+\DoxyCodeLine{10     \textcolor{stringliteral}{''' Data Download function '''}}
+\DoxyCodeLine{11     }
+\DoxyCodeLine{12     df\_pd = pd.read\_sas(file\_path)}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14     \textcolor{keywordflow}{return} df\_pd}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacepd__download_adef219b489663a8020285717a62202be_icgraph}
+\end{center}
+\end{figure}

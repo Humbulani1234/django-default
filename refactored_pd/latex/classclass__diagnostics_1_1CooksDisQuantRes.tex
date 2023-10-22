@@ -1,0 +1,104 @@
+\hypertarget{classclass__diagnostics_1_1CooksDisQuantRes}{}\doxysection{class\+\_\+diagnostics.\+Cooks\+Dis\+Quant\+Res Class Reference}
+\label{classclass__diagnostics_1_1CooksDisQuantRes}\index{class\_diagnostics.CooksDisQuantRes@{class\_diagnostics.CooksDisQuantRes}}
+
+
+Inheritance diagram for class\+\_\+diagnostics.\+Cooks\+Dis\+Quant\+Res\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classclass__diagnostics_1_1CooksDisQuantRes__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for class\+\_\+diagnostics.\+Cooks\+Dis\+Quant\+Res\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classclass__diagnostics_1_1CooksDisQuantRes__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classclass__diagnostics_1_1CooksDisQuantRes_a4ffe3f1df9cff1cc9ceb44de0b81cae9}{plot\+\_\+cooks\+\_\+dis\+\_\+quantile}} (self)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classclass__diagnostics_1_1CooksDisQuantRes_aa5132685305f2b5188d806bfdac494f9}{axs}}
+\item 
+\mbox{\hyperlink{classclass__diagnostics_1_1CooksDisQuantRes_a16b1edea691bd61e183d0849dd27fe90}{d}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 227 of file class\+\_\+diagnostics.\+py.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classclass__diagnostics_1_1CooksDisQuantRes_a4ffe3f1df9cff1cc9ceb44de0b81cae9}\label{classclass__diagnostics_1_1CooksDisQuantRes_a4ffe3f1df9cff1cc9ceb44de0b81cae9}} 
+\index{class\_diagnostics.CooksDisQuantRes@{class\_diagnostics.CooksDisQuantRes}!plot\_cooks\_dis\_quantile@{plot\_cooks\_dis\_quantile}}
+\index{plot\_cooks\_dis\_quantile@{plot\_cooks\_dis\_quantile}!class\_diagnostics.CooksDisQuantRes@{class\_diagnostics.CooksDisQuantRes}}
+\doxysubsubsection{\texorpdfstring{plot\_cooks\_dis\_quantile()}{plot\_cooks\_dis\_quantile()}}
+{\footnotesize\ttfamily def class\+\_\+diagnostics.\+Cooks\+Dis\+Quant\+Res.\+plot\+\_\+cooks\+\_\+dis\+\_\+quantile (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb} Cooks Distance Plot \end{DoxyVerb}
+ 
+
+Definition at line 229 of file class\+\_\+diagnostics.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{229     \textcolor{keyword}{def }plot\_cooks\_dis\_quantile(self):}
+\DoxyCodeLine{230 }
+\DoxyCodeLine{231         \textcolor{stringliteral}{"{}"{}"{} Cooks Distance Plot "{}"{}"{}}}
+\DoxyCodeLine{232 }
+\DoxyCodeLine{233         self.fig, self.axs = plt.subplots(1,1)}
+\DoxyCodeLine{234         quantile\_residuals\_series = super().quantile\_residuals()}
+\DoxyCodeLine{235         hat\_matrix = np.round(loaded\_model.get\_hat\_matrix\_diag(),2)}
+\DoxyCodeLine{236         self.d = []}
+\DoxyCodeLine{237 }
+\DoxyCodeLine{238         \textcolor{keywordflow}{for} i \textcolor{keywordflow}{in} range(len(quantile\_residuals\_series)):}
+\DoxyCodeLine{239             }
+\DoxyCodeLine{240             self.d.append((quantile\_residuals\_series[i]**2/3000)*(hat\_matrix[i]/(1-\/hat\_matrix[i])))}
+\DoxyCodeLine{241 }
+\DoxyCodeLine{242         self.axs.plot(pd.Series(self.d).index, pd.Series(self.d).values)}
+\DoxyCodeLine{243         super().plotting(\textcolor{stringliteral}{"{}Cooks Distance"{}}, \textcolor{stringliteral}{"{}x"{}}, \textcolor{stringliteral}{"{}y"{}})}
+\DoxyCodeLine{244 }
+\DoxyCodeLine{245         \textcolor{keywordflow}{return} self.fig}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classclass__diagnostics_1_1CooksDisQuantRes_aa5132685305f2b5188d806bfdac494f9}\label{classclass__diagnostics_1_1CooksDisQuantRes_aa5132685305f2b5188d806bfdac494f9}} 
+\index{class\_diagnostics.CooksDisQuantRes@{class\_diagnostics.CooksDisQuantRes}!axs@{axs}}
+\index{axs@{axs}!class\_diagnostics.CooksDisQuantRes@{class\_diagnostics.CooksDisQuantRes}}
+\doxysubsubsection{\texorpdfstring{axs}{axs}}
+{\footnotesize\ttfamily class\+\_\+diagnostics.\+Cooks\+Dis\+Quant\+Res.\+axs}
+
+
+
+Definition at line 233 of file class\+\_\+diagnostics.\+py.
+
+\mbox{\Hypertarget{classclass__diagnostics_1_1CooksDisQuantRes_a16b1edea691bd61e183d0849dd27fe90}\label{classclass__diagnostics_1_1CooksDisQuantRes_a16b1edea691bd61e183d0849dd27fe90}} 
+\index{class\_diagnostics.CooksDisQuantRes@{class\_diagnostics.CooksDisQuantRes}!d@{d}}
+\index{d@{d}!class\_diagnostics.CooksDisQuantRes@{class\_diagnostics.CooksDisQuantRes}}
+\doxysubsubsection{\texorpdfstring{d}{d}}
+{\footnotesize\ttfamily class\+\_\+diagnostics.\+Cooks\+Dis\+Quant\+Res.\+d}
+
+
+
+Definition at line 236 of file class\+\_\+diagnostics.\+py.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class__diagnostics_8py}{class\+\_\+diagnostics.\+py}}\end{DoxyCompactItemize}

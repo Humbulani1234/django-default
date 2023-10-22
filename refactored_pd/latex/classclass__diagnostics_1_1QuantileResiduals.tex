@@ -1,0 +1,132 @@
+\hypertarget{classclass__diagnostics_1_1QuantileResiduals}{}\doxysection{class\+\_\+diagnostics.\+Quantile\+Residuals Class Reference}
+\label{classclass__diagnostics_1_1QuantileResiduals}\index{class\_diagnostics.QuantileResiduals@{class\_diagnostics.QuantileResiduals}}
+
+
+Inheritance diagram for class\+\_\+diagnostics.\+Quantile\+Residuals\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classclass__diagnostics_1_1QuantileResiduals__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for class\+\_\+diagnostics.\+Quantile\+Residuals\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=268pt]{classclass__diagnostics_1_1QuantileResiduals__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classclass__diagnostics_1_1QuantileResiduals_aef15a7814849448875f0f3c2f41e045d}{quantile\+\_\+residuals}} (self)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classclass__diagnostics_1_1QuantileResiduals_ae5fb12adb6777781fcfc2f996fd3b6b6}{predict\+\_\+probability}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 48 of file class\+\_\+diagnostics.\+py.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classclass__diagnostics_1_1QuantileResiduals_aef15a7814849448875f0f3c2f41e045d}\label{classclass__diagnostics_1_1QuantileResiduals_aef15a7814849448875f0f3c2f41e045d}} 
+\index{class\_diagnostics.QuantileResiduals@{class\_diagnostics.QuantileResiduals}!quantile\_residuals@{quantile\_residuals}}
+\index{quantile\_residuals@{quantile\_residuals}!class\_diagnostics.QuantileResiduals@{class\_diagnostics.QuantileResiduals}}
+\doxysubsubsection{\texorpdfstring{quantile\_residuals()}{quantile\_residuals()}}
+{\footnotesize\ttfamily def class\+\_\+diagnostics.\+Quantile\+Residuals.\+quantile\+\_\+residuals (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Definition at line 50 of file class\+\_\+diagnostics.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{50     \textcolor{keyword}{def }quantile\_residuals(self):}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52         residuals = []}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54         \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56             \textcolor{keywordflow}{if} \textcolor{keywordflow}{not} isinstance(self.x\_test, np.ndarray):}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58                 \textcolor{keywordflow}{raise} TypeError(\textcolor{stringliteral}{"{}must be an instance of a numpy-\/ndarray"{}})}
+\DoxyCodeLine{59             }
+\DoxyCodeLine{60             self.predict\_probability = super().probability\_prediction()}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62             \textcolor{keywordflow}{if} self.y\_test.shape[0] \textcolor{keywordflow}{is} \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64                 \textcolor{keywordflow}{raise} IndexError (\textcolor{stringliteral}{"{}index empty"{}})}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66             \textcolor{keywordflow}{for} i \textcolor{keywordflow}{in} range(self.y\_test.shape[0]):}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68                 \textcolor{keywordflow}{if} 0 <= self.threshold <= 1:}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70                     \textcolor{keywordflow}{if} (self.predict\_probability[i] < self.threshold):}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72                         u\_1 = np.random.uniform(low=0, high=self.predict\_probability[i])}
+\DoxyCodeLine{73                         residuals.append(norm.ppf(u\_1))}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75                     \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77                         u\_2 = np.random.uniform(low=self.predict\_probability[i], high=1)}
+\DoxyCodeLine{78                         residuals.append(norm.ppf(u\_2))}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{80                 \textcolor{keywordflow}{elif} (self.threshold < 0 \textcolor{keywordflow}{or} self.threshold > 1):}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{82                     \textcolor{keywordflow}{raise} ValueError(\textcolor{stringliteral}{"{}threshold outside bounds: [0-\/1]"{}})}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{84             quantile\_residuals\_series = pd.Series(residuals).round(2)}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86             \textcolor{keywordflow}{return} quantile\_residuals\_series}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{88         \textcolor{keywordflow}{except} (TypeError, ValueError, IndexError) \textcolor{keyword}{as} e:}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90             print(\textcolor{stringliteral}{"{}Error:"{}}, e)}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{92             \textcolor{keywordflow}{return} \textcolor{keywordtype}{None}}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{94 \textcolor{comment}{\#-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/Residuals Plot-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{95 }
+
+\end{DoxyCode}
+
+
+References class\+\_\+modelperf.\+Model\+Perfomance.\+x\+\_\+test.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classclass__diagnostics_1_1QuantileResiduals_aef15a7814849448875f0f3c2f41e045d_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classclass__diagnostics_1_1QuantileResiduals_ae5fb12adb6777781fcfc2f996fd3b6b6}\label{classclass__diagnostics_1_1QuantileResiduals_ae5fb12adb6777781fcfc2f996fd3b6b6}} 
+\index{class\_diagnostics.QuantileResiduals@{class\_diagnostics.QuantileResiduals}!predict\_probability@{predict\_probability}}
+\index{predict\_probability@{predict\_probability}!class\_diagnostics.QuantileResiduals@{class\_diagnostics.QuantileResiduals}}
+\doxysubsubsection{\texorpdfstring{predict\_probability}{predict\_probability}}
+{\footnotesize\ttfamily class\+\_\+diagnostics.\+Quantile\+Residuals.\+predict\+\_\+probability}
+
+
+
+Definition at line 60 of file class\+\_\+diagnostics.\+py.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class__diagnostics_8py}{class\+\_\+diagnostics.\+py}}\end{DoxyCompactItemize}

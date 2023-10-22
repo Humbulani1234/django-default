@@ -1,0 +1,140 @@
+\hypertarget{classclass__base_1_1Base}{}\doxysection{class\+\_\+base.\+Base Class Reference}
+\label{classclass__base_1_1Base}\index{class\_base.Base@{class\_base.Base}}
+
+
+Inheritance diagram for class\+\_\+base.\+Base\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classclass__base_1_1Base__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for class\+\_\+base.\+Base\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=194pt]{classclass__base_1_1Base__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classclass__base_1_1Base_a33b690dfc287d497006484bd741303c3}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classclass__base_1_1Base_af6d71598100b77d43f85435a88b1a026}{custom\+\_\+rc\+Params}})
+\item 
+def \mbox{\hyperlink{classclass__base_1_1Base_a8149e5351baf03307d9c1235751acc9b}{plotting}} (self, title\+\_\+, xlabel\+\_\+, ylabel\+\_\+)
+\item 
+def \mbox{\hyperlink{classclass__base_1_1Base_a8a35de323d285ede36206a8407e2c86a}{plot\+\_\+legend}} (self, dict key\+\_\+color)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classclass__base_1_1Base_af6d71598100b77d43f85435a88b1a026}{custom\+\_\+rc\+Params}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 10 of file class\+\_\+base.\+py.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classclass__base_1_1Base_a33b690dfc287d497006484bd741303c3}\label{classclass__base_1_1Base_a33b690dfc287d497006484bd741303c3}} 
+\index{class\_base.Base@{class\_base.Base}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!class\_base.Base@{class\_base.Base}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def class\+\_\+base.\+Base.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{custom\+\_\+rc\+Params }\end{DoxyParamCaption})}
+
+
+
+Definition at line 12 of file class\+\_\+base.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{12     \textcolor{keyword}{def }\_\_init\_\_(self, custom\_rcParams):}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14         self.custom\_rcParams = plt.rcParams.update(custom\_rcParams)}
+\DoxyCodeLine{15 }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classclass__base_1_1Base_a8a35de323d285ede36206a8407e2c86a}\label{classclass__base_1_1Base_a8a35de323d285ede36206a8407e2c86a}} 
+\index{class\_base.Base@{class\_base.Base}!plot\_legend@{plot\_legend}}
+\index{plot\_legend@{plot\_legend}!class\_base.Base@{class\_base.Base}}
+\doxysubsubsection{\texorpdfstring{plot\_legend()}{plot\_legend()}}
+{\footnotesize\ttfamily def class\+\_\+base.\+Base.\+plot\+\_\+legend (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{dict}]{key\+\_\+color }\end{DoxyParamCaption})}
+
+
+
+Definition at line 26 of file class\+\_\+base.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{26     \textcolor{keyword}{def }plot\_legend(self, key\_color: dict):}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28         key\_color = \{\textcolor{stringliteral}{"{}Not-\/Absorbed"{}}:\textcolor{stringliteral}{"{}\#003A5D"{}}, \textcolor{stringliteral}{"{}Absorbed"{}}:\textcolor{stringliteral}{"{}\#A19958"{}}\}}
+\DoxyCodeLine{29         labels = list(key\_color.keys())}
+\DoxyCodeLine{30         handles = [plt.Rectangle((5,5),10,10, color=key\_color[label]) \textcolor{keywordflow}{for} label \textcolor{keywordflow}{in} labels]}
+\DoxyCodeLine{31         }
+\DoxyCodeLine{32         self.axs.legend(handles, labels, fontsize=7, bbox\_to\_anchor=(1.13,1.17), loc=\textcolor{stringliteral}{"{}upper left"{}}, title=\textcolor{stringliteral}{"{}legend"{}},shadow=\textcolor{keyword}{True})}
+\DoxyCodeLine{33     }
+
+\end{DoxyCode}
+
+
+References class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+axs, class\+\_\+diagnostics.\+Residuals\+Plot.\+axs, class\+\_\+diagnostics.\+Normality\+Test.\+axs, class\+\_\+diagnostics.\+Partial\+Plots.\+axs, class\+\_\+diagnostics.\+Lev\+Stud\+Qua\+Res.\+axs, class\+\_\+diagnostics.\+Cooks\+Dis\+Quant\+Res.\+axs, class\+\_\+modelperf.\+Model\+Perfomance.\+axs, and class\+\_\+traintest.\+One\+Hot\+Encoding.\+axs.
+
+\mbox{\Hypertarget{classclass__base_1_1Base_a8149e5351baf03307d9c1235751acc9b}\label{classclass__base_1_1Base_a8149e5351baf03307d9c1235751acc9b}} 
+\index{class\_base.Base@{class\_base.Base}!plotting@{plotting}}
+\index{plotting@{plotting}!class\_base.Base@{class\_base.Base}}
+\doxysubsubsection{\texorpdfstring{plotting()}{plotting()}}
+{\footnotesize\ttfamily def class\+\_\+base.\+Base.\+plotting (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{title\+\_\+,  }\item[{}]{xlabel\+\_\+,  }\item[{}]{ylabel\+\_\+ }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb} function used for plotting \end{DoxyVerb}
+ 
+
+Definition at line 16 of file class\+\_\+base.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16     \textcolor{keyword}{def }plotting(self, title\_, xlabel\_, ylabel\_):}
+\DoxyCodeLine{17         }
+\DoxyCodeLine{18         \textcolor{stringliteral}{"{}"{}"{} function used for plotting "{}"{}"{}}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20         self.axs.set\_title(title\_)}
+\DoxyCodeLine{21         self.axs.set\_xlabel(xlabel\_)}
+\DoxyCodeLine{22         self.axs.set\_ylabel(ylabel\_)}
+\DoxyCodeLine{23         self.axs.spines[\textcolor{stringliteral}{"{}top"{}}].set\_visible(\textcolor{keyword}{False})  }
+\DoxyCodeLine{24         self.axs.spines[\textcolor{stringliteral}{"{}right"{}}].set\_visible(\textcolor{keyword}{False}) }
+\DoxyCodeLine{25 }
+
+\end{DoxyCode}
+
+
+References class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+axs, class\+\_\+diagnostics.\+Residuals\+Plot.\+axs, class\+\_\+diagnostics.\+Normality\+Test.\+axs, class\+\_\+diagnostics.\+Partial\+Plots.\+axs, class\+\_\+diagnostics.\+Lev\+Stud\+Qua\+Res.\+axs, class\+\_\+diagnostics.\+Cooks\+Dis\+Quant\+Res.\+axs, class\+\_\+modelperf.\+Model\+Perfomance.\+axs, and class\+\_\+traintest.\+One\+Hot\+Encoding.\+axs.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classclass__base_1_1Base_af6d71598100b77d43f85435a88b1a026}\label{classclass__base_1_1Base_af6d71598100b77d43f85435a88b1a026}} 
+\index{class\_base.Base@{class\_base.Base}!custom\_rcParams@{custom\_rcParams}}
+\index{custom\_rcParams@{custom\_rcParams}!class\_base.Base@{class\_base.Base}}
+\doxysubsubsection{\texorpdfstring{custom\_rcParams}{custom\_rcParams}}
+{\footnotesize\ttfamily class\+\_\+base.\+Base.\+custom\+\_\+rc\+Params}
+
+
+
+Definition at line 14 of file class\+\_\+base.\+py.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class__base_8py}{class\+\_\+base.\+py}}\end{DoxyCompactItemize}

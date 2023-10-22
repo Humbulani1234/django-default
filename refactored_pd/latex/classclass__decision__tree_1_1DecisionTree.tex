@@ -1,0 +1,678 @@
+\hypertarget{classclass__decision__tree_1_1DecisionTree}{}\doxysection{class\+\_\+decision\+\_\+tree.\+Decision\+Tree Class Reference}
+\label{classclass__decision__tree_1_1DecisionTree}\index{class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}}
+
+
+Inheritance diagram for class\+\_\+decision\+\_\+tree.\+Decision\+Tree\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classclass__decision__tree_1_1DecisionTree__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for class\+\_\+decision\+\_\+tree.\+Decision\+Tree\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classclass__decision__tree_1_1DecisionTree__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classclass__decision__tree_1_1DecisionTree_a73ce8452cd292d0163ece16025f7d778}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classclass__base_1_1Base_af6d71598100b77d43f85435a88b1a026}{custom\+\_\+rc\+Params}}, \mbox{\hyperlink{classclass__traintest_1_1OneHotEncoding_a75dd1e199e3f7ef7bf4fae2eb9df5301}{df\+\_\+nomiss\+\_\+cat}}, type\+\_\+, y\+\_\+test, \mbox{\hyperlink{classclass__decision__tree_1_1DecisionTree_a9e8a3ec1786db02fe8db7f04df3a45f2}{df\+\_\+loan\+\_\+float}}, \mbox{\hyperlink{classclass__decision__tree_1_1DecisionTree_a2b8838f1af7241f23d50c3c845342cf9}{target}}, threshold, \mbox{\hyperlink{classclass__decision__tree_1_1DecisionTree_a7212b7274a7d6e1becad83a70e8ddbf7}{randomstate}})
+\item 
+def \mbox{\hyperlink{classclass__decision__tree_1_1DecisionTree_a84ed2d58fe57e0eaaf6767c79db7a72c}{dt\+\_\+classification\+\_\+fit}} (self, ccpalpha)
+\item 
+def \mbox{\hyperlink{classclass__decision__tree_1_1DecisionTree_a68daa243effff5d1854b50cac686bff2}{dt\+\_\+probability\+\_\+prediction}} (self, sample, x\+\_\+test1, ccpalpha)
+\item 
+def \mbox{\hyperlink{classclass__decision__tree_1_1DecisionTree_a55fa907367c104f7b91fc4a7f08aa78a}{dt\+\_\+confusion\+\_\+matrix\+\_\+plot}} (self, x\+\_\+test, y\+\_\+test, ccpalpha)
+\item 
+def \mbox{\hyperlink{classclass__decision__tree_1_1DecisionTree_a3b3e26dafb4ca494eef9a8bd9d60a618}{plot\+\_\+dt}} (self, ccpalpha)
+\item 
+def \mbox{\hyperlink{classclass__decision__tree_1_1DecisionTree_a56a46ca6aff8e4de61f3c3f542024359}{pruning}} (self, ccpalpha)
+\item 
+def \mbox{\hyperlink{classclass__decision__tree_1_1DecisionTree_a08a4aab3859dd66a5559617e49f34616}{cross\+\_\+validate\+\_\+alphas}} (self, ccpalpha)
+\item 
+def \mbox{\hyperlink{classclass__decision__tree_1_1DecisionTree_adae7cf662e4698140df6591392e8d9e9}{ideal\+\_\+alpha}} (self, ccpalpha, threshold\+\_\+1, threshold\+\_\+2)
+\item 
+def \mbox{\hyperlink{classclass__decision__tree_1_1DecisionTree_ab6251a9a08edff9087101ec99ddc5784}{dt\+\_\+pruned\+\_\+alpha}} (self, ccpalpha, threshold\+\_\+1, threshold\+\_\+2)
+\item 
+def \mbox{\hyperlink{classclass__decision__tree_1_1DecisionTree_a4dd8f525b22eaba5acafd4289d86492f}{dt\+\_\+pruned\+\_\+fit}} (self, ccpalpha, threshold\+\_\+1, threshold\+\_\+2)
+\item 
+def \mbox{\hyperlink{classclass__decision__tree_1_1DecisionTree_aba1c86d0e3cd259435ce249122585e19}{dt\+\_\+pruned\+\_\+prediction}} (self, ccpalpha, threshold\+\_\+1, threshold\+\_\+2, sample, x\+\_\+test1)
+\item 
+def \mbox{\hyperlink{classclass__decision__tree_1_1DecisionTree_ad36a03cb1d93b1e2450448a4be3077d6}{dt\+\_\+pruned\+\_\+confmatrix}} (self, ccpalpha, threshold\+\_\+1, threshold\+\_\+2, x\+\_\+test, y\+\_\+test)
+\item 
+def \mbox{\hyperlink{classclass__decision__tree_1_1DecisionTree_a3bc39dc44329e9687870f065dbc33a6d}{dt\+\_\+pruned\+\_\+tree}} (self, ccpalpha, threshold\+\_\+1, threshold\+\_\+2)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classclass__decision__tree_1_1DecisionTree_a9e8a3ec1786db02fe8db7f04df3a45f2}{df\+\_\+loan\+\_\+float}}
+\item 
+\mbox{\hyperlink{classclass__decision__tree_1_1DecisionTree_a2b8838f1af7241f23d50c3c845342cf9}{target}}
+\item 
+\mbox{\hyperlink{classclass__decision__tree_1_1DecisionTree_a7212b7274a7d6e1becad83a70e8ddbf7}{randomstate}}
+\item 
+\mbox{\hyperlink{classclass__decision__tree_1_1DecisionTree_a22b1bab2bc832e1674b7770d21df7c05}{x\+\_\+train}}
+\item 
+\mbox{\hyperlink{classclass__decision__tree_1_1DecisionTree_a70c8936dbc159601600dd4a59ae689f2}{y\+\_\+train}}
+\item 
+\mbox{\hyperlink{classclass__decision__tree_1_1DecisionTree_a6d7edcbce1b00acfda8ff6b559f7f259}{axs}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb} Fit a base tree \end{DoxyVerb}
+ 
+
+Definition at line 38 of file class\+\_\+decision\+\_\+tree.\+py.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classclass__decision__tree_1_1DecisionTree_a73ce8452cd292d0163ece16025f7d778}\label{classclass__decision__tree_1_1DecisionTree_a73ce8452cd292d0163ece16025f7d778}} 
+\index{class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{custom\+\_\+rc\+Params,  }\item[{}]{df\+\_\+nomiss\+\_\+cat,  }\item[{}]{type\+\_\+,  }\item[{}]{y\+\_\+test,  }\item[{}]{df\+\_\+loan\+\_\+float,  }\item[{}]{target,  }\item[{}]{threshold,  }\item[{}]{randomstate }\end{DoxyParamCaption})}
+
+
+
+Definition at line 42 of file class\+\_\+decision\+\_\+tree.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{43                   df\_loan\_float, target, threshold, randomstate):}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45         super().\_\_init\_\_(custom\_rcParams, df\_nomiss\_cat, type\_)}
+\DoxyCodeLine{46         }
+\DoxyCodeLine{47         \textcolor{comment}{\# self.fig, self.axs = plt.subplots(1,1)  }}
+\DoxyCodeLine{48         self.df\_loan\_float = df\_loan\_float}
+\DoxyCodeLine{49         self.target = target}
+\DoxyCodeLine{50         self.randomstate = randomstate}
+\DoxyCodeLine{51         self.x\_train = super().split\_xtrain\_ytrain(self.df\_loan\_float, self.target)[0]}
+\DoxyCodeLine{52         self.y\_train = super().split\_xtrain\_ytrain(self.df\_loan\_float, self.target)[2]}
+\DoxyCodeLine{53 }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classclass__decision__tree_1_1DecisionTree_a08a4aab3859dd66a5559617e49f34616}\label{classclass__decision__tree_1_1DecisionTree_a08a4aab3859dd66a5559617e49f34616}} 
+\index{class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}!cross\_validate\_alphas@{cross\_validate\_alphas}}
+\index{cross\_validate\_alphas@{cross\_validate\_alphas}!class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}}
+\doxysubsubsection{\texorpdfstring{cross\_validate\_alphas()}{cross\_validate\_alphas()}}
+{\footnotesize\ttfamily def class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+cross\+\_\+validate\+\_\+alphas (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{ccpalpha }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb} Cross validation for best alpha \end{DoxyVerb}
+ 
+
+Definition at line 116 of file class\+\_\+decision\+\_\+tree.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{116     \textcolor{keyword}{def }cross\_validate\_alphas(self, ccpalpha):}
+\DoxyCodeLine{117         }
+\DoxyCodeLine{118         \textcolor{stringliteral}{"{}"{}"{} Cross validation for best alpha "{}"{}"{}}}
+\DoxyCodeLine{119 }
+\DoxyCodeLine{120         self.fig, self.axs = plt.subplots(1,1)  }
+\DoxyCodeLine{121 }
+\DoxyCodeLine{122         alpha\_loop\_values = []        }
+\DoxyCodeLine{123         ccp\_alphas = self.pruning(ccpalpha)}
+\DoxyCodeLine{124 }
+\DoxyCodeLine{125         \textcolor{keywordflow}{for} ccp\_alpha \textcolor{keywordflow}{in} ccp\_alphas:}
+\DoxyCodeLine{126 }
+\DoxyCodeLine{127             clf\_dt = DecisionTreeClassifier(random\_state=self.randomstate, ccp\_alpha=ccp\_alpha)}
+\DoxyCodeLine{128             scores = cross\_val\_score(clf\_dt, self.x\_train, self.y\_train, cv=5)}
+\DoxyCodeLine{129             alpha\_loop\_values.append([ccp\_alpha, np.mean(scores), np.std(scores)])}
+\DoxyCodeLine{130         }
+\DoxyCodeLine{131         alpha\_results = pd.DataFrame(alpha\_loop\_values, columns=[\textcolor{stringliteral}{"{}alpha"{}}, \textcolor{stringliteral}{"{}mean\_accuracy"{}}, \textcolor{stringliteral}{"{}std"{}}])}
+\DoxyCodeLine{132         alpha\_results.plot(ax = self.axs, x = \textcolor{stringliteral}{"{}alpha"{}}, y = \textcolor{stringliteral}{"{}mean\_accuracy"{}}, yerr = \textcolor{stringliteral}{"{}std"{}}, marker = \textcolor{stringliteral}{"{}o"{}} , linestyle = \textcolor{stringliteral}{"{}-\/-\/"{}})}
+\DoxyCodeLine{133         self.axs.spines[\textcolor{stringliteral}{"{}top"{}}].set\_visible(\textcolor{keyword}{False})  }
+\DoxyCodeLine{134         self.axs.spines[\textcolor{stringliteral}{"{}right"{}}].set\_visible(\textcolor{keyword}{False}) }
+\DoxyCodeLine{135         }
+\DoxyCodeLine{136         \textcolor{keywordflow}{return} alpha\_results, self.fig}
+\DoxyCodeLine{137 }
+
+\end{DoxyCode}
+
+
+References class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+axs, class\+\_\+diagnostics.\+Residuals\+Plot.\+axs, class\+\_\+diagnostics.\+Normality\+Test.\+axs, class\+\_\+diagnostics.\+Partial\+Plots.\+axs, class\+\_\+diagnostics.\+Lev\+Stud\+Qua\+Res.\+axs, class\+\_\+diagnostics.\+Cooks\+Dis\+Quant\+Res.\+axs, class\+\_\+modelperf.\+Model\+Perfomance.\+axs, class\+\_\+traintest.\+One\+Hot\+Encoding.\+axs, class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+pruning(), class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+randomstate, class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+x\+\_\+train, and class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+y\+\_\+train.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classclass__decision__tree_1_1DecisionTree_a08a4aab3859dd66a5559617e49f34616_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classclass__decision__tree_1_1DecisionTree_a08a4aab3859dd66a5559617e49f34616_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classclass__decision__tree_1_1DecisionTree_a84ed2d58fe57e0eaaf6767c79db7a72c}\label{classclass__decision__tree_1_1DecisionTree_a84ed2d58fe57e0eaaf6767c79db7a72c}} 
+\index{class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}!dt\_classification\_fit@{dt\_classification\_fit}}
+\index{dt\_classification\_fit@{dt\_classification\_fit}!class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}}
+\doxysubsubsection{\texorpdfstring{dt\_classification\_fit()}{dt\_classification\_fit()}}
+{\footnotesize\ttfamily def class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+dt\+\_\+classification\+\_\+fit (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{ccpalpha }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb} DT Classification fit \end{DoxyVerb}
+ 
+
+Definition at line 54 of file class\+\_\+decision\+\_\+tree.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{54     \textcolor{keyword}{def }dt\_classification\_fit(self, ccpalpha):}
+\DoxyCodeLine{55         }
+\DoxyCodeLine{56         \textcolor{stringliteral}{''' DT Classification fit '''}}
+\DoxyCodeLine{57         }
+\DoxyCodeLine{58         clf\_dt = DecisionTreeClassifier(random\_state=self.randomstate, ccp\_alpha=ccpalpha)}
+\DoxyCodeLine{59         clf\_dt = clf\_dt.fit(self.x\_train, self.y\_train)}
+\DoxyCodeLine{60         }
+\DoxyCodeLine{61         \textcolor{keywordflow}{return} clf\_dt}
+\DoxyCodeLine{62 }
+
+\end{DoxyCode}
+
+
+References class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+randomstate, class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+x\+\_\+train, and class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+y\+\_\+train.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classclass__decision__tree_1_1DecisionTree_a84ed2d58fe57e0eaaf6767c79db7a72c_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classclass__decision__tree_1_1DecisionTree_a55fa907367c104f7b91fc4a7f08aa78a}\label{classclass__decision__tree_1_1DecisionTree_a55fa907367c104f7b91fc4a7f08aa78a}} 
+\index{class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}!dt\_confusion\_matrix\_plot@{dt\_confusion\_matrix\_plot}}
+\index{dt\_confusion\_matrix\_plot@{dt\_confusion\_matrix\_plot}!class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}}
+\doxysubsubsection{\texorpdfstring{dt\_confusion\_matrix\_plot()}{dt\_confusion\_matrix\_plot()}}
+{\footnotesize\ttfamily def class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+dt\+\_\+confusion\+\_\+matrix\+\_\+plot (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x\+\_\+test,  }\item[{}]{y\+\_\+test,  }\item[{}]{ccpalpha }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb} Base tree Confusion matrix \end{DoxyVerb}
+ 
+
+Definition at line 77 of file class\+\_\+decision\+\_\+tree.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{77     \textcolor{keyword}{def }dt\_confusion\_matrix\_plot(self, x\_test, y\_test, ccpalpha):}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79         \textcolor{stringliteral}{"{}"{}"{} Base tree Confusion matrix "{}"{}"{}}}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81         self.fig, self.axs = plt.subplots(1,1)  }
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83         predict\_dt\_series = pd.Series(self.dt\_classification\_fit(ccpalpha).predict(x\_test))       }
+\DoxyCodeLine{84         conf\_matrix = confusion\_matrix(y\_test, predict\_dt\_series)}
+\DoxyCodeLine{85         conf\_matrix\_plot = ConfusionMatrixDisplay(conf\_matrix, display\_labels = [\textcolor{stringliteral}{"{}No Default"{}}, \textcolor{stringliteral}{"{}Yes Default"{}}])}
+\DoxyCodeLine{86         conf\_matrix\_plot.plot(cmap=\textcolor{stringliteral}{"{}Blues"{}}, ax=self.axs, values\_format=\textcolor{stringliteral}{"{}d"{}})       }
+\DoxyCodeLine{87         conf\_matrix\_plot.ax\_.set\_title(\textcolor{stringliteral}{"{}Confusion Matrix"{}}, fontsize=15, pad=18)}
+\DoxyCodeLine{88         conf\_matrix\_plot.ax\_.set\_xlabel(\textcolor{stringliteral}{"{}Predicted Label"{}},fontsize=14)}
+\DoxyCodeLine{89         conf\_matrix\_plot.ax\_.set\_ylabel(\textcolor{stringliteral}{'True Label'}, fontsize = 14)}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{91         \textcolor{keywordflow}{return} self.fig}
+\DoxyCodeLine{92 }
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classclass__decision__tree_1_1DecisionTree_a55fa907367c104f7b91fc4a7f08aa78a_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classclass__decision__tree_1_1DecisionTree_a68daa243effff5d1854b50cac686bff2}\label{classclass__decision__tree_1_1DecisionTree_a68daa243effff5d1854b50cac686bff2}} 
+\index{class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}!dt\_probability\_prediction@{dt\_probability\_prediction}}
+\index{dt\_probability\_prediction@{dt\_probability\_prediction}!class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}}
+\doxysubsubsection{\texorpdfstring{dt\_probability\_prediction()}{dt\_probability\_prediction()}}
+{\footnotesize\ttfamily def class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+dt\+\_\+probability\+\_\+prediction (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{sample,  }\item[{}]{x\+\_\+test1,  }\item[{}]{ccpalpha }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb} Base tree prediction \end{DoxyVerb}
+ 
+
+Definition at line 63 of file class\+\_\+decision\+\_\+tree.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{63     \textcolor{keyword}{def }dt\_probability\_prediction(self, sample, x\_test1, ccpalpha):}
+\DoxyCodeLine{64         }
+\DoxyCodeLine{65         \textcolor{stringliteral}{''' Base tree prediction '''}}
+\DoxyCodeLine{66         }
+\DoxyCodeLine{67         predict\_dt = self.dt\_classification\_fit(ccpalpha).predict\_proba(x\_test1).round(10)}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69         \textcolor{keywordflow}{if} predict\_dt[sample][1] >= 0.47:}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71             \textcolor{keywordflow}{return} predict\_dt[sample][1]}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73         \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75             \textcolor{keywordflow}{return} predict\_dt[sample][1]}
+\DoxyCodeLine{76 }
+
+\end{DoxyCode}
+
+
+References class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+dt\+\_\+classification\+\_\+fit().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classclass__decision__tree_1_1DecisionTree_a68daa243effff5d1854b50cac686bff2_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classclass__decision__tree_1_1DecisionTree_a68daa243effff5d1854b50cac686bff2_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classclass__decision__tree_1_1DecisionTree_ab6251a9a08edff9087101ec99ddc5784}\label{classclass__decision__tree_1_1DecisionTree_ab6251a9a08edff9087101ec99ddc5784}} 
+\index{class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}!dt\_pruned\_alpha@{dt\_pruned\_alpha}}
+\index{dt\_pruned\_alpha@{dt\_pruned\_alpha}!class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}}
+\doxysubsubsection{\texorpdfstring{dt\_pruned\_alpha()}{dt\_pruned\_alpha()}}
+{\footnotesize\ttfamily def class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+dt\+\_\+pruned\+\_\+alpha (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{ccpalpha,  }\item[{}]{threshold\+\_\+1,  }\item[{}]{threshold\+\_\+2 }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb} Ideal alpha value for pruning the tree \end{DoxyVerb}
+ 
+
+Definition at line 148 of file class\+\_\+decision\+\_\+tree.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{148     \textcolor{keyword}{def }dt\_pruned\_alpha(self, ccpalpha, threshold\_1, threshold\_2):}
+\DoxyCodeLine{149 }
+\DoxyCodeLine{150         \textcolor{stringliteral}{"{}"{}"{} Ideal alpha value for pruning the tree "{}"{}"{}}}
+\DoxyCodeLine{151 }
+\DoxyCodeLine{152         ideal\_ccp\_alpha = self.ideal\_alpha(ccpalpha, threshold\_1, threshold\_2)}
+\DoxyCodeLine{153 }
+\DoxyCodeLine{154         \textcolor{keywordflow}{return} ideal\_ccp\_alpha}
+\DoxyCodeLine{155 }
+
+\end{DoxyCode}
+
+
+References class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+ideal\+\_\+alpha().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classclass__decision__tree_1_1DecisionTree_ab6251a9a08edff9087101ec99ddc5784_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classclass__decision__tree_1_1DecisionTree_ab6251a9a08edff9087101ec99ddc5784_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classclass__decision__tree_1_1DecisionTree_ad36a03cb1d93b1e2450448a4be3077d6}\label{classclass__decision__tree_1_1DecisionTree_ad36a03cb1d93b1e2450448a4be3077d6}} 
+\index{class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}!dt\_pruned\_confmatrix@{dt\_pruned\_confmatrix}}
+\index{dt\_pruned\_confmatrix@{dt\_pruned\_confmatrix}!class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}}
+\doxysubsubsection{\texorpdfstring{dt\_pruned\_confmatrix()}{dt\_pruned\_confmatrix()}}
+{\footnotesize\ttfamily def class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+dt\+\_\+pruned\+\_\+confmatrix (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{ccpalpha,  }\item[{}]{threshold\+\_\+1,  }\item[{}]{threshold\+\_\+2,  }\item[{}]{x\+\_\+test,  }\item[{}]{y\+\_\+test }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb} Confusion matrix plot \end{DoxyVerb}
+ 
+
+Definition at line 174 of file class\+\_\+decision\+\_\+tree.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{174     \textcolor{keyword}{def }dt\_pruned\_confmatrix(self, ccpalpha, threshold\_1, threshold\_2, x\_test, y\_test):}
+\DoxyCodeLine{175 }
+\DoxyCodeLine{176         \textcolor{stringliteral}{"{}"{}"{} Confusion matrix plot "{}"{}"{}}}
+\DoxyCodeLine{177 }
+\DoxyCodeLine{178         ideal\_ccp\_alpha = self.dt\_pruned\_alpha(ccpalpha, threshold\_1, threshold\_2)}
+\DoxyCodeLine{179         pruned\_confusion\_matrix = self.dt\_confusion\_matrix\_plot(x\_test, y\_test, ideal\_ccp\_alpha)}
+\DoxyCodeLine{180 }
+\DoxyCodeLine{181         \textcolor{keywordflow}{return} pruned\_confusion\_matrix}
+\DoxyCodeLine{182 }
+
+\end{DoxyCode}
+
+
+References class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+dt\+\_\+confusion\+\_\+matrix\+\_\+plot(), and class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+dt\+\_\+pruned\+\_\+alpha().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classclass__decision__tree_1_1DecisionTree_ad36a03cb1d93b1e2450448a4be3077d6_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classclass__decision__tree_1_1DecisionTree_a4dd8f525b22eaba5acafd4289d86492f}\label{classclass__decision__tree_1_1DecisionTree_a4dd8f525b22eaba5acafd4289d86492f}} 
+\index{class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}!dt\_pruned\_fit@{dt\_pruned\_fit}}
+\index{dt\_pruned\_fit@{dt\_pruned\_fit}!class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}}
+\doxysubsubsection{\texorpdfstring{dt\_pruned\_fit()}{dt\_pruned\_fit()}}
+{\footnotesize\ttfamily def class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+dt\+\_\+pruned\+\_\+fit (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{ccpalpha,  }\item[{}]{threshold\+\_\+1,  }\item[{}]{threshold\+\_\+2 }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb} Pruned tree fitting \end{DoxyVerb}
+ 
+
+Definition at line 156 of file class\+\_\+decision\+\_\+tree.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{156     \textcolor{keyword}{def }dt\_pruned\_fit(self, ccpalpha, threshold\_1, threshold\_2):}
+\DoxyCodeLine{157 }
+\DoxyCodeLine{158         \textcolor{stringliteral}{"{}"{}"{} Pruned tree fitting "{}"{}"{}}}
+\DoxyCodeLine{159 }
+\DoxyCodeLine{160         ideal\_ccp\_alpha = self.dt\_pruned\_alpha(ccpalpha, threshold\_1, threshold\_2)}
+\DoxyCodeLine{161         pruned\_clf\_dt = self.ideal\_alpha(ideal\_ccp\_alpha)}
+\DoxyCodeLine{162 }
+\DoxyCodeLine{163         \textcolor{keywordflow}{return} pruned\_clf\_dt}
+\DoxyCodeLine{164 }
+
+\end{DoxyCode}
+
+
+References class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+dt\+\_\+pruned\+\_\+alpha(), and class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+ideal\+\_\+alpha().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classclass__decision__tree_1_1DecisionTree_a4dd8f525b22eaba5acafd4289d86492f_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classclass__decision__tree_1_1DecisionTree_aba1c86d0e3cd259435ce249122585e19}\label{classclass__decision__tree_1_1DecisionTree_aba1c86d0e3cd259435ce249122585e19}} 
+\index{class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}!dt\_pruned\_prediction@{dt\_pruned\_prediction}}
+\index{dt\_pruned\_prediction@{dt\_pruned\_prediction}!class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}}
+\doxysubsubsection{\texorpdfstring{dt\_pruned\_prediction()}{dt\_pruned\_prediction()}}
+{\footnotesize\ttfamily def class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+dt\+\_\+pruned\+\_\+prediction (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{ccpalpha,  }\item[{}]{threshold\+\_\+1,  }\item[{}]{threshold\+\_\+2,  }\item[{}]{sample,  }\item[{}]{x\+\_\+test1 }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb} Prediction and perfomance analytics \end{DoxyVerb}
+ 
+
+Definition at line 165 of file class\+\_\+decision\+\_\+tree.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{165     \textcolor{keyword}{def }dt\_pruned\_prediction(self, ccpalpha, threshold\_1, threshold\_2, sample, x\_test1):}
+\DoxyCodeLine{166 }
+\DoxyCodeLine{167         \textcolor{stringliteral}{"{}"{}"{} Prediction and perfomance analytics "{}"{}"{}}}
+\DoxyCodeLine{168 }
+\DoxyCodeLine{169         ideal\_ccp\_alpha = self.dt\_pruned\_alpha(ccpalpha, threshold\_1, threshold\_2)}
+\DoxyCodeLine{170         pruned\_predict\_dt = self.dt\_probability\_prediction(sample, x\_test1, ideal\_ccp\_alpha)}
+\DoxyCodeLine{171 }
+\DoxyCodeLine{172         \textcolor{keywordflow}{return} pruned\_predict\_dt}
+\DoxyCodeLine{173 }
+
+\end{DoxyCode}
+
+
+References class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+dt\+\_\+probability\+\_\+prediction(), and class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+dt\+\_\+pruned\+\_\+alpha().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classclass__decision__tree_1_1DecisionTree_aba1c86d0e3cd259435ce249122585e19_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classclass__decision__tree_1_1DecisionTree_a3bc39dc44329e9687870f065dbc33a6d}\label{classclass__decision__tree_1_1DecisionTree_a3bc39dc44329e9687870f065dbc33a6d}} 
+\index{class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}!dt\_pruned\_tree@{dt\_pruned\_tree}}
+\index{dt\_pruned\_tree@{dt\_pruned\_tree}!class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}}
+\doxysubsubsection{\texorpdfstring{dt\_pruned\_tree()}{dt\_pruned\_tree()}}
+{\footnotesize\ttfamily def class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+dt\+\_\+pruned\+\_\+tree (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{ccpalpha,  }\item[{}]{threshold\+\_\+1,  }\item[{}]{threshold\+\_\+2 }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb} Plot final tree \end{DoxyVerb}
+ 
+
+Definition at line 183 of file class\+\_\+decision\+\_\+tree.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{183     \textcolor{keyword}{def }dt\_pruned\_tree(self, ccpalpha, threshold\_1, threshold\_2):}
+\DoxyCodeLine{184 }
+\DoxyCodeLine{185         \textcolor{stringliteral}{"{}"{}"{} Plot final tree "{}"{}"{}}}
+\DoxyCodeLine{186 }
+\DoxyCodeLine{187         ideal\_ccp\_alpha = self.dt\_pruned\_alpha(ccpalpha, threshold\_1, threshold\_2)}
+\DoxyCodeLine{188         pruned\_plot\_tree = self.plot\_dt(ideal\_ccp\_alpha)}
+\DoxyCodeLine{189 }
+\DoxyCodeLine{190         \textcolor{keywordflow}{return} pruned\_plot\_tree  }
+
+\end{DoxyCode}
+
+
+References class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+dt\+\_\+pruned\+\_\+alpha(), and class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+plot\+\_\+dt().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classclass__decision__tree_1_1DecisionTree_a3bc39dc44329e9687870f065dbc33a6d_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classclass__decision__tree_1_1DecisionTree_adae7cf662e4698140df6591392e8d9e9}\label{classclass__decision__tree_1_1DecisionTree_adae7cf662e4698140df6591392e8d9e9}} 
+\index{class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}!ideal\_alpha@{ideal\_alpha}}
+\index{ideal\_alpha@{ideal\_alpha}!class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}}
+\doxysubsubsection{\texorpdfstring{ideal\_alpha()}{ideal\_alpha()}}
+{\footnotesize\ttfamily def class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+ideal\+\_\+alpha (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{ccpalpha,  }\item[{}]{threshold\+\_\+1,  }\item[{}]{threshold\+\_\+2 }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb} Extraction of ideal alpha \end{DoxyVerb}
+ 
+
+Definition at line 138 of file class\+\_\+decision\+\_\+tree.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{138     \textcolor{keyword}{def }ideal\_alpha(self, ccpalpha, threshold\_1, threshold\_2):}
+\DoxyCodeLine{139         }
+\DoxyCodeLine{140         \textcolor{stringliteral}{"{}"{}"{} Extraction of ideal alpha "{}"{}"{}}}
+\DoxyCodeLine{141 }
+\DoxyCodeLine{142         alpha\_results = self.cross\_validate\_alphas(ccpalpha)[0]       }
+\DoxyCodeLine{143         ideal\_ccp\_alpha = alpha\_results[(alpha\_results[\textcolor{stringliteral}{"{}alpha"{}}] > threshold\_1) \& (alpha\_results[\textcolor{stringliteral}{"{}alpha"{}}] < threshold\_2)][\textcolor{stringliteral}{"{}alpha"{}}]}
+\DoxyCodeLine{144         ideal\_ccp\_alpha = ideal\_ccp\_alpha.values.tolist()}
+\DoxyCodeLine{145         }
+\DoxyCodeLine{146         \textcolor{keywordflow}{return} ideal\_ccp\_alpha[0]}
+\DoxyCodeLine{147 }
+
+\end{DoxyCode}
+
+
+References class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+cross\+\_\+validate\+\_\+alphas().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classclass__decision__tree_1_1DecisionTree_adae7cf662e4698140df6591392e8d9e9_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classclass__decision__tree_1_1DecisionTree_adae7cf662e4698140df6591392e8d9e9_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classclass__decision__tree_1_1DecisionTree_a3b3e26dafb4ca494eef9a8bd9d60a618}\label{classclass__decision__tree_1_1DecisionTree_a3b3e26dafb4ca494eef9a8bd9d60a618}} 
+\index{class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}!plot\_dt@{plot\_dt}}
+\index{plot\_dt@{plot\_dt}!class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}}
+\doxysubsubsection{\texorpdfstring{plot\_dt()}{plot\_dt()}}
+{\footnotesize\ttfamily def class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+plot\+\_\+dt (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{ccpalpha }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb} Base tree plot \end{DoxyVerb}
+ 
+
+Definition at line 93 of file class\+\_\+decision\+\_\+tree.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{93     \textcolor{keyword}{def }plot\_dt(self, ccpalpha):}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{95         \textcolor{stringliteral}{"{}"{}"{} Base tree plot "{}"{}"{}}}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{97         self.fig, self.axs = plt.subplots(1,1)  }
+\DoxyCodeLine{98 }
+\DoxyCodeLine{99         clf\_dt = self.dt\_classification\_fit(ccpalpha)}
+\DoxyCodeLine{100         plot\_tree(clf\_dt, filled = \textcolor{keyword}{True}, rounded = \textcolor{keyword}{True}, }
+\DoxyCodeLine{101                    feature\_names = self.x\_train.columns.tolist(), ax = self.axs)   }
+\DoxyCodeLine{102 }
+\DoxyCodeLine{103         \textcolor{keywordflow}{return} self.fig}
+\DoxyCodeLine{104 }
+
+\end{DoxyCode}
+
+
+References class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+axs, class\+\_\+diagnostics.\+Residuals\+Plot.\+axs, class\+\_\+diagnostics.\+Normality\+Test.\+axs, class\+\_\+diagnostics.\+Partial\+Plots.\+axs, class\+\_\+diagnostics.\+Lev\+Stud\+Qua\+Res.\+axs, class\+\_\+diagnostics.\+Cooks\+Dis\+Quant\+Res.\+axs, class\+\_\+modelperf.\+Model\+Perfomance.\+axs, class\+\_\+traintest.\+One\+Hot\+Encoding.\+axs, class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+dt\+\_\+classification\+\_\+fit(), and class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+x\+\_\+train.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classclass__decision__tree_1_1DecisionTree_a3b3e26dafb4ca494eef9a8bd9d60a618_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classclass__decision__tree_1_1DecisionTree_a3b3e26dafb4ca494eef9a8bd9d60a618_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classclass__decision__tree_1_1DecisionTree_a56a46ca6aff8e4de61f3c3f542024359}\label{classclass__decision__tree_1_1DecisionTree_a56a46ca6aff8e4de61f3c3f542024359}} 
+\index{class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}!pruning@{pruning}}
+\index{pruning@{pruning}!class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}}
+\doxysubsubsection{\texorpdfstring{pruning()}{pruning()}}
+{\footnotesize\ttfamily def class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+pruning (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{ccpalpha }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb} Extracting alphas for pruning \end{DoxyVerb}
+ 
+
+Definition at line 105 of file class\+\_\+decision\+\_\+tree.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{105     \textcolor{keyword}{def }pruning(self, ccpalpha):}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{107         \textcolor{stringliteral}{"{}"{}"{} Extracting alphas for pruning "{}"{}"{}}}
+\DoxyCodeLine{108         }
+\DoxyCodeLine{109         clf\_dt = self.dt\_classification\_fit(ccpalpha)}
+\DoxyCodeLine{110         path = clf\_dt.cost\_complexity\_pruning\_path(self.x\_train, self.y\_train) }
+\DoxyCodeLine{111         ccp\_alphas = path.ccp\_alphas }
+\DoxyCodeLine{112         ccp\_alphas = ccp\_alphas[:-\/1] }
+\DoxyCodeLine{113         }
+\DoxyCodeLine{114         \textcolor{keywordflow}{return} ccp\_alphas}
+\DoxyCodeLine{115 }
+
+\end{DoxyCode}
+
+
+References class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+dt\+\_\+classification\+\_\+fit(), class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+x\+\_\+train, and class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+y\+\_\+train.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classclass__decision__tree_1_1DecisionTree_a56a46ca6aff8e4de61f3c3f542024359_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classclass__decision__tree_1_1DecisionTree_a56a46ca6aff8e4de61f3c3f542024359_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classclass__decision__tree_1_1DecisionTree_a6d7edcbce1b00acfda8ff6b559f7f259}\label{classclass__decision__tree_1_1DecisionTree_a6d7edcbce1b00acfda8ff6b559f7f259}} 
+\index{class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}!axs@{axs}}
+\index{axs@{axs}!class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}}
+\doxysubsubsection{\texorpdfstring{axs}{axs}}
+{\footnotesize\ttfamily class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+axs}
+
+
+
+Definition at line 81 of file class\+\_\+decision\+\_\+tree.\+py.
+
+\mbox{\Hypertarget{classclass__decision__tree_1_1DecisionTree_a9e8a3ec1786db02fe8db7f04df3a45f2}\label{classclass__decision__tree_1_1DecisionTree_a9e8a3ec1786db02fe8db7f04df3a45f2}} 
+\index{class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}!df\_loan\_float@{df\_loan\_float}}
+\index{df\_loan\_float@{df\_loan\_float}!class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}}
+\doxysubsubsection{\texorpdfstring{df\_loan\_float}{df\_loan\_float}}
+{\footnotesize\ttfamily class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+df\+\_\+loan\+\_\+float}
+
+
+
+Definition at line 48 of file class\+\_\+decision\+\_\+tree.\+py.
+
+\mbox{\Hypertarget{classclass__decision__tree_1_1DecisionTree_a7212b7274a7d6e1becad83a70e8ddbf7}\label{classclass__decision__tree_1_1DecisionTree_a7212b7274a7d6e1becad83a70e8ddbf7}} 
+\index{class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}!randomstate@{randomstate}}
+\index{randomstate@{randomstate}!class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}}
+\doxysubsubsection{\texorpdfstring{randomstate}{randomstate}}
+{\footnotesize\ttfamily class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+randomstate}
+
+
+
+Definition at line 50 of file class\+\_\+decision\+\_\+tree.\+py.
+
+\mbox{\Hypertarget{classclass__decision__tree_1_1DecisionTree_a2b8838f1af7241f23d50c3c845342cf9}\label{classclass__decision__tree_1_1DecisionTree_a2b8838f1af7241f23d50c3c845342cf9}} 
+\index{class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}!target@{target}}
+\index{target@{target}!class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}}
+\doxysubsubsection{\texorpdfstring{target}{target}}
+{\footnotesize\ttfamily class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+target}
+
+
+
+Definition at line 49 of file class\+\_\+decision\+\_\+tree.\+py.
+
+\mbox{\Hypertarget{classclass__decision__tree_1_1DecisionTree_a22b1bab2bc832e1674b7770d21df7c05}\label{classclass__decision__tree_1_1DecisionTree_a22b1bab2bc832e1674b7770d21df7c05}} 
+\index{class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}!x\_train@{x\_train}}
+\index{x\_train@{x\_train}!class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}}
+\doxysubsubsection{\texorpdfstring{x\_train}{x\_train}}
+{\footnotesize\ttfamily class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+x\+\_\+train}
+
+
+
+Definition at line 51 of file class\+\_\+decision\+\_\+tree.\+py.
+
+\mbox{\Hypertarget{classclass__decision__tree_1_1DecisionTree_a70c8936dbc159601600dd4a59ae689f2}\label{classclass__decision__tree_1_1DecisionTree_a70c8936dbc159601600dd4a59ae689f2}} 
+\index{class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}!y\_train@{y\_train}}
+\index{y\_train@{y\_train}!class\_decision\_tree.DecisionTree@{class\_decision\_tree.DecisionTree}}
+\doxysubsubsection{\texorpdfstring{y\_train}{y\_train}}
+{\footnotesize\ttfamily class\+\_\+decision\+\_\+tree.\+Decision\+Tree.\+y\+\_\+train}
+
+
+
+Definition at line 52 of file class\+\_\+decision\+\_\+tree.\+py.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class__decision__tree_8py}{class\+\_\+decision\+\_\+tree.\+py}}\end{DoxyCompactItemize}

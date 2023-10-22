@@ -1,0 +1,311 @@
+\hypertarget{classclass__traintest_1_1OneHotEncoding}{}\doxysection{class\+\_\+traintest.\+One\+Hot\+Encoding Class Reference}
+\label{classclass__traintest_1_1OneHotEncoding}\index{class\_traintest.OneHotEncoding@{class\_traintest.OneHotEncoding}}
+
+
+Inheritance diagram for class\+\_\+traintest.\+One\+Hot\+Encoding\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classclass__traintest_1_1OneHotEncoding__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for class\+\_\+traintest.\+One\+Hot\+Encoding\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{classclass__traintest_1_1OneHotEncoding__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classclass__traintest_1_1OneHotEncoding_a4c3052abfddecb69092dee2aa20bd6a8}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classclass__base_1_1Base_af6d71598100b77d43f85435a88b1a026}{custom\+\_\+rc\+Params}}, \mbox{\hyperlink{classclass__traintest_1_1OneHotEncoding_a75dd1e199e3f7ef7bf4fae2eb9df5301}{df\+\_\+nomiss\+\_\+cat}}, type\+\_\+)
+\item 
+def \mbox{\hyperlink{classclass__traintest_1_1OneHotEncoding_a7c94fe3fd63dce55b487fc6fe4c4d17a}{onehot\+\_\+encoding}} (self)
+\item 
+def \mbox{\hyperlink{classclass__traintest_1_1OneHotEncoding_a1fb9404006e587e5d71665aa5b909cba}{create\+\_\+xy\+\_\+frames}} (self, df\+\_\+float, target)
+\item 
+def \mbox{\hyperlink{classclass__traintest_1_1OneHotEncoding_a0c839bf4c9d284fb105f0dc32cd19e30}{sample\+\_\+imbalance}} (self, df\+\_\+float, target)
+\item 
+def \mbox{\hyperlink{classclass__traintest_1_1OneHotEncoding_af8b339017f4de875672a961d465f0861}{split\+\_\+xtrain\+\_\+ytrain}} (self, df\+\_\+float, target)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classclass__traintest_1_1OneHotEncoding_a75dd1e199e3f7ef7bf4fae2eb9df5301}{df\+\_\+nomiss\+\_\+cat}}
+\item 
+\mbox{\hyperlink{classclass__traintest_1_1OneHotEncoding_a09775ec5cec49ec8ebd22a7de3bd03e4}{type}}
+\item 
+\mbox{\hyperlink{classclass__traintest_1_1OneHotEncoding_a259b318eddc9d82b151ca395092362bc}{df\+\_\+nomiss\+\_\+cat\+\_\+}}
+\item 
+\mbox{\hyperlink{classclass__traintest_1_1OneHotEncoding_a0a4959d879aa0eee954f0d85589a168c}{axs}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 32 of file class\+\_\+traintest.\+py.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classclass__traintest_1_1OneHotEncoding_a4c3052abfddecb69092dee2aa20bd6a8}\label{classclass__traintest_1_1OneHotEncoding_a4c3052abfddecb69092dee2aa20bd6a8}} 
+\index{class\_traintest.OneHotEncoding@{class\_traintest.OneHotEncoding}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!class\_traintest.OneHotEncoding@{class\_traintest.OneHotEncoding}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def class\+\_\+traintest.\+One\+Hot\+Encoding.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{custom\+\_\+rc\+Params,  }\item[{}]{df\+\_\+nomiss\+\_\+cat,  }\item[{}]{type\+\_\+ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 34 of file class\+\_\+traintest.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{34     \textcolor{keyword}{def }\_\_init\_\_(self, custom\_rcParams, df\_nomiss\_cat, type\_):}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36         super().\_\_init\_\_(custom\_rcParams)}
+\DoxyCodeLine{37         self.df\_nomiss\_cat = df\_nomiss\_cat}
+\DoxyCodeLine{38         self.type = type\_}
+\DoxyCodeLine{39 }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classclass__traintest_1_1OneHotEncoding_a1fb9404006e587e5d71665aa5b909cba}\label{classclass__traintest_1_1OneHotEncoding_a1fb9404006e587e5d71665aa5b909cba}} 
+\index{class\_traintest.OneHotEncoding@{class\_traintest.OneHotEncoding}!create\_xy\_frames@{create\_xy\_frames}}
+\index{create\_xy\_frames@{create\_xy\_frames}!class\_traintest.OneHotEncoding@{class\_traintest.OneHotEncoding}}
+\doxysubsubsection{\texorpdfstring{create\_xy\_frames()}{create\_xy\_frames()}}
+{\footnotesize\ttfamily def class\+\_\+traintest.\+One\+Hot\+Encoding.\+create\+\_\+xy\+\_\+frames (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{df\+\_\+float,  }\item[{}]{target }\end{DoxyParamCaption})}
+
+
+
+Definition at line 72 of file class\+\_\+traintest.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{72     \textcolor{keyword}{def }create\_xy\_frames(self, df\_float, target):}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74         \textcolor{keywordflow}{if} self.type == \textcolor{stringliteral}{"{}machine"{}}:}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76             df\_cat = self.onehot\_encoding()}
+\DoxyCodeLine{77             df\_total\_partition = pd.concat([df\_float, df\_cat], axis = 1)}
+\DoxyCodeLine{78             x = df\_total\_partition.drop(labels=[target.name], axis=1)}
+\DoxyCodeLine{79             y = df\_total\_partition[target.name]}
+\DoxyCodeLine{80             }
+\DoxyCodeLine{81             \textcolor{keywordflow}{return} x, y}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83         \textcolor{keywordflow}{elif} self.type == \textcolor{stringliteral}{"{}statistics"{}}:}
+\DoxyCodeLine{84 }
+\DoxyCodeLine{85             df\_cat = self.onehot\_encoding()}
+\DoxyCodeLine{86             df\_total\_partition = pd.concat([df\_float, df\_cat], axis = 1)}
+\DoxyCodeLine{87             x = df\_total\_partition.drop(labels=[target.name], axis=1)}
+\DoxyCodeLine{88             y = df\_total\_partition[target.name]}
+\DoxyCodeLine{89             }
+\DoxyCodeLine{90             \textcolor{keywordflow}{return} x, y}
+\DoxyCodeLine{91 }
+
+\end{DoxyCode}
+
+
+References class\+\_\+traintest.\+One\+Hot\+Encoding.\+onehot\+\_\+encoding(), and class\+\_\+traintest.\+One\+Hot\+Encoding.\+type.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classclass__traintest_1_1OneHotEncoding_a1fb9404006e587e5d71665aa5b909cba_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classclass__traintest_1_1OneHotEncoding_a1fb9404006e587e5d71665aa5b909cba_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classclass__traintest_1_1OneHotEncoding_a7c94fe3fd63dce55b487fc6fe4c4d17a}\label{classclass__traintest_1_1OneHotEncoding_a7c94fe3fd63dce55b487fc6fe4c4d17a}} 
+\index{class\_traintest.OneHotEncoding@{class\_traintest.OneHotEncoding}!onehot\_encoding@{onehot\_encoding}}
+\index{onehot\_encoding@{onehot\_encoding}!class\_traintest.OneHotEncoding@{class\_traintest.OneHotEncoding}}
+\doxysubsubsection{\texorpdfstring{onehot\_encoding()}{onehot\_encoding()}}
+{\footnotesize\ttfamily def class\+\_\+traintest.\+One\+Hot\+Encoding.\+onehot\+\_\+encoding (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}One Hot Encoding Function\end{DoxyVerb}
+ 
+
+Definition at line 40 of file class\+\_\+traintest.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{40     \textcolor{keyword}{def }onehot\_encoding(self):}
+\DoxyCodeLine{41     }
+\DoxyCodeLine{42         \textcolor{stringliteral}{'''One Hot Encoding Function'''}}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44         \textcolor{keywordflow}{if} self.type == \textcolor{stringliteral}{"{}machine"{}}:}
+\DoxyCodeLine{45     }
+\DoxyCodeLine{46             encoded\_dataframes = []}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48             \textcolor{keywordflow}{for} col \textcolor{keywordflow}{in} self.df\_nomiss\_cat.columns:}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50                 y = pd.get\_dummies(self.df\_nomiss\_cat[col]).astype(int)}
+\DoxyCodeLine{51                 encoded\_dataframes.append(y)}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53             df\_cat\_onehotenc = pd.concat(encoded\_dataframes, axis = 1)}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55             \textcolor{keywordflow}{return} df\_cat\_onehotenc}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57         \textcolor{keywordflow}{elif} self.type == \textcolor{stringliteral}{"{}statistics"{}}:}
+\DoxyCodeLine{58         }
+\DoxyCodeLine{59             encoded\_dataframes = []}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61             \textcolor{keywordflow}{for} col \textcolor{keywordflow}{in} self.df\_nomiss\_cat.columns:}
+\DoxyCodeLine{62                 }
+\DoxyCodeLine{63                 y = pd.get\_dummies(self.df\_nomiss\_cat[col]).astype(int)}
+\DoxyCodeLine{64                 n = len(pd.unique(self.df\_nomiss\_cat[col])) }
+\DoxyCodeLine{65                 self.df\_nomiss\_cat\_ = y.drop(y.columns[n-\/1], axis=1) }
+\DoxyCodeLine{66                 encoded\_dataframes.append(self.df\_nomiss\_cat\_)}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68             df\_cat\_onehotenc = pd.concat(encoded\_dataframes, axis = 1)}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70             \textcolor{keywordflow}{return} df\_cat\_onehotenc}
+\DoxyCodeLine{71 }
+
+\end{DoxyCode}
+
+
+References class\+\_\+traintest.\+One\+Hot\+Encoding.\+df\+\_\+nomiss\+\_\+cat, and class\+\_\+traintest.\+One\+Hot\+Encoding.\+type.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classclass__traintest_1_1OneHotEncoding_a7c94fe3fd63dce55b487fc6fe4c4d17a_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classclass__traintest_1_1OneHotEncoding_a0c839bf4c9d284fb105f0dc32cd19e30}\label{classclass__traintest_1_1OneHotEncoding_a0c839bf4c9d284fb105f0dc32cd19e30}} 
+\index{class\_traintest.OneHotEncoding@{class\_traintest.OneHotEncoding}!sample\_imbalance@{sample\_imbalance}}
+\index{sample\_imbalance@{sample\_imbalance}!class\_traintest.OneHotEncoding@{class\_traintest.OneHotEncoding}}
+\doxysubsubsection{\texorpdfstring{sample\_imbalance()}{sample\_imbalance()}}
+{\footnotesize\ttfamily def class\+\_\+traintest.\+One\+Hot\+Encoding.\+sample\+\_\+imbalance (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{df\+\_\+float,  }\item[{}]{target }\end{DoxyParamCaption})}
+
+
+
+Definition at line 92 of file class\+\_\+traintest.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{92     \textcolor{keyword}{def }sample\_imbalance(self, df\_float, target):}
+\DoxyCodeLine{93     }
+\DoxyCodeLine{94         x, y = self.create\_xy\_frames(df\_float, target)}
+\DoxyCodeLine{95         self.fig, self.axs = plt.subplots(1,1)        }
+\DoxyCodeLine{96         self.axs.hist(y, weights = np.ones(len(y))/len(y))}
+\DoxyCodeLine{97         super().plotting(\textcolor{stringliteral}{"{}Normality Test"{}}, \textcolor{stringliteral}{"{}x"{}}, \textcolor{stringliteral}{"{}y"{}})}
+\DoxyCodeLine{98         self.axs.hist(y, weights = np.ones(len(y))/len(y))}
+\DoxyCodeLine{99         self.axs.yaxis.set\_major\_formatter(PercentFormatter(1))}
+\DoxyCodeLine{100         }
+\DoxyCodeLine{101         \textcolor{keywordflow}{return} self.fig}
+\DoxyCodeLine{102 }
+
+\end{DoxyCode}
+
+
+References class\+\_\+traintest.\+One\+Hot\+Encoding.\+create\+\_\+xy\+\_\+frames().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classclass__traintest_1_1OneHotEncoding_a0c839bf4c9d284fb105f0dc32cd19e30_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classclass__traintest_1_1OneHotEncoding_af8b339017f4de875672a961d465f0861}\label{classclass__traintest_1_1OneHotEncoding_af8b339017f4de875672a961d465f0861}} 
+\index{class\_traintest.OneHotEncoding@{class\_traintest.OneHotEncoding}!split\_xtrain\_ytrain@{split\_xtrain\_ytrain}}
+\index{split\_xtrain\_ytrain@{split\_xtrain\_ytrain}!class\_traintest.OneHotEncoding@{class\_traintest.OneHotEncoding}}
+\doxysubsubsection{\texorpdfstring{split\_xtrain\_ytrain()}{split\_xtrain\_ytrain()}}
+{\footnotesize\ttfamily def class\+\_\+traintest.\+One\+Hot\+Encoding.\+split\+\_\+xtrain\+\_\+ytrain (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{df\+\_\+float,  }\item[{}]{target }\end{DoxyParamCaption})}
+
+
+
+Definition at line 103 of file class\+\_\+traintest.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{103     \textcolor{keyword}{def }split\_xtrain\_ytrain(self, df\_float, target):}
+\DoxyCodeLine{104     }
+\DoxyCodeLine{105         x, y = self.create\_xy\_frames(df\_float, target)}
+\DoxyCodeLine{106         x\_train\_pd, x\_test\_pd, y\_train\_pd, y\_test\_pd = train\_test\_split(x, y, test\_size=0.3, random\_state=42)}
+\DoxyCodeLine{107         x\_train\_pd = x\_train\_pd.drop(labels=[\textcolor{stringliteral}{"{}\_freq\_"{}}], axis=1) \textcolor{comment}{\# temp, for mach it has to be dropped}}
+\DoxyCodeLine{108         x\_test\_pd = x\_test\_pd.drop(labels=[\textcolor{stringliteral}{"{}\_freq\_"{}}], axis=1) \textcolor{comment}{\# temp}}
+\DoxyCodeLine{109    }
+\DoxyCodeLine{110         \textcolor{keywordflow}{return} x\_train\_pd, x\_test\_pd, y\_train\_pd, y\_test\_pd}
+
+\end{DoxyCode}
+
+
+References class\+\_\+traintest.\+One\+Hot\+Encoding.\+create\+\_\+xy\+\_\+frames().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classclass__traintest_1_1OneHotEncoding_af8b339017f4de875672a961d465f0861_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classclass__traintest_1_1OneHotEncoding_a0a4959d879aa0eee954f0d85589a168c}\label{classclass__traintest_1_1OneHotEncoding_a0a4959d879aa0eee954f0d85589a168c}} 
+\index{class\_traintest.OneHotEncoding@{class\_traintest.OneHotEncoding}!axs@{axs}}
+\index{axs@{axs}!class\_traintest.OneHotEncoding@{class\_traintest.OneHotEncoding}}
+\doxysubsubsection{\texorpdfstring{axs}{axs}}
+{\footnotesize\ttfamily class\+\_\+traintest.\+One\+Hot\+Encoding.\+axs}
+
+
+
+Definition at line 95 of file class\+\_\+traintest.\+py.
+
+\mbox{\Hypertarget{classclass__traintest_1_1OneHotEncoding_a75dd1e199e3f7ef7bf4fae2eb9df5301}\label{classclass__traintest_1_1OneHotEncoding_a75dd1e199e3f7ef7bf4fae2eb9df5301}} 
+\index{class\_traintest.OneHotEncoding@{class\_traintest.OneHotEncoding}!df\_nomiss\_cat@{df\_nomiss\_cat}}
+\index{df\_nomiss\_cat@{df\_nomiss\_cat}!class\_traintest.OneHotEncoding@{class\_traintest.OneHotEncoding}}
+\doxysubsubsection{\texorpdfstring{df\_nomiss\_cat}{df\_nomiss\_cat}}
+{\footnotesize\ttfamily class\+\_\+traintest.\+One\+Hot\+Encoding.\+df\+\_\+nomiss\+\_\+cat}
+
+
+
+Definition at line 37 of file class\+\_\+traintest.\+py.
+
+\mbox{\Hypertarget{classclass__traintest_1_1OneHotEncoding_a259b318eddc9d82b151ca395092362bc}\label{classclass__traintest_1_1OneHotEncoding_a259b318eddc9d82b151ca395092362bc}} 
+\index{class\_traintest.OneHotEncoding@{class\_traintest.OneHotEncoding}!df\_nomiss\_cat\_@{df\_nomiss\_cat\_}}
+\index{df\_nomiss\_cat\_@{df\_nomiss\_cat\_}!class\_traintest.OneHotEncoding@{class\_traintest.OneHotEncoding}}
+\doxysubsubsection{\texorpdfstring{df\_nomiss\_cat\_}{df\_nomiss\_cat\_}}
+{\footnotesize\ttfamily class\+\_\+traintest.\+One\+Hot\+Encoding.\+df\+\_\+nomiss\+\_\+cat\+\_\+}
+
+
+
+Definition at line 65 of file class\+\_\+traintest.\+py.
+
+\mbox{\Hypertarget{classclass__traintest_1_1OneHotEncoding_a09775ec5cec49ec8ebd22a7de3bd03e4}\label{classclass__traintest_1_1OneHotEncoding_a09775ec5cec49ec8ebd22a7de3bd03e4}} 
+\index{class\_traintest.OneHotEncoding@{class\_traintest.OneHotEncoding}!type@{type}}
+\index{type@{type}!class\_traintest.OneHotEncoding@{class\_traintest.OneHotEncoding}}
+\doxysubsubsection{\texorpdfstring{type}{type}}
+{\footnotesize\ttfamily class\+\_\+traintest.\+One\+Hot\+Encoding.\+type}
+
+
+
+Definition at line 38 of file class\+\_\+traintest.\+py.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class__traintest_8py}{class\+\_\+traintest.\+py}}\end{DoxyCompactItemize}

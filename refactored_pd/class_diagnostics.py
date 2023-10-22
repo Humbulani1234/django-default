@@ -52,46 +52,45 @@ with open('refactored_pd/glm_binomial.pkl','rb') as file:
 
 class QuantileResiduals(ModelPerfomance, object):
 
-    def __init__(self, custom_rcParams, x_test, y_test, threshold):
-        
-        super(QuantileResiduals, self).__init__(custom_rcParams, x_test, y_test, threshold)
-        super(ModelPerfomance, self).__init__(custom_rcParams)
+    def __init__(self, custom_rcParams, df_nomiss_cat, type_, df_loan_float, target, randomstate, threshold=None):
+
+        """ Object initialisation attributes """
+
+        super(QuantileResiduals, self).__init__(custom_rcParams, df_nomiss_cat, type_, df_loan_float,
+                                                target, randomstate, threshold)
 
     def __str__(self):
-
         pattern = re.compile(r'^_')
         method_names = []
         for name, func in QuantileResiduals.__dict__.items():
             if not pattern.match(name) and callable(func):
                 method_names.append(name)
-
         return f"This is class: {self.__class__.__name__}, and this is the public interface: {method_names}"
 
-    def quantile_residuals(self):
-
+    def quantile_residuals(self, x_test):
         residuals = []
         try:
-            if not isinstance(self.x_test, np.ndarray):
-                raise TypeError("must be an instance of a numpy-ndarray")            
-            predict_probability = super(QuantileResiduals, self).probability_prediction()
-            if self.y_test.shape[0] is None:
+            if not isinstance(x_test, np.ndarray):
+                raise TypeError("must be an instance of a numpy-ndarray") 
+            elif self.threshold_glm is None:
+                raise ValueError("Provide the threshold value in the class constructor")           
+            predict_probability = super(QuantileResiduals, self).glm_probability_prediction(x_test)
+            if  x_test.shape[0] is None:
                 raise IndexError ("index empty")
-            for i in range(self.y_test.shape[0]):
-                if 0 <= self.threshold <= 1:
-                    if (predict_probability[i] < self.threshold):
+            for i in range(x_test.shape[0]):
+                if 0 <= self.threshold_glm <= 1:
+                    if (predict_probability[i] < self.threshold_glm):
                         u_1 = np.random.uniform(low=0, high=predict_probability[i])
                         residuals.append(norm.ppf(u_1))
                     else:
                         u_2 = np.random.uniform(low=predict_probability[i], high=1)
                         residuals.append(norm.ppf(u_2))
-                elif (self.threshold < 0 or self.threshold > 1):
+                elif (self.threshold_glm < 0 or self.threshold_glm > 1):
                     raise ValueError("threshold outside bounds: [0-1]")
             quantile_residuals_series = pd.Series(residuals).round(2)
-
             return quantile_residuals_series
-
         except (TypeError, ValueError, IndexError) as e:
-            diagnostics_logger.error(f"Exception of Type {e} occured",exc_info=True)
+            diagnostics_logger.error(f"Exception of Type {e} occured", exc_info=True)
 
 class ResidualsPlot(QuantileResiduals, object):
 
@@ -105,53 +104,44 @@ class ResidualsPlot(QuantileResiduals, object):
 
         return f"This is Class {self.__class__.__name__} with methods {method_names}"
 
-    def plot_quantile_residuals(self):
+    def plot_quantile_residuals(self, x_test):
 
         """ Residuals Plot """
 
         self.fig, self.axs = plt.subplots(1,1)
         try:
-            quantile_residuals_series = super(ResidualsPlot,self).quantile_residuals()
+            quantile_residuals_series = super(ResidualsPlot,self).quantile_residuals(x_test)
             if quantile_residuals_series is None:
                 raise ValueError ("residuals empty")
             self.axs.plot(quantile_residuals_series.index, quantile_residuals_series.values)
-            super(ResidualsPlot,self)._plotting("humbu", "x", "y")
-
-            return self.fig
-        
+            super(ResidualsPlot,self)._plotting("Quantile Res", "Index", "Value")
+            return self.fig        
         except ValueError as v:
             print("Error:", v)
-
-            return None
 
 class BreushPaganTest(QuantileResiduals, object):
 
     def __str__(self):
-
         pattern = re.compile(r'^_')
         method_names = []
         for name, func in BreushPaganTest.__dict__.items():
             if not pattern.match(name) and callable(func):
                 method_names.append(name)
-
         return f"This is Class {self.__class__.__name__} with methods {method_names}"
 
-    def breush_pagan_quantile(self):
+    def breush_pagan_quantile(self, x_test):
 
-        """ Breush Pagan Test for Hetereskedasticity of variance """
+        """ Breush Pagan Test for Hetereskedasticity of variance - for the test to work properly we need to
+        provide squared independent variables values """
 
-        quantile_residuals_series = super(BreushPaganTest,self).quantile_residuals()
+        quantile_residuals_series = super(BreushPaganTest, self).quantile_residuals(x_test)
         try:
             if quantile_residuals_series is None:
                 raise ValueError ("residuals empty")
-            test = sd.het_breuschpagan(quantile_residuals_series, self.x_test)
-
-            return test
-        
+            test = sd.het_breuschpagan(quantile_residuals_series, x_test)
+            return test        
         except ValueError as v:
             print("Error:", v)
-
-            return None
 
 class NormalityTest(QuantileResiduals, object):
 
@@ -165,25 +155,24 @@ class NormalityTest(QuantileResiduals, object):
 
         return f"This is Class {self.__class__.__name__} with methods {method_names}"
 
-    def normality_test_quantile(self):
+    def normality_test_quantile(self, x_test):
 
         """ normal test statistics """
 
-        quantile_residuals_series = super(NormalityTest,self).quantile_residuals()
+        quantile_residuals_series = super(NormalityTest,self).quantile_residuals(x_test)
         normal_test = normaltest(quantile_residuals_series)
 
         return normal_test
 
-    def plot_normality_quantile(self):
+    def plot_normality_quantile(self, x_test):
 
        """ normality plot"""
 
        self.fig, self.axs = plt.subplots(1,1)
-       quantile_residuals_series = super(NormalityTest,self).quantile_residuals()
+       quantile_residuals_series = super(NormalityTest,self).quantile_residuals(x_test)
        qqplot = stats.probplot(quantile_residuals_series, dist="norm")
        self.axs.plot(qqplot[0][0],qqplot[0][1], marker='o', linestyle='none')
-       super(NormalityTest,self)._plotting("Normality Test", "x", "y")
-        
+       super(NormalityTest,self)._plotting("Normality Test", "x", "y")        
        return self.fig
 
 class DurbinWatsonTest(QuantileResiduals, object):
@@ -195,46 +184,40 @@ class DurbinWatsonTest(QuantileResiduals, object):
         for name, func in DurbinWatsonTest.__dict__.items():
             if not pattern.match(name) and callable(func):
                 method_names.append(name)
-
         return f"This is Class {self.__class__.__name__} with methods {method_names}"
 
-    def durbin_watson_quantile(self):
+    def durbin_watson_quantile(self, x_test):
 
         """ Durbin Watson Test for Residuals correlation range(1,5 - 2) """
 
-        quantile_residuals_series = super(DurbinWatsonTest,self).quantile_residuals()
+        quantile_residuals_series = super(DurbinWatsonTest,self).quantile_residuals(x_test)
         durbin_watson_corr_test = durbin_watson(quantile_residuals_series)
-
         return durbin_watson_corr_test
 
 class PartialPlots(QuantileResiduals, object):
 
     def __str__(self):
-
         pattern = re.compile(r'^_')
         method_names = []
         for name, func in PartialPlots.__dict__.items():
             if not pattern.match(name) and callable(func):
                 method_names.append(name)
-
         return f"This is Class {self.__class__.__name__} with methods {method_names}"
 
-    def partial_plots_quantile(self, ind_var):
+    def partial_plots_quantile(self, ind_var, x_test):
 
        """ Partial Plots - Residuals vs Features """
 
        self.fig, self.axs = plt.subplots(1,1)
-       quantile_residuals_series = super(PartialPlots,self).quantile_residuals()
+       quantile_residuals_series = super(PartialPlots,self).quantile_residuals(x_test)
        xlabel_name = ind_var.name
        self.axs.scatter(ind_var, quantile_residuals_series)
-       super(PartialPlots,self)._plotting("Partial Plot", xlabel_name, "Residuals")
-        
+       super(PartialPlots,self)._plotting("Partial Plot", xlabel_name, "Residuals")        
        return self.fig
 
 class LevStudQuaRes(QuantileResiduals, object):
 
     def __str__(self):
-
         pattern = re.compile(r'^_')
         method_names = []
         for name, func in LevStudQuaRes.__dict__.items():
@@ -243,12 +226,12 @@ class LevStudQuaRes(QuantileResiduals, object):
 
         return f"This is Class {self.__class__.__name__} with methods {method_names}"
 
-    def plot_lev_stud_quantile(self):
+    def plot_lev_stud_quantile(self, x_test):
 
        """ Outliers and Influence """
 
        self.fig, self.axs = plt.subplots(1,1)
-       quantile_residuals_series = super(LevStudQuaRes,self).quantile_residuals()
+       quantile_residuals_series = super(LevStudQuaRes,self).quantile_residuals(x_test)
        hat_matrix = np.round(loaded_model.get_hat_matrix_diag(),2)
        lev_stud_res = []
        for i in range(len(quantile_residuals_series)):            
@@ -270,12 +253,12 @@ class CooksDisQuantRes(QuantileResiduals, object):
 
         return f"This is Class {self.__class__.__name__} with methods {method_names}"
 
-    def plot_cooks_dis_quantile(self):
+    def plot_cooks_dis_quantile(self, x_test):
 
         """ Cooks Distance Plot """
 
         self.fig, self.axs = plt.subplots(1,1)
-        quantile_residuals_series = super(CooksDisQuantRes,self).quantile_residuals()
+        quantile_residuals_series = super(CooksDisQuantRes,self).quantile_residuals(x_test)
         hat_matrix = np.round(loaded_model.get_hat_matrix_diag(),2)
         d = []
         for i in range(len(quantile_residuals_series)):            

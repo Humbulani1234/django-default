@@ -1,0 +1,24 @@
+var searchData=
+[
+  ['partial_5fplots_5fquantile_99',['partial_plots_quantile',['../classclass__diagnostics_1_1PartialPlots.html#a60b0411b92003e3f9370932235ed84f5',1,'class_diagnostics::PartialPlots']]],
+  ['partialplots_100',['PartialPlots',['../classclass__diagnostics_1_1PartialPlots.html',1,'class_diagnostics']]],
+  ['pd_5fdownload_101',['pd_download',['../namespacepd__download.html',1,'']]],
+  ['pd_5fdownload_2epy_102',['pd_download.py',['../pd__download_8py.html',1,'']]],
+  ['pearson_5fcorrelation_5ftest_103',['Pearson_Correlation_Test',['../classclass__eda_1_1EDA.html#afd405af44bc4458d29e422543e349810',1,'class_eda::EDA']]],
+  ['plot_5fcooks_5fdis_5fquantile_104',['plot_cooks_dis_quantile',['../classclass__diagnostics_1_1CooksDisQuantRes.html#a4ffe3f1df9cff1cc9ceb44de0b81cae9',1,'class_diagnostics::CooksDisQuantRes']]],
+  ['plot_5fdt_105',['plot_dt',['../classclass__decision__tree_1_1DecisionTree.html#a3b3e26dafb4ca494eef9a8bd9d60a618',1,'class_decision_tree::DecisionTree']]],
+  ['plot_5flegend_106',['plot_legend',['../classclass__base_1_1Base.html#a8a35de323d285ede36206a8407e2c86a',1,'class_base::Base']]],
+  ['plot_5flev_5fstud_5fquantile_107',['plot_lev_stud_quantile',['../classclass__diagnostics_1_1LevStudQuaRes.html#a981e2ed668b8112834aa9f8bba26be03',1,'class_diagnostics::LevStudQuaRes']]],
+  ['plot_5fnormality_5fquantile_108',['plot_normality_quantile',['../classclass__diagnostics_1_1NormalityTest.html#adac71d62048637b5cef47919e9327181',1,'class_diagnostics::NormalityTest']]],
+  ['plot_5fquantile_5fresiduals_109',['plot_quantile_residuals',['../classclass__diagnostics_1_1ResidualsPlot.html#aed4c9b63c3f7b37ef1f8e5b2a69b4503',1,'class_diagnostics::ResidualsPlot']]],
+  ['plotting_110',['plotting',['../classclass__base_1_1Base.html#a8149e5351baf03307d9c1235751acc9b',1,'class_base::Base']]],
+  ['point_5fbiserial_5fplot_111',['Point_Biserial_Plot',['../classclass__plotting_1_1Charts.html#ad747e6d00d430b17bd3a6038f87fd8fa',1,'class_plotting::Charts']]],
+  ['point_5fbiserial_5ftest_5fbinary_112',['Point_Biserial_Test_Binary',['../classclass__eda_1_1EDA.html#a63d83858e08b4eefcc6aea31a77ef0a4',1,'class_eda::EDA']]],
+  ['practice_113',['practice',['../namespacepractice.html',1,'']]],
+  ['practice_2epy_114',['practice.py',['../practice_8py.html',1,'']]],
+  ['predict_5fbinary_115',['predict_binary',['../classclass__modelperf_1_1ModelPerfomance.html#ad26a976c8c50260f68d1a7556050dad6',1,'class_modelperf::ModelPerfomance']]],
+  ['predict_5fglm_116',['predict_glm',['../classclass__modelperf_1_1ModelPerfomance.html#a633ec995dd5ec07c1080186c9fb0d673',1,'class_modelperf::ModelPerfomance']]],
+  ['predict_5fprobability_117',['predict_probability',['../classclass__diagnostics_1_1QuantileResiduals.html#ae5fb12adb6777781fcfc2f996fd3b6b6',1,'class_diagnostics::QuantileResiduals']]],
+  ['probability_5fprediction_118',['probability_prediction',['../classclass__modelperf_1_1ModelPerfomance.html#a623da2aaa3e8aa7ed152a1987693de07',1,'class_modelperf::ModelPerfomance']]],
+  ['pruning_119',['pruning',['../classclass__decision__tree_1_1DecisionTree.html#a56a46ca6aff8e4de61f3c3f542024359',1,'class_decision_tree::DecisionTree']]]
+];

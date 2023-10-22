@@ -1,0 +1,107 @@
+\hypertarget{classclass__diagnostics_1_1LevStudQuaRes}{}\doxysection{class\+\_\+diagnostics.\+Lev\+Stud\+Qua\+Res Class Reference}
+\label{classclass__diagnostics_1_1LevStudQuaRes}\index{class\_diagnostics.LevStudQuaRes@{class\_diagnostics.LevStudQuaRes}}
+
+
+Inheritance diagram for class\+\_\+diagnostics.\+Lev\+Stud\+Qua\+Res\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classclass__diagnostics_1_1LevStudQuaRes__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for class\+\_\+diagnostics.\+Lev\+Stud\+Qua\+Res\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classclass__diagnostics_1_1LevStudQuaRes__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classclass__diagnostics_1_1LevStudQuaRes_a981e2ed668b8112834aa9f8bba26be03}{plot\+\_\+lev\+\_\+stud\+\_\+quantile}} (self)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classclass__diagnostics_1_1LevStudQuaRes_a42de54ec8af9457595c571c072b38d35}{axs}}
+\item 
+\mbox{\hyperlink{classclass__diagnostics_1_1LevStudQuaRes_a1e253c0aea56f9ca84fa1cfbfec55c70}{lev\+\_\+stud\+\_\+res}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 205 of file class\+\_\+diagnostics.\+py.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classclass__diagnostics_1_1LevStudQuaRes_a981e2ed668b8112834aa9f8bba26be03}\label{classclass__diagnostics_1_1LevStudQuaRes_a981e2ed668b8112834aa9f8bba26be03}} 
+\index{class\_diagnostics.LevStudQuaRes@{class\_diagnostics.LevStudQuaRes}!plot\_lev\_stud\_quantile@{plot\_lev\_stud\_quantile}}
+\index{plot\_lev\_stud\_quantile@{plot\_lev\_stud\_quantile}!class\_diagnostics.LevStudQuaRes@{class\_diagnostics.LevStudQuaRes}}
+\doxysubsubsection{\texorpdfstring{plot\_lev\_stud\_quantile()}{plot\_lev\_stud\_quantile()}}
+{\footnotesize\ttfamily def class\+\_\+diagnostics.\+Lev\+Stud\+Qua\+Res.\+plot\+\_\+lev\+\_\+stud\+\_\+quantile (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb} Outliers and Influence \end{DoxyVerb}
+ 
+
+Definition at line 207 of file class\+\_\+diagnostics.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{207     \textcolor{keyword}{def }plot\_lev\_stud\_quantile(self):}
+\DoxyCodeLine{208 }
+\DoxyCodeLine{209        \textcolor{stringliteral}{"{}"{}"{} Outliers and Influence "{}"{}"{}}}
+\DoxyCodeLine{210 }
+\DoxyCodeLine{211        self.fig, self.axs = plt.subplots(1,1)}
+\DoxyCodeLine{212        quantile\_residuals\_series = super().quantile\_residuals()}
+\DoxyCodeLine{213        hat\_matrix = np.round(loaded\_model.get\_hat\_matrix\_diag(),2)}
+\DoxyCodeLine{214        self.lev\_stud\_res = []}
+\DoxyCodeLine{215 }
+\DoxyCodeLine{216        \textcolor{keywordflow}{for} i \textcolor{keywordflow}{in} range(len(quantile\_residuals\_series)):}
+\DoxyCodeLine{217             }
+\DoxyCodeLine{218         self.lev\_stud\_res.append(quantile\_residuals\_series[i]/(sqrt(1-\/hat\_matrix[i])))}
+\DoxyCodeLine{219 }
+\DoxyCodeLine{220        self.axs.plot(pd.Series(self.lev\_stud\_res).index, pd.Series(self.lev\_stud\_res).values)}
+\DoxyCodeLine{221        super().plotting(\textcolor{stringliteral}{"{}Leverage Studentised Residuals"{}}, \textcolor{stringliteral}{"{}x"{}}, \textcolor{stringliteral}{"{}y"{}})}
+\DoxyCodeLine{222         }
+\DoxyCodeLine{223        \textcolor{keywordflow}{return} self.fig}
+\DoxyCodeLine{224 }
+\DoxyCodeLine{225 \textcolor{comment}{\# -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/Cooks Distance Residuals-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{226 }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classclass__diagnostics_1_1LevStudQuaRes_a42de54ec8af9457595c571c072b38d35}\label{classclass__diagnostics_1_1LevStudQuaRes_a42de54ec8af9457595c571c072b38d35}} 
+\index{class\_diagnostics.LevStudQuaRes@{class\_diagnostics.LevStudQuaRes}!axs@{axs}}
+\index{axs@{axs}!class\_diagnostics.LevStudQuaRes@{class\_diagnostics.LevStudQuaRes}}
+\doxysubsubsection{\texorpdfstring{axs}{axs}}
+{\footnotesize\ttfamily class\+\_\+diagnostics.\+Lev\+Stud\+Qua\+Res.\+axs}
+
+
+
+Definition at line 211 of file class\+\_\+diagnostics.\+py.
+
+\mbox{\Hypertarget{classclass__diagnostics_1_1LevStudQuaRes_a1e253c0aea56f9ca84fa1cfbfec55c70}\label{classclass__diagnostics_1_1LevStudQuaRes_a1e253c0aea56f9ca84fa1cfbfec55c70}} 
+\index{class\_diagnostics.LevStudQuaRes@{class\_diagnostics.LevStudQuaRes}!lev\_stud\_res@{lev\_stud\_res}}
+\index{lev\_stud\_res@{lev\_stud\_res}!class\_diagnostics.LevStudQuaRes@{class\_diagnostics.LevStudQuaRes}}
+\doxysubsubsection{\texorpdfstring{lev\_stud\_res}{lev\_stud\_res}}
+{\footnotesize\ttfamily class\+\_\+diagnostics.\+Lev\+Stud\+Qua\+Res.\+lev\+\_\+stud\+\_\+res}
+
+
+
+Definition at line 214 of file class\+\_\+diagnostics.\+py.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class__diagnostics_8py}{class\+\_\+diagnostics.\+py}}\end{DoxyCompactItemize}
