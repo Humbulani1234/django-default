@@ -47,7 +47,8 @@ threshold_2=0.0021
 
 m = ModelPerfomance(custom_rcParams, imputer_cat, "statistics",
                  df_loan_float, df_loan_float["GB"], randomstate, threshold)
-q = ClusterProbability(custom_rcParams, m.x_test_glm, m.y_test_glm, threshold)
+q = ClusterProbability(custom_rcParams, imputer_cat, "statistics",
+                 df_loan_float, df_loan_float["GB"], randomstate, threshold)
 
 # instance_stats = OneHotEncoding(custom_rcParams, imputer_cat, "statistics")
 
