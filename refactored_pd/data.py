@@ -22,6 +22,7 @@ from class_diagnostics import (ResidualsPlot, BreushPaganTest, NormalityTest, Du
                                PartialPlots, LevStudQuaRes, CooksDisQuantRes, QuantileResiduals)
 from class_lgclassifier import LogRegression
 from class_comparison import ModelComparison
+from class_clustering_pd import ClusterProbability
 
 #----------------------------------------------------------------Data------------------------------------------------
 
@@ -45,6 +46,8 @@ threshold_2=0.0021
 # #-----------------------------------------------Statistics--------------------------------------------
 
 m = ModelPerfomance(custom_rcParams, imputer_cat, "statistics",
+                 df_loan_float, df_loan_float["GB"], randomstate, threshold)
+q = ClusterProbability(custom_rcParams, imputer_cat, "statistics",
                  df_loan_float, df_loan_float["GB"], randomstate, threshold)
 
 # instance_stats = OneHotEncoding(custom_rcParams, imputer_cat, "statistics")

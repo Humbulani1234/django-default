@@ -18,14 +18,12 @@ from django.core.cache import cache
 from django.db import transaction
 from django.contrib.auth.decorators import login_required
 
-sys.path.append('/home/humbulani/django/django_ref/refactored_pd')
+sys.path.append('/home/humbulani/django-pd/django_ref/refactored_pd')
+
+from .forms import Inputs
+from .models import Probability, LogFeatures
 
 import data
-from .forms import Inputs
-from .models import LogFeatures
-from .models import Probability
-
-#-------------------------------------------------------------------Defined variables----------------------------------------------------
 
 def image_generator(f):
 
@@ -34,159 +32,123 @@ def image_generator(f):
     buffer.seek(0)
     image_base64 = base64.b64encode(buffer.getvalue()).decode()
     buffer.close()
-
     return image_base64
 
-#------------------------------------------------------------------ Performance measures-------------------------------------------------
+#------------------------------------------------------------------ Performance measures--------------------------------------------
 
 def roc(request):
 
     f = data.c.roc_curve_analytics(data.m.x_test_glm, data.m.y_test_glm)[1]
-    image_base64 = image_generator(f)                 
-
+    cache_key = 'roc_plot'
+    cached_result = cache.get(cache_key)
+    if cached_result is not None:
+        render (request, 'logistic/peformance/log_peformance_roc.html', {'image_base64':cached_result})
+    image_base64 = image_generator(f)
+    cache.set(cache_key, image_base64, 3600)                
     return render (request, 'logistic/peformance/log_peformance_roc.html', {'image_base64':image_base64})
 
 def confusion_logistic(request):
 
     f = data.m.confusion_matrix_plot(data.m.x_test_glm, data.m.y_test_glm)
+    cache_key = 'logconfusion_plot'
+    cached_result = cache.get(cache_key)
+    if cached_result is not None:
+        render (request, 'logistic/peformance/log_peformance_confusion.html', {'image_base64':cached_result})
     image_base64 = image_generator(f)
-
+    cache.set(cache_key, image_base64, 3600)
     return render (request, 'logistic/peformance/log_peformance_confusion.html', {'image_base64':image_base64})
+
+#------------------------------------------------------------------ Probability Clustering--------------------------------------------
+
+def elbow_plot(request):
+
+    f = data.q._elbow_max_cluster()
+    cache_key = 'elbow_plot'
+    cached_result = cache.get(cache_key)
+    if cached_result is not None:
+        render (request, 'logistic/risk/log_elbow.html', {'image_base64':cached_result})
+    image_base64 = image_generator(f)
+    cache.set(cache_key, image_base64, 3600)                
+    return render (request, 'logistic/risk/log_elbow.html', {'image_base64':image_base64})
+
+def probability_cluster(request):
+
+    f = data.q.kmeans_cluster_plot()
+    cache_key = 'probability_cluster'
+    cached_result = cache.get(cache_key)
+    if cached_result is not None:
+        render (request, 'logistic/risk/log_probability_cluster.html', {'image_base64':cached_result})
+    image_base64 = image_generator(f)
+    cache.set(cache_key, image_base64, 3600)
+    return render (request, 'logistic/risk/log_probability_cluster.html', {'image_base64':image_base64})
 
 #-------------------------------------------------------------------Model Diagnostics-----------------------------------------------------
 
 def normal_plot(request):
 
     f = data.k.plot_normality_quantile(data.m.x_test_glm)
+    cache_key = 'normal_plot'
+    cached_result = cache.get(cache_key)
+    if cached_result is not None:
+        render (request, 'logistic/diagnostics/normal_plot.html', {'image_base64':cached_result})
     image_base64 = image_generator(f)
-
+    cache.set(cache_key, image_base64, 3600)
     return render (request, 'logistic/diagnostics/normal_plot.html', {'image_base64':image_base64})
 
 def residuals(request):
 
     f = data.b.plot_quantile_residuals(data.m.x_test_glm)
+    cache_key = 'residuals_plot'
+    cached_result = cache.get(cache_key)
+    if cached_result is not None:
+        render (request, 'logistic/diagnostics/residuals.html', {'image_base64':cached_result})
     image_base64 = image_generator(f)
-
+    cache.set(cache_key, image_base64, 3600)
     return render (request, 'logistic/diagnostics/residuals.html', {'image_base64':image_base64})
 
 def partial(request):
 
     f = data.h.partial_plots_quantile(data.ind_var, data.m.x_test_glm)
+    cache_key = 'partial_plot'
+    cached_result = cache.get(cache_key)
+    if cached_result is not None:
+        render (request, 'logistic/diagnostics/partial.html', {'image_base64':cached_result})
     image_base64 = image_generator(f)
-
+    cache.set(cache_key, image_base64, 3600)
     return render (request, 'logistic/diagnostics/partial.html', {'image_base64':image_base64})
 
 def student(request):
 
     f = data.i.plot_lev_stud_quantile(data.m.x_test_glm)
+    cache_key = 'student_plot'
+    cached_result = cache.get(cache_key)
+    if cached_result is not None:
+        render (request, 'logistic/diagnostics/student_residuals.html', {'image_base64':cached_result})
     image_base64 = image_generator(f)
-
+    cache.set(cache_key, image_base64, 3600)
     return render (request, 'logistic/diagnostics/student_residuals.html', {'image_base64':image_base64})
 
 def cooks(request):
 
     f = data.j.plot_cooks_dis_quantile(data.m.x_test_glm)
-
     cache_key = 'cooks_plot'
     cached_result = cache.get(cache_key)
-
     if cached_result is not None:
-
         render (request, 'logistic/diagnostics/cooks.html', {'image_base64':cached_result})
-
     image_base64 = image_generator(f)
-
     cache.set(cache_key, image_base64, 3600)
-
     return render (request, 'logistic/diagnostics/cooks.html', {'image_base64':image_base64})
 
-# -------------------------------------------------------------------General Views-----------------------------------------------------
-
-# testing 
-
-from django.db import models
-from django import forms
-from django.apps import AppConfig
-# l = []
-# print(sys.path)
-# from django_ref import settings
-from logistic import views
-from django_ref import urls
-# print(type(l))
-from django.urls import path, include, resolve
-# print(dir(Probability))
-from django.db import models
-# print(help(Probability))
-# help(request.session)
-from django.contrib.auth.models import User
-# print(__builtins__)
-# print(locals())
-print(User.objects.__dict__)
-
-# help(User.objects)
-# print(type(Probability.objects))
-
-import dis
-# print(dis.dis(Probability.objects.all))
-# print((Probability.probability))
-
-# print(Probability.__init__.__code__)
-
-# print(dir())
-# print(locals())
-# print(globals()["Probability"])
-# print(__builtins__)
-
-def home(request):
-
-    from django.contrib.auth.models import User
-    from django.contrib.auth.forms import UserCreationForm
-
-    print(type(User))
-
-    # print(dir(request.session))
-    # x = Probability.objects.all()
-    # print(type(x))
-    # print(x[0].default)
-    # help(request.session)
-    # print(locals())
-
-
-    # help(path)
-
-    # print(dir(render(request, 'logistic/general/home_page.html')))
-    # print(dir(settings))
-    # print(request.session._get_session_key())
-    print(request.user)
-    # print(type(user))
-    # print(request.COOKIES)
-
-    return render(request, 'logistic/general/home_page.html')
-    
-def about(request):
-
-    return render(request, 'logistic/general/about_page.html')
-
-
-@login_required
-def github_django_pd(request):
-
-    external_url = "https://github.com/Humbulani1234/Django_Anyway/"
-    return redirect(external_url)
+# -------------------------------------------------------------------Model Views-----------------------------------------------------
 
 def inputs(request):
 
     answer = ""
     if request.method == 'POST':
         form = Inputs(request.POST)
-        print(form.__dict__['data'])
-        # p = {{ form|crispy }}
-        # print(p)
-        # print(dir(request))
         if form.is_valid():
             with transaction.atomic():
                 instance = form.save()
-                print(instance.pk)
                 saved_pk = instance.pk
 
             """ Float features """
@@ -217,7 +179,7 @@ def inputs(request):
             H = 0
 
             if TITLE == 'H':
-                H=1    
+                H=1
             else:
                 H=0
             
@@ -313,13 +275,12 @@ def inputs(request):
             elif CAR=='Car_and_Motor_bi':
                 Car_and_Motor_bi=1
             else:
-                Car,Car_and_Motor_bi= 0,0 
+                Car,Car_and_Motor_bi= 0,0    
 
-            CARDS = form.cleaned_data.get("CARDS") 
-            print(CARDS)
+            CARDS = form.cleaned_data.get("CARDS")
             Cheque_card, Mastercard_Euroc, VISA_mybank,VISA_Others\
-            ,Other_credit_car, American_Express = 0,0,0,0,0,0
- 
+            ,Other_credit_car, American_Express = 0,0,0,0,0,0  
+  
             if CARDS=='Cheque_card':
                 no_credit_cards=1
             elif CARDS=='Mastercard_Euroc':
@@ -339,28 +300,26 @@ def inputs(request):
             inputs1 = [H, E, G, T, U, V, Cars, Dept_Store_Mail, Furniture_Carpet, Leisure, OT, Lease, German, Greek, 
             Italian, Other_European, RS, Spanish_Portugue, Turkish, Chemical_Industr, Civil_Service_M, 
             Food_Building_Ca, Military_Service, Others, Pensioner, Sea_Vojage_Gast, Self_employed_pe, Car, 
-            Car_and_Motor_bi, American_Express, Cheque_card, Mastercard_Euroc, Other_credit_car, VISA_Others, VISA_mybank]            
+            Car_and_Motor_bi, American_Express, Cheque_card, Mastercard_Euroc, Other_credit_car, VISA_Others, VISA_mybank]
+            
             inputs2 = [ 1, CHILDREN, PERS_H, AGE, TMADD, TMJOB1, TEL, NMBLOAN, FINLOAN, INCOME, EC_CARD, INC, INC1, BUREAU, 
-                        LOCATION, LOANS, REGN, DIV, CASH ]    
+                        LOCATION, LOANS, REGN, DIV, CASH ]   
+
             list_ = inputs2 + inputs1
             inputs = np.array(list_).reshape(1,-1)
-            answer = np.array(data.m.glm_sample_prob_pred(data.sample, inputs.reshape(1,-1)))
-            answer = "{: .10f}".format(answer[0])
+            answer1 = np.array(data.loaded_model.predict(inputs.reshape(1,-1)))
+            answer = "{: .10f}".format(answer1[0])
             try:
-                with transaction.atomic():
+                with transaction.atomic():                    
                     log_features_object = LogFeatures.objects.get(pk=saved_pk)
-                    probability_instance = Probability(CUSTOMER_ID=log_features_object)
-                    # print(type(probability_instance.probability))
-                    probability_instance.probability = answer # <OnTrue> if <Condition> else <OnFalse>
-                    probability_instance.default = 'default'
+                    probability_instance = Probability(CUSTOMER_ID=log_features_object) # Django class/instance creation
+                    probability_instance.probability = answer
+                    probability_instance.default = 'default' if answer1 > 0.47 else 'nodefault'
                     probability_instance.save()
             except LogFeatures.DoesNotExist:
                 print('Model does not exixt')
-            x = JsonResponse({"probability": answer})
-            print(x.content)
             return JsonResponse({"probability": answer})
     else:
         form = Inputs()
-
     return render(request, 'logistic/model/log_features.html', {'form':form, 'answer':answer})
 
