@@ -1,0 +1,410 @@
+\hypertarget{namespacedata}{}\doxysection{data Namespace Reference}
+\label{namespacedata}\index{data@{data}}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacedata_a3f449c3d69649ecef702ec610f9d4bbb}{loaded\+\_\+model}} = pickle.\+load(file)
+\item 
+string \mbox{\hyperlink{namespacedata_aeb604d079982701f93bdc51573e7cdcb}{file\+\_\+path}} = \char`\"{}refactored\+\_\+pd/KGB.\+sas7bdat\char`\"{}
+\item 
+\mbox{\hyperlink{namespacedata_a5b93e40c688e62d5097069a4261816eb}{data\+\_\+types}}
+\item 
+\mbox{\hyperlink{namespacedata_a912151b3ff7ce64362994a3e1990db2f}{df\+\_\+loan\+\_\+categorical}}
+\item 
+\mbox{\hyperlink{namespacedata_ab41b0830929569383385eef834f6881a}{df\+\_\+loan\+\_\+float}}
+\item 
+\mbox{\hyperlink{namespacedata_a34ceaab1387e0ff3d072ee38e39da847}{miss}} = \mbox{\hyperlink{classclass__missing__values_1_1ImputationCat}{Imputation\+Cat}}(\mbox{\hyperlink{namespacedata_a912151b3ff7ce64362994a3e1990db2f}{df\+\_\+loan\+\_\+categorical}})
+\item 
+\mbox{\hyperlink{namespacedata_a922e0ad29ef6e435d1d8844425570b6f}{imputer\+\_\+cat}} = miss.\+simple\+\_\+imputer\+\_\+mode()
+\item 
+dictionary \mbox{\hyperlink{namespacedata_a227e31cde3dc5de2535685cb44a714c4}{custom\+\_\+rc\+Params}} = \{\char`\"{}figure.\+figsize\char`\"{}\+: (9, 8), \char`\"{}axes.\+labelsize\char`\"{}\+: 12\}
+\item 
+\mbox{\hyperlink{namespacedata_accaf5e3a83850d11553460db3b88e8dc}{instance\+\_\+mach}} = \mbox{\hyperlink{classclass__traintest_1_1OneHotEncoding}{One\+Hot\+Encoding}}(\mbox{\hyperlink{namespacedata_a227e31cde3dc5de2535685cb44a714c4}{custom\+\_\+rc\+Params}}, \mbox{\hyperlink{namespacedata_a922e0ad29ef6e435d1d8844425570b6f}{imputer\+\_\+cat}}, \char`\"{}machine\char`\"{})
+\item 
+\mbox{\hyperlink{namespacedata_a2ad882e11781937863e915a872714cca}{x\+\_\+test\+\_\+orig}} = instance\+\_\+mach.\+split\+\_\+xtrain\+\_\+ytrain(\mbox{\hyperlink{namespacedata_ab41b0830929569383385eef834f6881a}{df\+\_\+loan\+\_\+float}}, target=\mbox{\hyperlink{namespacedata_ab41b0830929569383385eef834f6881a}{df\+\_\+loan\+\_\+float}}\mbox{[}\char`\"{}GB\char`\"{}\mbox{]})\mbox{[}1\mbox{]}
+\item 
+\mbox{\hyperlink{namespacedata_a223b8ccd5b6ee5e4de91f371dccb73d6}{conf\+\_\+x\+\_\+test}} = x\+\_\+test\+\_\+orig.\+reset\+\_\+index(drop=True).iloc\mbox{[}0\mbox{]}
+\item 
+\mbox{\hyperlink{namespacedata_a2a90fcb1939e76d3488680088597ecca}{x\+\_\+train\+\_\+orig}} = instance\+\_\+mach.\+split\+\_\+xtrain\+\_\+ytrain(\mbox{\hyperlink{namespacedata_ab41b0830929569383385eef834f6881a}{df\+\_\+loan\+\_\+float}}, target=\mbox{\hyperlink{namespacedata_ab41b0830929569383385eef834f6881a}{df\+\_\+loan\+\_\+float}}\mbox{[}\char`\"{}GB\char`\"{}\mbox{]})\mbox{[}0\mbox{]}
+\item 
+\mbox{\hyperlink{namespacedata_a384295b58d5d5232e6ac6bbf1342ed11}{y\+\_\+test\+\_\+orig}} = instance\+\_\+mach.\+split\+\_\+xtrain\+\_\+ytrain(\mbox{\hyperlink{namespacedata_ab41b0830929569383385eef834f6881a}{df\+\_\+loan\+\_\+float}}, target=\mbox{\hyperlink{namespacedata_ab41b0830929569383385eef834f6881a}{df\+\_\+loan\+\_\+float}}\mbox{[}\char`\"{}GB\char`\"{}\mbox{]})\mbox{[}3\mbox{]}
+\item 
+\mbox{\hyperlink{namespacedata_a784eec31e74c229ce38ae24434aa9c3c}{instance\+\_\+stats}} = \mbox{\hyperlink{classclass__traintest_1_1OneHotEncoding}{One\+Hot\+Encoding}}(\mbox{\hyperlink{namespacedata_a227e31cde3dc5de2535685cb44a714c4}{custom\+\_\+rc\+Params}}, \mbox{\hyperlink{namespacedata_a922e0ad29ef6e435d1d8844425570b6f}{imputer\+\_\+cat}}, \char`\"{}statistics\char`\"{})
+\item 
+\mbox{\hyperlink{namespacedata_ae429f87120e16351c09d1aed6b96caec}{x\+\_\+test}} = instance\+\_\+stats.\+split\+\_\+xtrain\+\_\+ytrain(\mbox{\hyperlink{namespacedata_ab41b0830929569383385eef834f6881a}{df\+\_\+loan\+\_\+float}}, target=\mbox{\hyperlink{namespacedata_ab41b0830929569383385eef834f6881a}{df\+\_\+loan\+\_\+float}}\mbox{[}\char`\"{}GB\char`\"{}\mbox{]})\mbox{[}1\mbox{]}
+\item 
+\mbox{\hyperlink{namespacedata_a26d3df36faf44e878959acb8ac1b7428}{ind\+\_\+var}} = \mbox{\hyperlink{namespacedata_a2ad882e11781937863e915a872714cca}{x\+\_\+test\+\_\+orig}}\mbox{[}\char`\"{}CHILDREN\char`\"{}\mbox{]}
+\item 
+\mbox{\hyperlink{namespacedata_a11d2f0109132179e28c7b33809d5cc71}{x\+\_\+train}} = instance\+\_\+stats.\+split\+\_\+xtrain\+\_\+ytrain(\mbox{\hyperlink{namespacedata_ab41b0830929569383385eef834f6881a}{df\+\_\+loan\+\_\+float}}, target=\mbox{\hyperlink{namespacedata_ab41b0830929569383385eef834f6881a}{df\+\_\+loan\+\_\+float}}\mbox{[}\char`\"{}GB\char`\"{}\mbox{]})\mbox{[}0\mbox{]}
+\item 
+\mbox{\hyperlink{namespacedata_a966a722a46291edde7cb09cc9e1e3cb4}{y\+\_\+test}} = instance\+\_\+stats.\+split\+\_\+xtrain\+\_\+ytrain(\mbox{\hyperlink{namespacedata_ab41b0830929569383385eef834f6881a}{df\+\_\+loan\+\_\+float}}, target=\mbox{\hyperlink{namespacedata_ab41b0830929569383385eef834f6881a}{df\+\_\+loan\+\_\+float}}\mbox{[}\char`\"{}GB\char`\"{}\mbox{]})\mbox{[}3\mbox{]}
+\item 
+int \mbox{\hyperlink{namespacedata_a5422548d7e03b23c06439b0e2238f14e}{sample}} = 0
+\item 
+float \mbox{\hyperlink{namespacedata_a2c8ee0d7abab0f60b13cee3abe00bb86}{threshold}} = 0.\+47
+\item 
+int \mbox{\hyperlink{namespacedata_a3f2c5be4d5356a6a7e5be00a565c8772}{randomstate}} = 42
+\item 
+int \mbox{\hyperlink{namespacedata_a857bab87c18b7839054071994747689b}{ccpalpha}} = 0
+\item 
+float \mbox{\hyperlink{namespacedata_ab503f326ed42d83e2a2b933ecf8df112}{threshold\+\_\+1}} = 0.\+0019
+\item 
+float \mbox{\hyperlink{namespacedata_a884b009fcddf83a22e78685f68dc7b32}{threshold\+\_\+2}} = 0.\+0021
+\item 
+\mbox{\hyperlink{namespacedata_aaeb6d057b93fa62fe85a5905f4137b43}{b}} = \mbox{\hyperlink{classclass__diagnostics_1_1ResidualsPlot}{Residuals\+Plot}}(\mbox{\hyperlink{namespacedata_a227e31cde3dc5de2535685cb44a714c4}{custom\+\_\+rc\+Params}}, \mbox{\hyperlink{namespacedata_ae429f87120e16351c09d1aed6b96caec}{x\+\_\+test}}, \mbox{\hyperlink{namespacedata_a966a722a46291edde7cb09cc9e1e3cb4}{y\+\_\+test}}, \mbox{\hyperlink{namespacedata_a2c8ee0d7abab0f60b13cee3abe00bb86}{threshold}})
+\item 
+\mbox{\hyperlink{namespacedata_a6ab65ca8d85b6d558f1d9538e9247c4d}{e}} = \mbox{\hyperlink{classclass__diagnostics_1_1BreushPaganTest}{Breush\+Pagan\+Test}}(\mbox{\hyperlink{namespacedata_a227e31cde3dc5de2535685cb44a714c4}{custom\+\_\+rc\+Params}}, \mbox{\hyperlink{namespacedata_ae429f87120e16351c09d1aed6b96caec}{x\+\_\+test}}, \mbox{\hyperlink{namespacedata_a966a722a46291edde7cb09cc9e1e3cb4}{y\+\_\+test}}, \mbox{\hyperlink{namespacedata_a2c8ee0d7abab0f60b13cee3abe00bb86}{threshold}})
+\item 
+\mbox{\hyperlink{namespacedata_a59f49fcb825c0fe287d7b2bc40088f4b}{k}} = \mbox{\hyperlink{classclass__diagnostics_1_1NormalityTest}{Normality\+Test}}(\mbox{\hyperlink{namespacedata_a227e31cde3dc5de2535685cb44a714c4}{custom\+\_\+rc\+Params}}, \mbox{\hyperlink{namespacedata_ae429f87120e16351c09d1aed6b96caec}{x\+\_\+test}}, \mbox{\hyperlink{namespacedata_a966a722a46291edde7cb09cc9e1e3cb4}{y\+\_\+test}}, \mbox{\hyperlink{namespacedata_a2c8ee0d7abab0f60b13cee3abe00bb86}{threshold}})
+\item 
+\mbox{\hyperlink{namespacedata_a3a341ce7fcd28c5ad1c6e3d6e75ed973}{g}} = \mbox{\hyperlink{classclass__diagnostics_1_1DurbinWatsonTest}{Durbin\+Watson\+Test}}(\mbox{\hyperlink{namespacedata_a227e31cde3dc5de2535685cb44a714c4}{custom\+\_\+rc\+Params}}, \mbox{\hyperlink{namespacedata_ae429f87120e16351c09d1aed6b96caec}{x\+\_\+test}}, \mbox{\hyperlink{namespacedata_a966a722a46291edde7cb09cc9e1e3cb4}{y\+\_\+test}}, \mbox{\hyperlink{namespacedata_a2c8ee0d7abab0f60b13cee3abe00bb86}{threshold}})
+\item 
+\mbox{\hyperlink{namespacedata_a41654962dc69dfaa4c04b72935ffcf04}{h}} = \mbox{\hyperlink{classclass__diagnostics_1_1PartialPlots}{Partial\+Plots}}(\mbox{\hyperlink{namespacedata_a227e31cde3dc5de2535685cb44a714c4}{custom\+\_\+rc\+Params}}, \mbox{\hyperlink{namespacedata_ae429f87120e16351c09d1aed6b96caec}{x\+\_\+test}}, \mbox{\hyperlink{namespacedata_a966a722a46291edde7cb09cc9e1e3cb4}{y\+\_\+test}}, \mbox{\hyperlink{namespacedata_a2c8ee0d7abab0f60b13cee3abe00bb86}{threshold}})
+\item 
+\mbox{\hyperlink{namespacedata_a80f0a4d1e6cd13d5f09d4973d8acf562}{i}} = \mbox{\hyperlink{classclass__diagnostics_1_1LevStudQuaRes}{Lev\+Stud\+Qua\+Res}}(\mbox{\hyperlink{namespacedata_a227e31cde3dc5de2535685cb44a714c4}{custom\+\_\+rc\+Params}}, \mbox{\hyperlink{namespacedata_ae429f87120e16351c09d1aed6b96caec}{x\+\_\+test}}, \mbox{\hyperlink{namespacedata_a966a722a46291edde7cb09cc9e1e3cb4}{y\+\_\+test}}, \mbox{\hyperlink{namespacedata_a2c8ee0d7abab0f60b13cee3abe00bb86}{threshold}})
+\item 
+\mbox{\hyperlink{namespacedata_aae05d2f4beedbfb965b789af9343e17b}{j}} = \mbox{\hyperlink{classclass__diagnostics_1_1CooksDisQuantRes}{Cooks\+Dis\+Quant\+Res}}(\mbox{\hyperlink{namespacedata_a227e31cde3dc5de2535685cb44a714c4}{custom\+\_\+rc\+Params}}, \mbox{\hyperlink{namespacedata_ae429f87120e16351c09d1aed6b96caec}{x\+\_\+test}}, \mbox{\hyperlink{namespacedata_a966a722a46291edde7cb09cc9e1e3cb4}{y\+\_\+test}}, \mbox{\hyperlink{namespacedata_a2c8ee0d7abab0f60b13cee3abe00bb86}{threshold}})
+\item 
+\mbox{\hyperlink{namespacedata_ab25f6c5941c9792465388f148f7ed472}{c}} = \mbox{\hyperlink{classclass__modelperf_1_1ModelPerfomance}{Model\+Perfomance}}(\mbox{\hyperlink{namespacedata_a227e31cde3dc5de2535685cb44a714c4}{custom\+\_\+rc\+Params}}, \mbox{\hyperlink{namespacedata_ae429f87120e16351c09d1aed6b96caec}{x\+\_\+test}}, \mbox{\hyperlink{namespacedata_a966a722a46291edde7cb09cc9e1e3cb4}{y\+\_\+test}}, \mbox{\hyperlink{namespacedata_a2c8ee0d7abab0f60b13cee3abe00bb86}{threshold}})
+\item 
+\mbox{\hyperlink{namespacedata_a188ea54bb330bfb57b0162de8ccfcc14}{d}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{namespacedata_aaeb6d057b93fa62fe85a5905f4137b43}\label{namespacedata_aaeb6d057b93fa62fe85a5905f4137b43}} 
+\index{data@{data}!b@{b}}
+\index{b@{b}!data@{data}}
+\doxysubsubsection{\texorpdfstring{b}{b}}
+{\footnotesize\ttfamily data.\+b = \mbox{\hyperlink{classclass__diagnostics_1_1ResidualsPlot}{Residuals\+Plot}}(\mbox{\hyperlink{namespacedata_a227e31cde3dc5de2535685cb44a714c4}{custom\+\_\+rc\+Params}}, \mbox{\hyperlink{namespacedata_ae429f87120e16351c09d1aed6b96caec}{x\+\_\+test}}, \mbox{\hyperlink{namespacedata_a966a722a46291edde7cb09cc9e1e3cb4}{y\+\_\+test}}, \mbox{\hyperlink{namespacedata_a2c8ee0d7abab0f60b13cee3abe00bb86}{threshold}})}
+
+
+
+Definition at line 56 of file data.\+py.
+
+\mbox{\Hypertarget{namespacedata_ab25f6c5941c9792465388f148f7ed472}\label{namespacedata_ab25f6c5941c9792465388f148f7ed472}} 
+\index{data@{data}!c@{c}}
+\index{c@{c}!data@{data}}
+\doxysubsubsection{\texorpdfstring{c}{c}}
+{\footnotesize\ttfamily data.\+c = \mbox{\hyperlink{classclass__modelperf_1_1ModelPerfomance}{Model\+Perfomance}}(\mbox{\hyperlink{namespacedata_a227e31cde3dc5de2535685cb44a714c4}{custom\+\_\+rc\+Params}}, \mbox{\hyperlink{namespacedata_ae429f87120e16351c09d1aed6b96caec}{x\+\_\+test}}, \mbox{\hyperlink{namespacedata_a966a722a46291edde7cb09cc9e1e3cb4}{y\+\_\+test}}, \mbox{\hyperlink{namespacedata_a2c8ee0d7abab0f60b13cee3abe00bb86}{threshold}})}
+
+
+
+Definition at line 64 of file data.\+py.
+
+\mbox{\Hypertarget{namespacedata_a857bab87c18b7839054071994747689b}\label{namespacedata_a857bab87c18b7839054071994747689b}} 
+\index{data@{data}!ccpalpha@{ccpalpha}}
+\index{ccpalpha@{ccpalpha}!data@{data}}
+\doxysubsubsection{\texorpdfstring{ccpalpha}{ccpalpha}}
+{\footnotesize\ttfamily int data.\+ccpalpha = 0}
+
+
+
+Definition at line 52 of file data.\+py.
+
+\mbox{\Hypertarget{namespacedata_a223b8ccd5b6ee5e4de91f371dccb73d6}\label{namespacedata_a223b8ccd5b6ee5e4de91f371dccb73d6}} 
+\index{data@{data}!conf\_x\_test@{conf\_x\_test}}
+\index{conf\_x\_test@{conf\_x\_test}!data@{data}}
+\doxysubsubsection{\texorpdfstring{conf\_x\_test}{conf\_x\_test}}
+{\footnotesize\ttfamily data.\+conf\+\_\+x\+\_\+test = x\+\_\+test\+\_\+orig.\+reset\+\_\+index(drop=True).iloc\mbox{[}0\mbox{]}}
+
+
+
+Definition at line 36 of file data.\+py.
+
+\mbox{\Hypertarget{namespacedata_a227e31cde3dc5de2535685cb44a714c4}\label{namespacedata_a227e31cde3dc5de2535685cb44a714c4}} 
+\index{data@{data}!custom\_rcParams@{custom\_rcParams}}
+\index{custom\_rcParams@{custom\_rcParams}!data@{data}}
+\doxysubsubsection{\texorpdfstring{custom\_rcParams}{custom\_rcParams}}
+{\footnotesize\ttfamily dictionary data.\+custom\+\_\+rc\+Params = \{\char`\"{}figure.\+figsize\char`\"{}\+: (9, 8), \char`\"{}axes.\+labelsize\char`\"{}\+: 12\}}
+
+
+
+Definition at line 31 of file data.\+py.
+
+\mbox{\Hypertarget{namespacedata_a188ea54bb330bfb57b0162de8ccfcc14}\label{namespacedata_a188ea54bb330bfb57b0162de8ccfcc14}} 
+\index{data@{data}!d@{d}}
+\index{d@{d}!data@{data}}
+\doxysubsubsection{\texorpdfstring{d}{d}}
+{\footnotesize\ttfamily data.\+d}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 =  DecisionTree(custom\_rcParams, imputer\_cat, \textcolor{stringliteral}{"{}machine"{}}, y\_test\_orig,}
+\DoxyCodeLine{2                  df\_loan\_float, df\_loan\_float[\textcolor{stringliteral}{"{}GB"{}}], threshold, randomstate)}
+
+\end{DoxyCode}
+
+
+Definition at line 65 of file data.\+py.
+
+\mbox{\Hypertarget{namespacedata_a5b93e40c688e62d5097069a4261816eb}\label{namespacedata_a5b93e40c688e62d5097069a4261816eb}} 
+\index{data@{data}!data\_types@{data\_types}}
+\index{data\_types@{data\_types}!data@{data}}
+\doxysubsubsection{\texorpdfstring{data\_types}{data\_types}}
+{\footnotesize\ttfamily data.\+data\+\_\+types}
+
+
+
+Definition at line 27 of file data.\+py.
+
+\mbox{\Hypertarget{namespacedata_a912151b3ff7ce64362994a3e1990db2f}\label{namespacedata_a912151b3ff7ce64362994a3e1990db2f}} 
+\index{data@{data}!df\_loan\_categorical@{df\_loan\_categorical}}
+\index{df\_loan\_categorical@{df\_loan\_categorical}!data@{data}}
+\doxysubsubsection{\texorpdfstring{df\_loan\_categorical}{df\_loan\_categorical}}
+{\footnotesize\ttfamily data.\+df\+\_\+loan\+\_\+categorical}
+
+
+
+Definition at line 27 of file data.\+py.
+
+\mbox{\Hypertarget{namespacedata_ab41b0830929569383385eef834f6881a}\label{namespacedata_ab41b0830929569383385eef834f6881a}} 
+\index{data@{data}!df\_loan\_float@{df\_loan\_float}}
+\index{df\_loan\_float@{df\_loan\_float}!data@{data}}
+\doxysubsubsection{\texorpdfstring{df\_loan\_float}{df\_loan\_float}}
+{\footnotesize\ttfamily data.\+df\+\_\+loan\+\_\+float}
+
+
+
+Definition at line 27 of file data.\+py.
+
+\mbox{\Hypertarget{namespacedata_a6ab65ca8d85b6d558f1d9538e9247c4d}\label{namespacedata_a6ab65ca8d85b6d558f1d9538e9247c4d}} 
+\index{data@{data}!e@{e}}
+\index{e@{e}!data@{data}}
+\doxysubsubsection{\texorpdfstring{e}{e}}
+{\footnotesize\ttfamily data.\+e = \mbox{\hyperlink{classclass__diagnostics_1_1BreushPaganTest}{Breush\+Pagan\+Test}}(\mbox{\hyperlink{namespacedata_a227e31cde3dc5de2535685cb44a714c4}{custom\+\_\+rc\+Params}}, \mbox{\hyperlink{namespacedata_ae429f87120e16351c09d1aed6b96caec}{x\+\_\+test}}, \mbox{\hyperlink{namespacedata_a966a722a46291edde7cb09cc9e1e3cb4}{y\+\_\+test}}, \mbox{\hyperlink{namespacedata_a2c8ee0d7abab0f60b13cee3abe00bb86}{threshold}})}
+
+
+
+Definition at line 57 of file data.\+py.
+
+\mbox{\Hypertarget{namespacedata_aeb604d079982701f93bdc51573e7cdcb}\label{namespacedata_aeb604d079982701f93bdc51573e7cdcb}} 
+\index{data@{data}!file\_path@{file\_path}}
+\index{file\_path@{file\_path}!data@{data}}
+\doxysubsubsection{\texorpdfstring{file\_path}{file\_path}}
+{\footnotesize\ttfamily string data.\+file\+\_\+path = \char`\"{}refactored\+\_\+pd/KGB.\+sas7bdat\char`\"{}}
+
+
+
+Definition at line 26 of file data.\+py.
+
+\mbox{\Hypertarget{namespacedata_a3a341ce7fcd28c5ad1c6e3d6e75ed973}\label{namespacedata_a3a341ce7fcd28c5ad1c6e3d6e75ed973}} 
+\index{data@{data}!g@{g}}
+\index{g@{g}!data@{data}}
+\doxysubsubsection{\texorpdfstring{g}{g}}
+{\footnotesize\ttfamily data.\+g = \mbox{\hyperlink{classclass__diagnostics_1_1DurbinWatsonTest}{Durbin\+Watson\+Test}}(\mbox{\hyperlink{namespacedata_a227e31cde3dc5de2535685cb44a714c4}{custom\+\_\+rc\+Params}}, \mbox{\hyperlink{namespacedata_ae429f87120e16351c09d1aed6b96caec}{x\+\_\+test}}, \mbox{\hyperlink{namespacedata_a966a722a46291edde7cb09cc9e1e3cb4}{y\+\_\+test}}, \mbox{\hyperlink{namespacedata_a2c8ee0d7abab0f60b13cee3abe00bb86}{threshold}})}
+
+
+
+Definition at line 59 of file data.\+py.
+
+\mbox{\Hypertarget{namespacedata_a41654962dc69dfaa4c04b72935ffcf04}\label{namespacedata_a41654962dc69dfaa4c04b72935ffcf04}} 
+\index{data@{data}!h@{h}}
+\index{h@{h}!data@{data}}
+\doxysubsubsection{\texorpdfstring{h}{h}}
+{\footnotesize\ttfamily data.\+h = \mbox{\hyperlink{classclass__diagnostics_1_1PartialPlots}{Partial\+Plots}}(\mbox{\hyperlink{namespacedata_a227e31cde3dc5de2535685cb44a714c4}{custom\+\_\+rc\+Params}}, \mbox{\hyperlink{namespacedata_ae429f87120e16351c09d1aed6b96caec}{x\+\_\+test}}, \mbox{\hyperlink{namespacedata_a966a722a46291edde7cb09cc9e1e3cb4}{y\+\_\+test}}, \mbox{\hyperlink{namespacedata_a2c8ee0d7abab0f60b13cee3abe00bb86}{threshold}})}
+
+
+
+Definition at line 60 of file data.\+py.
+
+\mbox{\Hypertarget{namespacedata_a80f0a4d1e6cd13d5f09d4973d8acf562}\label{namespacedata_a80f0a4d1e6cd13d5f09d4973d8acf562}} 
+\index{data@{data}!i@{i}}
+\index{i@{i}!data@{data}}
+\doxysubsubsection{\texorpdfstring{i}{i}}
+{\footnotesize\ttfamily data.\+i = \mbox{\hyperlink{classclass__diagnostics_1_1LevStudQuaRes}{Lev\+Stud\+Qua\+Res}}(\mbox{\hyperlink{namespacedata_a227e31cde3dc5de2535685cb44a714c4}{custom\+\_\+rc\+Params}}, \mbox{\hyperlink{namespacedata_ae429f87120e16351c09d1aed6b96caec}{x\+\_\+test}}, \mbox{\hyperlink{namespacedata_a966a722a46291edde7cb09cc9e1e3cb4}{y\+\_\+test}}, \mbox{\hyperlink{namespacedata_a2c8ee0d7abab0f60b13cee3abe00bb86}{threshold}})}
+
+
+
+Definition at line 61 of file data.\+py.
+
+\mbox{\Hypertarget{namespacedata_a922e0ad29ef6e435d1d8844425570b6f}\label{namespacedata_a922e0ad29ef6e435d1d8844425570b6f}} 
+\index{data@{data}!imputer\_cat@{imputer\_cat}}
+\index{imputer\_cat@{imputer\_cat}!data@{data}}
+\doxysubsubsection{\texorpdfstring{imputer\_cat}{imputer\_cat}}
+{\footnotesize\ttfamily data.\+imputer\+\_\+cat = miss.\+simple\+\_\+imputer\+\_\+mode()}
+
+
+
+Definition at line 29 of file data.\+py.
+
+\mbox{\Hypertarget{namespacedata_a26d3df36faf44e878959acb8ac1b7428}\label{namespacedata_a26d3df36faf44e878959acb8ac1b7428}} 
+\index{data@{data}!ind\_var@{ind\_var}}
+\index{ind\_var@{ind\_var}!data@{data}}
+\doxysubsubsection{\texorpdfstring{ind\_var}{ind\_var}}
+{\footnotesize\ttfamily data.\+ind\+\_\+var = \mbox{\hyperlink{namespacedata_a2ad882e11781937863e915a872714cca}{x\+\_\+test\+\_\+orig}}\mbox{[}\char`\"{}CHILDREN\char`\"{}\mbox{]}}
+
+
+
+Definition at line 43 of file data.\+py.
+
+\mbox{\Hypertarget{namespacedata_accaf5e3a83850d11553460db3b88e8dc}\label{namespacedata_accaf5e3a83850d11553460db3b88e8dc}} 
+\index{data@{data}!instance\_mach@{instance\_mach}}
+\index{instance\_mach@{instance\_mach}!data@{data}}
+\doxysubsubsection{\texorpdfstring{instance\_mach}{instance\_mach}}
+{\footnotesize\ttfamily data.\+instance\+\_\+mach = \mbox{\hyperlink{classclass__traintest_1_1OneHotEncoding}{One\+Hot\+Encoding}}(\mbox{\hyperlink{namespacedata_a227e31cde3dc5de2535685cb44a714c4}{custom\+\_\+rc\+Params}}, \mbox{\hyperlink{namespacedata_a922e0ad29ef6e435d1d8844425570b6f}{imputer\+\_\+cat}}, \char`\"{}machine\char`\"{})}
+
+
+
+Definition at line 33 of file data.\+py.
+
+\mbox{\Hypertarget{namespacedata_a784eec31e74c229ce38ae24434aa9c3c}\label{namespacedata_a784eec31e74c229ce38ae24434aa9c3c}} 
+\index{data@{data}!instance\_stats@{instance\_stats}}
+\index{instance\_stats@{instance\_stats}!data@{data}}
+\doxysubsubsection{\texorpdfstring{instance\_stats}{instance\_stats}}
+{\footnotesize\ttfamily data.\+instance\+\_\+stats = \mbox{\hyperlink{classclass__traintest_1_1OneHotEncoding}{One\+Hot\+Encoding}}(\mbox{\hyperlink{namespacedata_a227e31cde3dc5de2535685cb44a714c4}{custom\+\_\+rc\+Params}}, \mbox{\hyperlink{namespacedata_a922e0ad29ef6e435d1d8844425570b6f}{imputer\+\_\+cat}}, \char`\"{}statistics\char`\"{})}
+
+
+
+Definition at line 40 of file data.\+py.
+
+\mbox{\Hypertarget{namespacedata_aae05d2f4beedbfb965b789af9343e17b}\label{namespacedata_aae05d2f4beedbfb965b789af9343e17b}} 
+\index{data@{data}!j@{j}}
+\index{j@{j}!data@{data}}
+\doxysubsubsection{\texorpdfstring{j}{j}}
+{\footnotesize\ttfamily data.\+j = \mbox{\hyperlink{classclass__diagnostics_1_1CooksDisQuantRes}{Cooks\+Dis\+Quant\+Res}}(\mbox{\hyperlink{namespacedata_a227e31cde3dc5de2535685cb44a714c4}{custom\+\_\+rc\+Params}}, \mbox{\hyperlink{namespacedata_ae429f87120e16351c09d1aed6b96caec}{x\+\_\+test}}, \mbox{\hyperlink{namespacedata_a966a722a46291edde7cb09cc9e1e3cb4}{y\+\_\+test}}, \mbox{\hyperlink{namespacedata_a2c8ee0d7abab0f60b13cee3abe00bb86}{threshold}})}
+
+
+
+Definition at line 62 of file data.\+py.
+
+\mbox{\Hypertarget{namespacedata_a59f49fcb825c0fe287d7b2bc40088f4b}\label{namespacedata_a59f49fcb825c0fe287d7b2bc40088f4b}} 
+\index{data@{data}!k@{k}}
+\index{k@{k}!data@{data}}
+\doxysubsubsection{\texorpdfstring{k}{k}}
+{\footnotesize\ttfamily data.\+k = \mbox{\hyperlink{classclass__diagnostics_1_1NormalityTest}{Normality\+Test}}(\mbox{\hyperlink{namespacedata_a227e31cde3dc5de2535685cb44a714c4}{custom\+\_\+rc\+Params}}, \mbox{\hyperlink{namespacedata_ae429f87120e16351c09d1aed6b96caec}{x\+\_\+test}}, \mbox{\hyperlink{namespacedata_a966a722a46291edde7cb09cc9e1e3cb4}{y\+\_\+test}}, \mbox{\hyperlink{namespacedata_a2c8ee0d7abab0f60b13cee3abe00bb86}{threshold}})}
+
+
+
+Definition at line 58 of file data.\+py.
+
+\mbox{\Hypertarget{namespacedata_a3f449c3d69649ecef702ec610f9d4bbb}\label{namespacedata_a3f449c3d69649ecef702ec610f9d4bbb}} 
+\index{data@{data}!loaded\_model@{loaded\_model}}
+\index{loaded\_model@{loaded\_model}!data@{data}}
+\doxysubsubsection{\texorpdfstring{loaded\_model}{loaded\_model}}
+{\footnotesize\ttfamily data.\+loaded\+\_\+model = pickle.\+load(file)}
+
+
+
+Definition at line 24 of file data.\+py.
+
+\mbox{\Hypertarget{namespacedata_a34ceaab1387e0ff3d072ee38e39da847}\label{namespacedata_a34ceaab1387e0ff3d072ee38e39da847}} 
+\index{data@{data}!miss@{miss}}
+\index{miss@{miss}!data@{data}}
+\doxysubsubsection{\texorpdfstring{miss}{miss}}
+{\footnotesize\ttfamily data.\+miss = \mbox{\hyperlink{classclass__missing__values_1_1ImputationCat}{Imputation\+Cat}}(\mbox{\hyperlink{namespacedata_a912151b3ff7ce64362994a3e1990db2f}{df\+\_\+loan\+\_\+categorical}})}
+
+
+
+Definition at line 28 of file data.\+py.
+
+\mbox{\Hypertarget{namespacedata_a3f2c5be4d5356a6a7e5be00a565c8772}\label{namespacedata_a3f2c5be4d5356a6a7e5be00a565c8772}} 
+\index{data@{data}!randomstate@{randomstate}}
+\index{randomstate@{randomstate}!data@{data}}
+\doxysubsubsection{\texorpdfstring{randomstate}{randomstate}}
+{\footnotesize\ttfamily int data.\+randomstate = 42}
+
+
+
+Definition at line 51 of file data.\+py.
+
+\mbox{\Hypertarget{namespacedata_a5422548d7e03b23c06439b0e2238f14e}\label{namespacedata_a5422548d7e03b23c06439b0e2238f14e}} 
+\index{data@{data}!sample@{sample}}
+\index{sample@{sample}!data@{data}}
+\doxysubsubsection{\texorpdfstring{sample}{sample}}
+{\footnotesize\ttfamily int data.\+sample = 0}
+
+
+
+Definition at line 49 of file data.\+py.
+
+\mbox{\Hypertarget{namespacedata_a2c8ee0d7abab0f60b13cee3abe00bb86}\label{namespacedata_a2c8ee0d7abab0f60b13cee3abe00bb86}} 
+\index{data@{data}!threshold@{threshold}}
+\index{threshold@{threshold}!data@{data}}
+\doxysubsubsection{\texorpdfstring{threshold}{threshold}}
+{\footnotesize\ttfamily float data.\+threshold = 0.\+47}
+
+
+
+Definition at line 50 of file data.\+py.
+
+\mbox{\Hypertarget{namespacedata_ab503f326ed42d83e2a2b933ecf8df112}\label{namespacedata_ab503f326ed42d83e2a2b933ecf8df112}} 
+\index{data@{data}!threshold\_1@{threshold\_1}}
+\index{threshold\_1@{threshold\_1}!data@{data}}
+\doxysubsubsection{\texorpdfstring{threshold\_1}{threshold\_1}}
+{\footnotesize\ttfamily float data.\+threshold\+\_\+1 = 0.\+0019}
+
+
+
+Definition at line 53 of file data.\+py.
+
+\mbox{\Hypertarget{namespacedata_a884b009fcddf83a22e78685f68dc7b32}\label{namespacedata_a884b009fcddf83a22e78685f68dc7b32}} 
+\index{data@{data}!threshold\_2@{threshold\_2}}
+\index{threshold\_2@{threshold\_2}!data@{data}}
+\doxysubsubsection{\texorpdfstring{threshold\_2}{threshold\_2}}
+{\footnotesize\ttfamily float data.\+threshold\+\_\+2 = 0.\+0021}
+
+
+
+Definition at line 54 of file data.\+py.
+
+\mbox{\Hypertarget{namespacedata_ae429f87120e16351c09d1aed6b96caec}\label{namespacedata_ae429f87120e16351c09d1aed6b96caec}} 
+\index{data@{data}!x\_test@{x\_test}}
+\index{x\_test@{x\_test}!data@{data}}
+\doxysubsubsection{\texorpdfstring{x\_test}{x\_test}}
+{\footnotesize\ttfamily data.\+x\+\_\+test = instance\+\_\+stats.\+split\+\_\+xtrain\+\_\+ytrain(\mbox{\hyperlink{namespacedata_ab41b0830929569383385eef834f6881a}{df\+\_\+loan\+\_\+float}}, target=\mbox{\hyperlink{namespacedata_ab41b0830929569383385eef834f6881a}{df\+\_\+loan\+\_\+float}}\mbox{[}\char`\"{}GB\char`\"{}\mbox{]})\mbox{[}1\mbox{]}}
+
+
+
+Definition at line 42 of file data.\+py.
+
+\mbox{\Hypertarget{namespacedata_a2ad882e11781937863e915a872714cca}\label{namespacedata_a2ad882e11781937863e915a872714cca}} 
+\index{data@{data}!x\_test\_orig@{x\_test\_orig}}
+\index{x\_test\_orig@{x\_test\_orig}!data@{data}}
+\doxysubsubsection{\texorpdfstring{x\_test\_orig}{x\_test\_orig}}
+{\footnotesize\ttfamily data.\+x\+\_\+test\+\_\+orig = instance\+\_\+mach.\+split\+\_\+xtrain\+\_\+ytrain(\mbox{\hyperlink{namespacedata_ab41b0830929569383385eef834f6881a}{df\+\_\+loan\+\_\+float}}, target=\mbox{\hyperlink{namespacedata_ab41b0830929569383385eef834f6881a}{df\+\_\+loan\+\_\+float}}\mbox{[}\char`\"{}GB\char`\"{}\mbox{]})\mbox{[}1\mbox{]}}
+
+
+
+Definition at line 35 of file data.\+py.
+
+\mbox{\Hypertarget{namespacedata_a11d2f0109132179e28c7b33809d5cc71}\label{namespacedata_a11d2f0109132179e28c7b33809d5cc71}} 
+\index{data@{data}!x\_train@{x\_train}}
+\index{x\_train@{x\_train}!data@{data}}
+\doxysubsubsection{\texorpdfstring{x\_train}{x\_train}}
+{\footnotesize\ttfamily data.\+x\+\_\+train = instance\+\_\+stats.\+split\+\_\+xtrain\+\_\+ytrain(\mbox{\hyperlink{namespacedata_ab41b0830929569383385eef834f6881a}{df\+\_\+loan\+\_\+float}}, target=\mbox{\hyperlink{namespacedata_ab41b0830929569383385eef834f6881a}{df\+\_\+loan\+\_\+float}}\mbox{[}\char`\"{}GB\char`\"{}\mbox{]})\mbox{[}0\mbox{]}}
+
+
+
+Definition at line 44 of file data.\+py.
+
+\mbox{\Hypertarget{namespacedata_a2a90fcb1939e76d3488680088597ecca}\label{namespacedata_a2a90fcb1939e76d3488680088597ecca}} 
+\index{data@{data}!x\_train\_orig@{x\_train\_orig}}
+\index{x\_train\_orig@{x\_train\_orig}!data@{data}}
+\doxysubsubsection{\texorpdfstring{x\_train\_orig}{x\_train\_orig}}
+{\footnotesize\ttfamily data.\+x\+\_\+train\+\_\+orig = instance\+\_\+mach.\+split\+\_\+xtrain\+\_\+ytrain(\mbox{\hyperlink{namespacedata_ab41b0830929569383385eef834f6881a}{df\+\_\+loan\+\_\+float}}, target=\mbox{\hyperlink{namespacedata_ab41b0830929569383385eef834f6881a}{df\+\_\+loan\+\_\+float}}\mbox{[}\char`\"{}GB\char`\"{}\mbox{]})\mbox{[}0\mbox{]}}
+
+
+
+Definition at line 37 of file data.\+py.
+
+\mbox{\Hypertarget{namespacedata_a966a722a46291edde7cb09cc9e1e3cb4}\label{namespacedata_a966a722a46291edde7cb09cc9e1e3cb4}} 
+\index{data@{data}!y\_test@{y\_test}}
+\index{y\_test@{y\_test}!data@{data}}
+\doxysubsubsection{\texorpdfstring{y\_test}{y\_test}}
+{\footnotesize\ttfamily data.\+y\+\_\+test = instance\+\_\+stats.\+split\+\_\+xtrain\+\_\+ytrain(\mbox{\hyperlink{namespacedata_ab41b0830929569383385eef834f6881a}{df\+\_\+loan\+\_\+float}}, target=\mbox{\hyperlink{namespacedata_ab41b0830929569383385eef834f6881a}{df\+\_\+loan\+\_\+float}}\mbox{[}\char`\"{}GB\char`\"{}\mbox{]})\mbox{[}3\mbox{]}}
+
+
+
+Definition at line 47 of file data.\+py.
+
+\mbox{\Hypertarget{namespacedata_a384295b58d5d5232e6ac6bbf1342ed11}\label{namespacedata_a384295b58d5d5232e6ac6bbf1342ed11}} 
+\index{data@{data}!y\_test\_orig@{y\_test\_orig}}
+\index{y\_test\_orig@{y\_test\_orig}!data@{data}}
+\doxysubsubsection{\texorpdfstring{y\_test\_orig}{y\_test\_orig}}
+{\footnotesize\ttfamily data.\+y\+\_\+test\+\_\+orig = instance\+\_\+mach.\+split\+\_\+xtrain\+\_\+ytrain(\mbox{\hyperlink{namespacedata_ab41b0830929569383385eef834f6881a}{df\+\_\+loan\+\_\+float}}, target=\mbox{\hyperlink{namespacedata_ab41b0830929569383385eef834f6881a}{df\+\_\+loan\+\_\+float}}\mbox{[}\char`\"{}GB\char`\"{}\mbox{]})\mbox{[}3\mbox{]}}
+
+
+
+Definition at line 38 of file data.\+py.
+

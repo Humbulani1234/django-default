@@ -2,16 +2,16 @@
 import statsmodels.api as sm
 import pandas as pd
 import pickle
+import scipy
 
 from class_traintest import OneHotEncoding
 from class_base import Base
 from pd_download import data_cleaning
 from class_missing_values import ImputationCat
-import warnings
 
 def glm_binomial_fit(y_train, x_train):
     
-    ''' GLM Binomial fit '''
+    ''' GLM - Logistic regression model fit '''
 
     try:
         if y_train is list:
@@ -22,7 +22,6 @@ def glm_binomial_fit(y_train, x_train):
         x_train = sm.add_constant(x_train.values)
         glm_binom = sm.GLM(y_train, x_train, family=sm.families.Binomial())   
         res = glm_binom.fit()
-
         return res.summary(), res
 
 if __name__ == "__main__":
@@ -45,6 +44,8 @@ if __name__ == "__main__":
 
     y_train_shape = y_train.values.reshape(-1,1)
 
-    model = (glm_binomial_fit(y_train_shape, x_train))[1]
+    model = (glm_binomial_fit(y_train_shape, x_train))
 
-
+    with open('glm_binomial.pkl','wb') as file:
+        pickle.dump(model, file)
+        

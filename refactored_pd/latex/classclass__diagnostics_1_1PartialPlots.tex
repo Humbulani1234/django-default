@@ -1,0 +1,101 @@
+\hypertarget{classclass__diagnostics_1_1PartialPlots}{}\doxysection{class\+\_\+diagnostics.\+Partial\+Plots Class Reference}
+\label{classclass__diagnostics_1_1PartialPlots}\index{class\_diagnostics.PartialPlots@{class\_diagnostics.PartialPlots}}
+
+
+Inheritance diagram for class\+\_\+diagnostics.\+Partial\+Plots\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classclass__diagnostics_1_1PartialPlots__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for class\+\_\+diagnostics.\+Partial\+Plots\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classclass__diagnostics_1_1PartialPlots__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classclass__diagnostics_1_1PartialPlots_a60b0411b92003e3f9370932235ed84f5}{partial\+\_\+plots\+\_\+quantile}} (self, ind\+\_\+var)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classclass__diagnostics_1_1PartialPlots_a4d59375afe1246dfdd3ccba0d47af97c}{axs}}
+\item 
+\mbox{\hyperlink{classclass__diagnostics_1_1PartialPlots_a5bcf776f233ea7512bcae9a07bd81837}{xlabel\+\_\+name}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 189 of file class\+\_\+diagnostics.\+py.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classclass__diagnostics_1_1PartialPlots_a60b0411b92003e3f9370932235ed84f5}\label{classclass__diagnostics_1_1PartialPlots_a60b0411b92003e3f9370932235ed84f5}} 
+\index{class\_diagnostics.PartialPlots@{class\_diagnostics.PartialPlots}!partial\_plots\_quantile@{partial\_plots\_quantile}}
+\index{partial\_plots\_quantile@{partial\_plots\_quantile}!class\_diagnostics.PartialPlots@{class\_diagnostics.PartialPlots}}
+\doxysubsubsection{\texorpdfstring{partial\_plots\_quantile()}{partial\_plots\_quantile()}}
+{\footnotesize\ttfamily def class\+\_\+diagnostics.\+Partial\+Plots.\+partial\+\_\+plots\+\_\+quantile (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{ind\+\_\+var }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb} Partial Plots - Residuals vs Features \end{DoxyVerb}
+ 
+
+Definition at line 191 of file class\+\_\+diagnostics.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{191     \textcolor{keyword}{def }partial\_plots\_quantile(self, ind\_var):}
+\DoxyCodeLine{192 }
+\DoxyCodeLine{193        \textcolor{stringliteral}{"{}"{}"{} Partial Plots -\/ Residuals vs Features "{}"{}"{}}}
+\DoxyCodeLine{194 }
+\DoxyCodeLine{195        self.fig, self.axs = plt.subplots(1,1)}
+\DoxyCodeLine{196        quantile\_residuals\_series = super().quantile\_residuals()}
+\DoxyCodeLine{197        self.xlabel\_name = ind\_var.name}
+\DoxyCodeLine{198        self.axs.scatter(ind\_var, quantile\_residuals\_series)}
+\DoxyCodeLine{199        super().plotting(\textcolor{stringliteral}{"{}Partial Plot"{}}, self.xlabel\_name, \textcolor{stringliteral}{"{}Residuals"{}})}
+\DoxyCodeLine{200         }
+\DoxyCodeLine{201        \textcolor{keywordflow}{return} self.fig}
+\DoxyCodeLine{202 }
+\DoxyCodeLine{203 \textcolor{comment}{\# -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/Leverage Studentised Residuals-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{204 }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classclass__diagnostics_1_1PartialPlots_a4d59375afe1246dfdd3ccba0d47af97c}\label{classclass__diagnostics_1_1PartialPlots_a4d59375afe1246dfdd3ccba0d47af97c}} 
+\index{class\_diagnostics.PartialPlots@{class\_diagnostics.PartialPlots}!axs@{axs}}
+\index{axs@{axs}!class\_diagnostics.PartialPlots@{class\_diagnostics.PartialPlots}}
+\doxysubsubsection{\texorpdfstring{axs}{axs}}
+{\footnotesize\ttfamily class\+\_\+diagnostics.\+Partial\+Plots.\+axs}
+
+
+
+Definition at line 195 of file class\+\_\+diagnostics.\+py.
+
+\mbox{\Hypertarget{classclass__diagnostics_1_1PartialPlots_a5bcf776f233ea7512bcae9a07bd81837}\label{classclass__diagnostics_1_1PartialPlots_a5bcf776f233ea7512bcae9a07bd81837}} 
+\index{class\_diagnostics.PartialPlots@{class\_diagnostics.PartialPlots}!xlabel\_name@{xlabel\_name}}
+\index{xlabel\_name@{xlabel\_name}!class\_diagnostics.PartialPlots@{class\_diagnostics.PartialPlots}}
+\doxysubsubsection{\texorpdfstring{xlabel\_name}{xlabel\_name}}
+{\footnotesize\ttfamily class\+\_\+diagnostics.\+Partial\+Plots.\+xlabel\+\_\+name}
+
+
+
+Definition at line 197 of file class\+\_\+diagnostics.\+py.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class__diagnostics_8py}{class\+\_\+diagnostics.\+py}}\end{DoxyCompactItemize}
