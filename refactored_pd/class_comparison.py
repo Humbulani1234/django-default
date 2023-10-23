@@ -133,8 +133,8 @@ class ModelComparison(ModelPerfomance, DecisionTree, LogRegression, object):
         val_precisions_glm, val_recalls_glm = super(ModelComparison, self).glm_overfitting_test(self.x_val_glm_c, self.y_val_glm,
                                                                                         self.x_test_glm_c, self.y_test_glm,
                                                                                          *thresholds)[1],\
-                                            super(ModelComparison, self).glm_overfitting_test(self.x_val_glm, self.y_val_glm,
-                                                                                        self.x_test_glm, self.y_test_glm, 
+                                            super(ModelComparison, self).glm_overfitting_test(self.x_val_glm_c, self.y_val_glm,
+                                                                                        self.x_test_glm_c, self.y_test_glm, 
                                                                                         *thresholds)[2]
 
         """ Run overfiting for Decision Trees """

@@ -1,22 +1,29 @@
 
-
 import pandas as pd
 import numpy as np
 import pickle
 import sys
 import io
 import base64
+import logging
 
 sys.path.append('/home/humbulani/django-pd/django_ref/refactored_pd')
 
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.http import JsonResponse
-from django.contrib.auth.decorators import login_required
+from django.db import transaction
 from django.core.cache import cache
+from django.contrib.auth.decorators import login_required
 
+from .models import DecFeatures, DecProbability
 from .forms import Inputs
 
+from class_decision_tree import DecisionTree
+from class_missing_values import ImputationCat
+from class_traintest import OneHotEncoding
+from class_base import Base
+from pd_download import data_cleaning
 import data
 
 #-------------------------------------------------------------------Defined variables----------------------------------------------------
@@ -116,7 +123,9 @@ def tree(request):
     if request.method == 'POST':
         form = Inputs(request.POST)
         if form.is_valid():
-            form.save()
+            with transaction.atomic():
+                instance = form.save()
+                saved_pk = instance.pk
 
             # Float features
             
@@ -273,8 +282,17 @@ def tree(request):
 
             list_ = inputs2 + inputs1
             inputs = np.array([list_]).reshape(1,-1)           
-            answer = data.d.dt_pruned_probability(data.ccpalpha, data.threshold_1, data.threshold_2,
-                                                        data.sample, data.sample, inputs)
+            answer = data.d.dt_sample_pruned_prob(data.ccpalpha, data.threshold_1, data.threshold_2,
+                                                  data.sample, inputs)
+            try:
+                with transaction.atomic():
+                    dec_features_object = DecFeatures.objects.get(pk=saved_pk)
+                    probability_instance = DecProbability(CUSTOMER_ID=dec_features_object)
+                    probability_instance.probability = answer
+                    probability_instance.default = 'default' if answer > 0.47 else 'nodefault'
+                    probability_instance.save()
+            except DecFeatures.DoesNotExist:
+                print('Model doesnt not exixt')
             return JsonResponse({"probability": answer})
     else:
         form = Inputs()
