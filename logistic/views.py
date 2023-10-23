@@ -307,8 +307,8 @@ def inputs(request):
 
             list_ = inputs2 + inputs1
             inputs = np.array(list_).reshape(1,-1)
-            answer1 = np.array(data.loaded_model.predict(inputs.reshape(1,-1)))
-            answer = "{: .10f}".format(answer1[0])
+            answer1 = np.array(data.m.glm_sample_prob_pred(0, inputs.reshape(1,-1)))
+            answer = "{: .10f}".format(answer1)
             try:
                 with transaction.atomic():                    
                     log_features_object = LogFeatures.objects.get(pk=saved_pk)
