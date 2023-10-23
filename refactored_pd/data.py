@@ -45,6 +45,8 @@ threshold_2=0.0021
 
 # #-----------------------------------------------Statistics--------------------------------------------
 
+instance_stats = OneHotEncoding(custom_rcParams, imputer_cat, "statistics")
+
 m = ModelPerfomance(custom_rcParams, imputer_cat, "statistics",
                  df_loan_float, df_loan_float["GB"], randomstate, threshold)
 q = ClusterProbability(custom_rcParams, imputer_cat, "statistics",

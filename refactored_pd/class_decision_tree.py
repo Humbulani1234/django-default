@@ -211,7 +211,20 @@ class DecisionTree(OneHotEncoding, object):
                                        p.get_height().round(2)), ha="center",va="center",fontsize=12, color="black",
                                        xytext=(0,5),textcoords="offset points") 
 
-        if  threshold is None:
+        if  threshold:
+            plt.close('all')
+            self.fig, self.axs = plt.subplots(1,1)
+            y_bin = self.dt_binary_prediction(x_test, ccpalpha, threshold)
+            accuracy = accuracy_score(y_test, y_bin)
+            f1 = f1_score(y_test, y_bin)
+            auc = roc_auc_score(y_test, y_bin)
+            data = pd.DataFrame({
+            "Metric": ["threshold", "accuracy", "f1", "auc"],
+            "Value": [threshold, accuracy, f1, auc]
+            })     
+            generate(data, self.axs, "DT")
+            return self.fig, threshold, accuracy, f1, auc
+        else:
             print("running with the default 0.5 threshold")
             plt.close('all')
             self.fig, self.axs = plt.subplots(1,1)
@@ -226,19 +239,7 @@ class DecisionTree(OneHotEncoding, object):
             })      
             generate(data, self.axs, "DT")
             return self.fig, threshold, accuracy, f1, auc
-        else:
-            plt.close('all')
-            self.fig, self.axs = plt.subplots(1,1)
-            y_bin = self.dt_binary_prediction(x_test, ccpalpha, threshold)
-            accuracy = accuracy_score(y_test, y_bin)
-            f1 = f1_score(y_test, y_bin)
-            auc = roc_auc_score(y_test, y_bin)
-            data = pd.DataFrame({
-            "Metric": ["threshold", "accuracy", "f1", "auc"],
-            "Value": [threshold, accuracy, f1, auc]
-            })     
-            generate(data, self.axs, "DT")
-            return self.fig, threshold, accuracy, f1, auc
+
 
     def dt_confusion_matrix_plot(self, x_test, y_test, ccpalpha, threshold=None):
 

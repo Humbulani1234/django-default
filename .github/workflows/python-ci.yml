@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-#files
-=======
-# files
->>>>>>> decision_tree
+
 name: Python CI
 
 on:
