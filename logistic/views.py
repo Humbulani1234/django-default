@@ -58,6 +58,17 @@ def confusion_logistic(request):
     cache.set(cache_key, image_base64, 3600)
     return render (request, 'logistic/peformance/log_peformance_confusion.html', {'image_base64':image_base64})
 
+def overfitting_log(request):
+
+    f = data.m.glm_overfitting_test(data.x_train_glm_o, data.m.y_train_glm, data.x_test_glm_o, data.m.y_test_glm, *data.thresholds))[1]
+    cache_key = 'overfitting_log'
+    cached_result = cache.get(cache_key)
+    if cached_result is not None:
+        render (request, 'logistic/peformance/log_overfitting.html', {'image_base64':cached_result})
+    image_base64 = image_generator(f)
+    cache.set(cache_key, image_base64, 3600)                
+    return render (request, 'logistic/peformance/log_overfitting.html', {'image_base64':image_base64})
+
 #------------------------------------------------------------------ Probability Clustering--------------------------------------------
 
 def elbow_plot(request):

@@ -42,6 +42,7 @@ sample = 0
 ccpalpha = 0
 threshold_1=0.0019
 threshold_2=0.0021
+thresholds = np.arange(0.1, 0.9, 0.05)
 
 # #-----------------------------------------------Statistics--------------------------------------------
 
@@ -52,6 +53,8 @@ m = ModelPerfomance(custom_rcParams, imputer_cat, "statistics",
 q = ClusterProbability(custom_rcParams, imputer_cat, "statistics",
                  df_loan_float, df_loan_float["GB"], randomstate, threshold)
 
+x_train_glm_o = sm.add_constant(m.x_train_glm.values, has_constant='add')
+x_test_glm_o = sm.add_constant(m.x_test_glm.values, has_constant='add')
 # instance_stats = OneHotEncoding(custom_rcParams, imputer_cat, "statistics")
 
 # x_test_o = instance_stats.train_val_test(df_loan_float, target=df_loan_float["GB"])[4] # for revised model test

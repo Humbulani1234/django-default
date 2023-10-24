@@ -35,17 +35,17 @@ eda_logger.info("MODEL PERFOMANCE ARE INCLUDED")
 
 # ---------------------------------------------------------EDA Class-----------------------------------------------------
 
-class ExploratoryDataAnalysis(Base, object):
+class ExploratoryDataAnalysis(OneHotEncoding, object):
 
     """ This class provides features vs target plotting and hypothesis tests to determine if the features 
     are relevant to the model"""
 
-    def __init__(self, custom_rcParams, independent: pd.DataFrame, target: pd.DataFrame, x_train, y_train):        
-        super(ExploratoryDataAnalysis, self).__init__(custom_rcParams)
-        self.independent = independent
-        self.target = target
-        self.x_train = x_train # This simplifies interpretation of features as random variables
-        self.y_train = y_train # This simplifies interpretation of features as random variables
+    def __init__(self, custom_rcParams, df_nomiss_cat: pd.DataFrame, type_, df_loan_float, target):        
+        super(ExploratoryDataAnalysis, self).__init__(custom_rcParams, df_nomiss_cat, type_)
+        self.df_loan_float_eda = df_loan_float
+        self.target_eda = target 
+        self.x_eda = super(ExploratoryDataAnalysis, self).create_xy_frames(self.df_loan_float_eda, self.target_glm)[0]
+        self.y_eda = super(ExploratoryDataAnalysis, self).create_xy_frames(self.df_loan_float_eda, self.target_glm)[1]
 
     def __str__(self):        
         pattern = re.compile(r'^_')
@@ -55,22 +55,22 @@ class ExploratoryDataAnalysis(Base, object):
                 method_names.append(name)
         return f"This is Class {self.__class__.__name__} with methods {method_names}"
 
-    def sample_imbalance(self):
+    def sample_imbalance(self, target):
     
         self.fig, self.axs = plt.subplots(1,1)        
-        self.axs.hist(self.target, weights = np.ones(len(self.target))/len(self.target))
+        self.axs.hist(target, weights = np.ones(len(target))/len(target))
         # super().plotting("Normality Test", "x", "y")
         return self.fig
 
-    def cat_missing_crosstab_plot(self):
+    def cat_missing_crosstab_plot(self, independent, target):
         
         """ Plot cross tab for features with missing values """
 
         self.fig, self.axs = plt.subplots(1,1)
-        missingness = self.independent.isnull()
-        cross_tab = pd.crosstab(missingness, self.target)
-        plot = cross_tab.plot(kind='bar', width=0.15, ylabel="Number Absorbed",color=["#003A5D","#A19958"],
-                       edgecolor="tab:grey",linewidth=1.5, ax=self.axs)
+        missingness = independent.isnull()
+        cross_tab = pd.crosstab(missingness, target)
+        plot = cross_tab.plot(kind='bar', width=0.15, ylabel=target.name, color=["#003A5D","#A19958"],
+                       edgecolor="tab:grey", linewidth=1.5, ax=self.axs)
         bars = plot.containers[0] # change here to control the bars
         for bar in bars:
             p = str(bar.get_height())
@@ -105,9 +105,9 @@ class ExploratoryDataAnalysis(Base, object):
 
         self.fig, self.axs = plt.subplots(1,1)
         crosstab = pd.crosstab(self.independent, self.target)
-        crosstab.plot(kind="bar", xlabel=self.independent.name, ylabel=self.target.name, color=["#003A5D","#A19958"],
-         ax=self.axs, key_color = {self.independent.name:"#003A5D", self.target.name:"#A19958"})
-        chi_val, p_val, dof, expected = chi2_contingency(h)
+        crosstab.plot(kind="bar", xlabel=self.independent.name, ylabel=self.target.name,
+        ax=self.axs, color = {"#003A5D", "#A19958"})
+        chi_val, p_val, dof, expected = chi2_contingency(crosstab)
         return self.fig, crosstab, chi_val, p_val, dof, expected
 
     def cat_pivot_plot(self):
@@ -125,7 +125,8 @@ class ExploratoryDataAnalysis(Base, object):
 
     def scatter_plot(self):
         
-        """ Scatter plot between numerical variables """
+        """ Scatter plot between numerical variables and it can still be used between numerical and
+         categorical(target)"""
 
         self.fig, self.axs = plt.subplots(1,1)
         self.axs.scatter(self.independent, self.target)
@@ -199,12 +200,13 @@ class ExploratoryDataAnalysis(Base, object):
 
     def point_biserial_plot(self):
 
-        """ Point Biserial Plots - plot between numerical and categorical variabales """
+        """ Point Biserial Plots - plot between numerical and categorical variabales
+         (swaped target and independent vars for plotting)"""
 
         self.fig, self.axs = plt.subplots(1,1)
         sns.set_theme(style="ticks", color_codes = True)
-        data = pd.concat([self.independent, self.target], axis=1)        
-        sns.boxplot(x = self.independent.name, y = self.target.name, data = data, ax=self.axs) 
+        data = pd.concat([self.target, self.independent], axis=1)        
+        sns.boxplot(x = self.target.name, y = self.independent.name, data = data, ax=self.axs) 
         return self.fig 
 
     def point_biserial(self):
@@ -241,13 +243,16 @@ if __name__ == "__main__":
     file_path = "./KGB.sas7bdat"
     data_types, df_loan_categorical, df_loan_float = data_cleaning(file_path)
     custom_rcParams = {"figure.figsize": (9, 8), "axes.labelsize": 12}
+    miss = ImputationCat(df_loan_categorical)
+    imputer_cat = miss.simple_imputer_mode()
     print(df_loan_categorical.columns)
     print(df_loan_float.columns) 
-    c = ExploratoryDataAnalysis(custom_rcParams, df_loan_categorical['PROF'], df_loan_float['GB'])
+    c = ExploratoryDataAnalysis(custom_rcParams, imputer_cat, "statistics", df_loan_float, df_loan_float["GB"])
     # print(c._get_indexes(df_loan_float, 1))
     # print(c.get_var_corr_greater(df_loan_float, 0.7))
     # print(c.correlation_plot(df_loan_float)[0])
-    print(c.sample_imbalance())
+    # print(c.sample_imbalance())
+    # print(c.scatter_plot())
     # print(c.point_biserial_plot())
-    # print(c.cat_missing_crosstab_plot()[1])
+    print(c.cat_crosstab_plot()[1])
     plt.show()

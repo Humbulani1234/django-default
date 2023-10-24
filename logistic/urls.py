@@ -12,6 +12,7 @@ urlpatterns = [
     # Peformance
 
     path('roc/',views.roc, name='roc-log'),
+    path('overfitting/',views.overfitting_log, name='overfitting-log'),
     path('confusion/',views.confusion_logistic, name='confusion-log'),
 
     # Diagnostics

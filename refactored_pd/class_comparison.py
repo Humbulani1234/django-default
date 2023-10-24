@@ -126,6 +126,8 @@ class ModelComparison(ModelPerfomance, DecisionTree, LogRegression, object):
         """ Roc curve analytics and plot - Rocs points represent confusion matrices at varying 
         thresholds, default model threshold is 0.5 """
 
+        # Need to be looked into since overfitting is per model basis not comparison between models.
+
         """ Run overffiting for GLM Logistic Regression """
         
         self.x_val_glm_c = sm.add_constant(self.x_val_glm.values, has_constant='add')
