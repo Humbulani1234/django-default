@@ -79,14 +79,14 @@ class ExploratoryDataAnalysis(OneHotEncoding, object):
         chi_val, p_val, dof, expected = chi2_contingency(cross_tab)         
         return self.fig, cross_tab
 
-    def cat_missing_pivot_plot(self):
+    def cat_missing_pivot_plot(self, independent, target):
           
         """ Categorical Plot for greater than 2 categories - with features that have missing values """
 
         self.fig, self.axs = plt.subplots(1,1)
-        missingness = self.independent.isnull()
-        df = pd.concat([missingness, self.target], axis=1) 
-        df_pivot = pd.pivot_table(df, index=self.independent.name, values=self.target.name, aggfunc=len,
+        missingness = independent.isnull()
+        df = pd.concat([missingness, target], axis=1) 
+        df_pivot = pd.pivot_table(df, index=independent.name, values=target.name, aggfunc=len,
                                   fill_value=0) #.apply(lambda x: x/float(x.sum()))
         df_pivot.plot(kind="bar", width=0.1, color=["#003A5D","#A19958"], fontsize=7.5,
                       edgecolor="tab:grey",linewidth=1.5, ax=self.axs)
@@ -94,7 +94,7 @@ class ExploratoryDataAnalysis(OneHotEncoding, object):
 
         return self.fig, df_pivot
 
-    def cat_crosstab_plot(self):
+    def cat_crosstab_plot(self, independent, target):
         
         """ Plot cross tab table and conduct chi-square testing - for features without missing values:
 
@@ -104,32 +104,32 @@ class ExploratoryDataAnalysis(OneHotEncoding, object):
         """
 
         self.fig, self.axs = plt.subplots(1,1)
-        crosstab = pd.crosstab(self.independent, self.target)
-        crosstab.plot(kind="bar", xlabel=self.independent.name, ylabel=self.target.name,
+        crosstab = pd.crosstab(independent, target)
+        crosstab.plot(kind="bar", xlabel=independent.name, ylabel=target.name,
         ax=self.axs, color = {"#003A5D", "#A19958"})
         chi_val, p_val, dof, expected = chi2_contingency(crosstab)
         return self.fig, crosstab, chi_val, p_val, dof, expected
 
-    def cat_pivot_plot(self):
+    def cat_pivot_plot(self, independent, target):
           
         """ Categorical Plot using Pivot Tables - provide more flexibility, not only counts/frequencies
         for features without missing values """
 
         self.fig, self.axs = plt.subplots(1,1)
-        df = pd.concat([self.independent, self.target], axis=1) 
-        df_pivot = pd.pivot_table(df, index=self.independent.name, columns=self.target.name,
+        df = pd.concat([independent, target], axis=1) 
+        df_pivot = pd.pivot_table(df, index=independent.name, columns=target.name,
                                   aggfunc=len, fill_value=0).apply(lambda x: x/float(x.sum()))        
         df_pivot.plot(kind="bar", ax=self.axs)
         chi_val, p_val, dof, expected = chi2_contingency(df_pivot)
         return self.fig, df_pivot, p_val
 
-    def scatter_plot(self):
+    def scatter_plot(self, independent, target):
         
         """ Scatter plot between numerical variables and it can still be used between numerical and
          categorical(target)"""
 
         self.fig, self.axs = plt.subplots(1,1)
-        self.axs.scatter(self.independent, self.target)
+        self.axs.scatter(independent, target)
         return self.fig   
 
     def correlation_plot(self, dataframe):
@@ -141,11 +141,11 @@ class ExploratoryDataAnalysis(OneHotEncoding, object):
         sns.heatmap(corr, annot=True, cmap="coolwarm", fmt=".2f", linewidths=0.5, ax=self.axs)
         return self.fig, corr
 
-    def pearson_corr_test(self):
+    def pearson_corr_test(self, independent, target):
         
         """ Pearson correlation test function """
         
-        pearson_coef, p_value = pearsonr(self.independent, self.target)
+        pearson_coef, p_value = pearsonr(independent, target)
         return pearson_coef, p_value
 
     def _corr_value_greater(self, dataframe, corr_threshold):
@@ -188,25 +188,25 @@ class ExploratoryDataAnalysis(OneHotEncoding, object):
             tuple_corr.append([item for item in t if item[0]!=item[1]])    
         return tuple_corr
 
-    def vif_value(self):
+    def vif_value(self, dataframe, target):
         
         '''Calculate variance inflation factor'''
 
-        ols = sm.regression.linear_model.OLS(self.target, self.dataframe.
+        ols = sm.regression.linear_model.OLS(target, dataframe.
                                                       drop(labels=[self.target.name]), axis=1)
         res_ols = ols.fit()              
         VIF = 1/(1-res_ols.rsquared_adj**2)        
         return VIF
 
-    def point_biserial_plot(self):
+    def point_biserial_plot(self, independent, target):
 
         """ Point Biserial Plots - plot between numerical and categorical variabales
          (swaped target and independent vars for plotting)"""
 
         self.fig, self.axs = plt.subplots(1,1)
         sns.set_theme(style="ticks", color_codes = True)
-        data = pd.concat([self.target, self.independent], axis=1)        
-        sns.boxplot(x = self.target.name, y = self.independent.name, data = data, ax=self.axs) 
+        data = pd.concat([target, independent], axis=1)        
+        sns.boxplot(x = target.name, y = independent.name, data = data, ax=self.axs) 
         return self.fig 
 
     def point_biserial(self):

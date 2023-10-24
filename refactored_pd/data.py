@@ -147,3 +147,10 @@ o = ModelComparison(custom_rcParams, imputer_cat, "statistics", "machine",
 # o.cmp_confusion_matrix_plot(ccpalpha, threshold_1, threshold_2, threshold)
 # plt.show()
 
+#--------------------------------------------EAD LINEAR REGRESSION-------------------------------------------------
+
+file_path = "../data/cohort1.sas7bdat"
+data_types, df_loan_categorical, df_loan_float = pd_download.data_cleaning(file_path)    
+miss = ImputationCat(df_loan_categorical)
+imputer_cat = miss.simple_imputer_mode()
+print(df_loan_float)
