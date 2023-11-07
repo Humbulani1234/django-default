@@ -60,7 +60,7 @@ def confusion_logistic(request):
 
 def overfitting_log(request):
 
-    f = data.m.glm_overfitting_test(data.x_train_glm_o, data.m.y_train_glm, data.x_test_glm_o, data.m.y_test_glm, *data.thresholds))[1]
+    f = data.m.glm_overfitting_test(data.x_train_glm_o, data.m.y_train_glm, data.x_test_glm_o, data.m.y_test_glm, *data.thresholds)[1]
     cache_key = 'overfitting_log'
     cached_result = cache.get(cache_key)
     if cached_result is not None:
