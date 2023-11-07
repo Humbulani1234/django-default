@@ -27,11 +27,21 @@ from class_missing_values import ImputationCat
 
 class OneHotEncoding(Base, object):
 
-    def __init__(self, custom_rcParams, df_nomiss_cat, type_):
+    """ This class handles both the data that requires onehot encoding and data that does not
+    onehot=True argument controls the behavior of the class """
 
+    def __init__(self,
+                 custom_rcParams,
+                 df_nomiss_cat,
+                 type_,
+                 randomstate,
+                 onehot=True
+    ):
         super(OneHotEncoding,self).__init__(custom_rcParams)
         self.df_nomiss_cat = df_nomiss_cat
         self.type = type_
+        self.onehot = onehot
+        self.random_state_one = randomstate
     
     def __str__(self):
         
@@ -40,7 +50,6 @@ class OneHotEncoding(Base, object):
         for name, func in OneHotEncoding.__dict__.items():
             if not pattern.match(name) and callable(func):
                 method_names.append(name)
-
         return f"This is Class {self.__class__.__name__} with methods {method_names}"    
 
     def onehot_encoding(self):
@@ -56,6 +65,7 @@ class OneHotEncoding(Base, object):
                 encoded_dataframes.append(y)
             df_cat_onehotenc = pd.concat(encoded_dataframes, axis = 1)
             return df_cat_onehotenc
+            
         elif self.type == "statistics":        
             encoded_dataframes = []
             for col in self.df_nomiss_cat.columns:                
@@ -64,34 +74,42 @@ class OneHotEncoding(Base, object):
                 self.df_nomiss_cat_ = y.drop(y.columns[n-1], axis=1) 
                 encoded_dataframes.append(self.df_nomiss_cat_)
             df_cat_onehotenc = pd.concat(encoded_dataframes, axis = 1)
-
             return df_cat_onehotenc
-
+    
     def create_xy_frames(self, df_float, target):
 
-        if self.type == "machine":
+        """ The method creates predictor dataset and target dataset """
+
+        def encoder():
             df_cat = self.onehot_encoding()
             df_total_partition = pd.concat([df_float, df_cat], axis = 1)
             x = df_total_partition.drop(labels=[target.name], axis=1)
             y = df_total_partition[target.name]
-            
+            return x, y
+
+        if self.type == "machine":
+            if self.onehot:
+                x, y = encoder()
+            else:
+                x = df_float.drop(labels=[target.name], axis=1)
+                y = df_float[target.name]            
             return x, y
 
         elif self.type == "statistics":
-            df_cat = self.onehot_encoding()
-            df_total_partition = pd.concat([df_float, df_cat], axis = 1)
-            x = df_total_partition.drop(labels=[target.name], axis=1)
-            y = df_total_partition[target.name]
-            
+            if self.onehot:
+                x, y = encoder()
+            else:
+                x = df_float.drop(labels=[target.name], axis=1)
+                y = df_float[target.name]          
             return x, y
-
+   
     def split_xtrain_ytrain(self, df_float, target):
+
+        """ The method returns a training set and a test set for both predictors and target datasets """
     
         x, y = self.create_xy_frames(df_float, target)
-        x_train_pd, x_test_pd, y_train_pd, y_test_pd = train_test_split(x, y, test_size=0.3, random_state=42)
-        x_train_pd = x_train_pd.drop(labels=["_freq_"], axis=1) # temp, for mach it has to be dropped
-        x_test_pd = x_test_pd.drop(labels=["_freq_"], axis=1) # temp
-   
+        x_train_pd, x_test_pd, y_train_pd, y_test_pd = train_test_split(x, y, test_size=0.3,
+                                                                        random_state=self.random_state_one)   
         return x_train_pd, x_test_pd, y_train_pd, y_test_pd
 
     def train_val_test(self, df_float, target):
@@ -99,6 +117,6 @@ class OneHotEncoding(Base, object):
         """ This method creates the Trainning, Validation and Testing datasets """
 
         x_train_pd, x_split_pd, y_train_pd, y_split_pd = self.split_xtrain_ytrain(df_float, target)
-        x_val_pd, x_test_pd, y_val_pd, y_test_pd = train_test_split(x_split_pd, y_split_pd, test_size=0.3, random_state=42)
+        x_val_pd, x_test_pd, y_val_pd, y_test_pd = train_test_split(x_split_pd, y_split_pd, test_size=0.3,
+                                                                    random_state=self.random_state_one)
         return x_train_pd, y_train_pd, x_val_pd, y_val_pd, x_test_pd, y_test_pd
-

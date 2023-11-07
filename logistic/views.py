@@ -58,6 +58,17 @@ def confusion_logistic(request):
     cache.set(cache_key, image_base64, 3600)
     return render (request, 'logistic/peformance/log_peformance_confusion.html', {'image_base64':image_base64})
 
+def overfitting_log(request):
+
+    f = data.m.glm_overfitting_test(data.x_train_glm_o, data.m.y_train_glm, data.x_test_glm_o, data.m.y_test_glm, *data.thresholds)[1]
+    cache_key = 'overfitting_log'
+    cached_result = cache.get(cache_key)
+    if cached_result is not None:
+        render (request, 'logistic/peformance/log_overfitting.html', {'image_base64':cached_result})
+    image_base64 = image_generator(f)
+    cache.set(cache_key, image_base64, 3600)                
+    return render (request, 'logistic/peformance/log_overfitting.html', {'image_base64':image_base64})
+
 #------------------------------------------------------------------ Probability Clustering--------------------------------------------
 
 def elbow_plot(request):
@@ -307,8 +318,8 @@ def inputs(request):
 
             list_ = inputs2 + inputs1
             inputs = np.array(list_).reshape(1,-1)
-            answer1 = np.array(data.loaded_model.predict(inputs.reshape(1,-1)))
-            answer = "{: .10f}".format(answer1[0])
+            answer1 = np.array(data.m.glm_sample_prob_pred(0, inputs.reshape(1,-1)))
+            answer = "{: .10f}".format(answer1)
             try:
                 with transaction.atomic():                    
                     log_features_object = LogFeatures.objects.get(pk=saved_pk)

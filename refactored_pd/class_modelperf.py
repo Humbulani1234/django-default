@@ -81,21 +81,30 @@ class ModelPerfomance(OneHotEncoding, object):
         "x50": "Mastercard_Euroc", "x51": "Other_credit_car", "x52": "VISA_Others", "x53": "VISA_mybank"
     }
 
-    def __init__(self, custom_rcParams, df_nomiss_cat, type_, df_loan_float, target, randomstate, threshold=None):
+    def __init__(self, 
+                 custom_rcParams, 
+                 df_nomiss_cat, 
+                 type_, 
+                 df_loan_float, 
+                 target, 
+                 randomstate,
+                 onehot, 
+                 threshold=None
+    ):
 
         """ Object initialisation attributes """
 
-        OneHotEncoding.__init__(self, custom_rcParams, df_nomiss_cat, type_)
+        OneHotEncoding.__init__(self, custom_rcParams, df_nomiss_cat, type_, randomstate, onehot)
         self.df_loan_float_glm = df_loan_float
         self.target_glm = target 
+        self.threshold_glm = threshold
+        self.randomstate_glm = self.random_state_one
         self.x_train_glm = super(ModelPerfomance, self).train_val_test(self.df_loan_float_glm, self.target_glm)[0]
         self.y_train_glm = super(ModelPerfomance, self).train_val_test(self.df_loan_float_glm, self.target_glm)[1]
         self.x_val_glm = super(ModelPerfomance, self).train_val_test(self.df_loan_float_glm, self.target_glm)[2]
         self.y_val_glm = super(ModelPerfomance, self).train_val_test(self.df_loan_float_glm, self.target_glm)[3]
         self.x_test_glm = super(ModelPerfomance, self).train_val_test(self.df_loan_float_glm, self.target_glm)[4]
         self.y_test_glm = super(ModelPerfomance, self).train_val_test(self.df_loan_float_glm, self.target_glm)[5]  
-        self.threshold_glm = threshold
-        self.randomstate_glm = randomstate
 
     def __str__(self):
 
@@ -253,12 +262,16 @@ class ModelPerfomance(OneHotEncoding, object):
         self.fig, (self.axs1, self.axs2)  = plt.subplots(1, 2)
         self.axs1.plot(thresholds, train_precisions, label = "Training Precision")
         self.axs1.plot(thresholds, test_precisions, label='Testing Precision')
+        self.axs1.spines["top"].set_visible(False)  
+        self.axs1.spines["right"].set_visible(False) 
         self.axs1.set_label('Thresholds')
         self.axs1.set_label('Precisions')
         self.axs1.legend()
 
         self.axs2.plot(thresholds, train_recalls, label = "Training Recalls")
         self.axs2.plot(thresholds, test_recalls, label='Testing Recalls')
+        self.axs2.spines["top"].set_visible(False)  
+        self.axs2.spines["right"].set_visible(False) 
         self.axs2.set_label('Thresholds')
         self.axs2.set_label('Reaclls')
         self.axs2.legend()

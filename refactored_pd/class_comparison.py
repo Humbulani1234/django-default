@@ -28,14 +28,14 @@ class ModelComparison(ModelPerfomance, DecisionTree, LogRegression, object):
     for this class to be more useful it has to be made independent of the models it is comparing"""
 
     def __init__(self, custom_rcParams, df_nomiss_cat, type_1, type_2,
-                  df_loan_float, target, randomstate, grid_search:Type[GridSearchCV], threshold=None):
+                  df_loan_float, target, grid_search:Type[GridSearchCV], randomstate, onehot, threshold=None):
 
         ModelPerfomance.__init__(self, custom_rcParams, df_nomiss_cat, type_1,
-                         df_loan_float, target, randomstate, threshold)
+                         df_loan_float, target, randomstate, onehot, threshold)
         DecisionTree.__init__(self, custom_rcParams, df_nomiss_cat, type_2,
-                         df_loan_float, target, randomstate, threshold)
+                         df_loan_float, target, grid_search, randomstate, onehot, threshold)
         LogRegression.__init__(self, custom_rcParams, df_nomiss_cat, type_2,
-                         df_loan_float, target, randomstate, grid_search, threshold)
+                         df_loan_float, target, grid_search, randomstate, onehot, threshold)
 
     def cmp_performance_metrics(self, ccpalpha, threshold_1, threshold_2, threshold=None):
 
@@ -126,6 +126,8 @@ class ModelComparison(ModelPerfomance, DecisionTree, LogRegression, object):
         """ Roc curve analytics and plot - Rocs points represent confusion matrices at varying 
         thresholds, default model threshold is 0.5 """
 
+        # Need to be looked into since overfitting is per model basis not comparison between models.
+
         """ Run overffiting for GLM Logistic Regression """
         
         self.x_val_glm_c = sm.add_constant(self.x_val_glm.values, has_constant='add')
@@ -133,8 +135,8 @@ class ModelComparison(ModelPerfomance, DecisionTree, LogRegression, object):
         val_precisions_glm, val_recalls_glm = super(ModelComparison, self).glm_overfitting_test(self.x_val_glm_c, self.y_val_glm,
                                                                                         self.x_test_glm_c, self.y_test_glm,
                                                                                          *thresholds)[1],\
-                                            super(ModelComparison, self).glm_overfitting_test(self.x_val_glm, self.y_val_glm,
-                                                                                        self.x_test_glm, self.y_test_glm, 
+                                            super(ModelComparison, self).glm_overfitting_test(self.x_val_glm_c, self.y_val_glm,
+                                                                                        self.x_test_glm_c, self.y_test_glm, 
                                                                                         *thresholds)[2]
 
         """ Run overfiting for Decision Trees """
@@ -157,12 +159,16 @@ class ModelComparison(ModelPerfomance, DecisionTree, LogRegression, object):
         self.axs1.plot(thresholds, val_precisions_glm, label = "Validation_GLM Precision")
         self.axs1.plot(thresholds, val_precisions_dt, label='Validation_DT Precision')
         self.axs1.plot(thresholds, val_precisions_lg, label='Validation_LG Precision')
+        self.axs1.spines["top"].set_visible(False)  
+        self.axs1.spines["right"].set_visible(False) 
         self.axs1.set_label('Threshold')
         self.axs1.set_label('Precision')
         self.axs1.legend()
         self.axs2.plot(thresholds, val_recalls_glm, label = "Testing_GLM Recalls")
         self.axs2.plot(thresholds, val_recalls_dt, label='Testing_DT Recalls')
         self.axs2.plot(thresholds, val_recalls_lg, label='Testing_LG Recalls')
+        self.axs2.spines["top"].set_visible(False)  
+        self.axs2.spines["right"].set_visible(False) 
         self.axs2.set_label('Threshold')
         self.axs2.set_label('Precision')
         self.axs2.legend()

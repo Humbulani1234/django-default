@@ -38,10 +38,20 @@ class LogRegression(OneHotEncoding, object):
 
     set_config(enable_metadata_routing=True)
 
-    def __init__(self, custom_rcParams, df_nomiss_cat, type_, df_loan_float, target, 
-                 randomstate, grid_search:Type[GridSearchCV], threshold=None):
-        OneHotEncoding.__init__(self, custom_rcParams, df_nomiss_cat, type_)  
-        self.randomstate_lg = randomstate
+    def __init__(self, 
+                 custom_rcParams, 
+                 df_nomiss_cat, 
+                 type_, 
+                 df_loan_float, 
+                 target,
+                 grid_search:Type[GridSearchCV], 
+                 randomstate, 
+                 onehot, 
+                 threshold=None
+    ):
+
+        OneHotEncoding.__init__(self, custom_rcParams, df_nomiss_cat, type_, randomstate, onehot)  
+        self.randomstate_lg = self.random_state_one
         self.threshold_lg = threshold
         self.df_loan_float_lg = df_loan_float
         self.target_lg = target
@@ -54,6 +64,7 @@ class LogRegression(OneHotEncoding, object):
         self.grid_search = grid_search
 
     def __str__(self):
+        
         pattern = re.compile(r'^_')
         method_names = []
         for name, func in LogisticRegression.__dict__.items():
