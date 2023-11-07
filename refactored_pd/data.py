@@ -9,7 +9,7 @@ import base64
 import statsmodels.api as sm
 from matplotlib import pyplot as plt
 from sklearn.model_selection import GridSearchCV
-
+from sklearn.linear_model import Ridge
 
 import pd_download
 from class_traintest import OneHotEncoding
@@ -23,6 +23,9 @@ from class_diagnostics import (ResidualsPlot, BreushPaganTest, NormalityTest, Du
 from class_lgclassifier import LogRegression
 from class_comparison import ModelComparison
 from class_clustering_pd import ClusterProbability
+from class_ols_ridge import RidgeAndOLS
+
+pd.set_option('display.max_columns', 1200)
 
 #----------------------------------------------------------------Data------------------------------------------------
 
@@ -113,7 +116,7 @@ j = CooksDisQuantRes(custom_rcParams, imputer_cat, "statistics",
 #---------------------------------------------Decision Trees-----------------------------------------
 
 d = DecisionTree(custom_rcParams, imputer_cat, "machine",
-                 df_loan_float, df_loan_float["GB"],randomstate, threshold)
+                 df_loan_float, df_loan_float["GB"], GridSearchCV, randomstate, onehot=True, threshold=0.47)
 
 # print(d.dt_pruned_perf_analytics(ccpalpha, threshold_1, threshold_2, d.x_test_dt, d.y_test_dt))
 # print(d.dt_binary_prediction(x_test_orig, ccpalpha))
@@ -126,7 +129,7 @@ d = DecisionTree(custom_rcParams, imputer_cat, "machine",
 #------------------------------------------------Logistic Regression-----------------------------------
 
 s = LogRegression(custom_rcParams, imputer_cat, "machine",
-                 df_loan_float, df_loan_float["GB"], randomstate, GridSearchCV, threshold)
+                 df_loan_float, df_loan_float["GB"], GridSearchCV, randomstate, onehot=True, threshold=0.47)
 
 # print(s.lg_overfitting_test(x_train_orig, y_train_orig, x_test_orig, y_test_orig, *np.arange(0.1, 0.9, 0.05)))
 # print(s.lg_binary_prediction(x_test_orig))
@@ -141,7 +144,7 @@ s = LogRegression(custom_rcParams, imputer_cat, "machine",
 #-----------------------------------Comparison----------------------------------------------
 
 o = ModelComparison(custom_rcParams, imputer_cat, "statistics", "machine",
-                 df_loan_float, df_loan_float["GB"], randomstate, GridSearchCV, threshold)
+                    df_loan_float, df_loan_float["GB"], GridSearchCV, randomstate, onehot=True, threshold=0.47)
 # print(o.cmp_performance_metrics(ccpalpha, threshold_1, threshold_2, threshold))
 # print(o.cmp_overfitting(ccpalpha, threshold_1, threshold_2, *np.arange(0.1, 0.9, 0.05)))
 # o.cmp_confusion_matrix_plot(ccpalpha, threshold_1, threshold_2, threshold)
@@ -154,3 +157,18 @@ o = ModelComparison(custom_rcParams, imputer_cat, "statistics", "machine",
 # miss = ImputationCat(df_loan_categorical)
 # imputer_cat = miss.simple_imputer_mode()
 # print(df_loan_float)
+
+#------------------------------------------------EAD LOGISTIC REGRESSION---------------------------------------------
+
+# file_path = "../data/cohort1.sas7bdat"
+# file_path = "../data/lgd_data_default.sas7bdat"
+# data_types, df_loan_categorical, df_loan_float = pd_download.data_cleaning_ead(file_path)    
+# miss = ImputationCat(df_loan_categorical)
+# imputer_cat = miss.simple_imputer_mode()
+# # print(df_loan_float)
+
+# r = RidgeAndOLS(custom_rcParams, imputer_cat, "statistics", "machine",
+#                 df_loan_float, df_loan_float["GB"], randomstate, Ridge, sm.OLS)
+# print(r.OLS())
+
+

@@ -28,14 +28,14 @@ class ModelComparison(ModelPerfomance, DecisionTree, LogRegression, object):
     for this class to be more useful it has to be made independent of the models it is comparing"""
 
     def __init__(self, custom_rcParams, df_nomiss_cat, type_1, type_2,
-                  df_loan_float, target, randomstate, grid_search:Type[GridSearchCV], threshold=None):
+                  df_loan_float, target, grid_search:Type[GridSearchCV], randomstate, onehot, threshold=None):
 
         ModelPerfomance.__init__(self, custom_rcParams, df_nomiss_cat, type_1,
-                         df_loan_float, target, randomstate, threshold)
+                         df_loan_float, target, randomstate, onehot, threshold)
         DecisionTree.__init__(self, custom_rcParams, df_nomiss_cat, type_2,
-                         df_loan_float, target, randomstate, threshold)
+                         df_loan_float, target, grid_search, randomstate, onehot, threshold)
         LogRegression.__init__(self, custom_rcParams, df_nomiss_cat, type_2,
-                         df_loan_float, target, randomstate, grid_search, threshold)
+                         df_loan_float, target, grid_search, randomstate, onehot, threshold)
 
     def cmp_performance_metrics(self, ccpalpha, threshold_1, threshold_2, threshold=None):
 

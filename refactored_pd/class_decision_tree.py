@@ -17,7 +17,7 @@
 """
 
 from sklearn.tree import DecisionTreeClassifier, plot_tree
-from sklearn.model_selection import cross_validate, cross_val_score
+from sklearn.model_selection import cross_validate, cross_val_score, GridSearchCV
 from sklearn.metrics import (accuracy_score, 
                              f1_score, 
                              confusion_matrix, 
@@ -31,6 +31,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import logging
 import seaborn as sns
+from typing import Type
 
 from class_traintest import OneHotEncoding
 from class_base import Base
@@ -53,9 +54,20 @@ class DecisionTree(OneHotEncoding, object):
     dataframes during initialisation process, meaning the methods (mostly) will not require dataframes user inputs when
     called on the object """
 
-    def __init__(self, custom_rcParams, df_nomiss_cat, type_, df_loan_float, target, randomstate, threshold=None):
-        OneHotEncoding.__init__(self, custom_rcParams, df_nomiss_cat, type_)  
-        self.randomstate_dt = randomstate
+    def __init__(self,
+                 custom_rcParams, 
+                 df_nomiss_cat, 
+                 type_, 
+                 df_loan_float, 
+                 target, 
+                 grid_search:Type[GridSearchCV],
+                 randomstate,
+                 onehot, 
+                 threshold=None
+    ):
+
+        OneHotEncoding.__init__(self, custom_rcParams, df_nomiss_cat, type_, randomstate, onehot)  
+        self.randomstate_dt = self.random_state_one
         self.threshold_dt = threshold
         self.df_loan_float_dt = df_loan_float
         self.target_dt = target
@@ -67,12 +79,31 @@ class DecisionTree(OneHotEncoding, object):
         self.y_test_dt = super(DecisionTree, self).train_val_test(self.df_loan_float_dt, self.target_dt)[5]
 
     def __str__(self):
+
         pattern = re.compile(r'^_')
         method_names = []
         for name, func in DecisionTree.__dict__.items():
             if not pattern.match(name) and callable(func):
                 method_names.append(name)
         return f"This is class: {self.__class__.__name__}, and this is the public interface: {method_names}"
+
+    def dt_grid_search(self):
+
+        """ The following uses GridSearchCV to find the best l2 penalty regularization parameter
+        GridSearchCV is being implemented as arm to the LogisticRegression class"""
+
+        param_grid = {
+        'max_depth': [None, 5, 10, 15],
+        'min_samples_split': [2, 5, 10],
+        'min_samples_leaf': [1, 2, 4]
+        }
+        grid_search = GridSearchCV(estimator=DecisionTreeClassifier(random_state=42),
+                                   param_grid=param_grid, cv=5, scoring='accuracy')
+        grid_search.fit(X_train, y_train)
+        best_params = grid_search.best_params_
+        best_estimator = grid_search.best_estimator_
+        print(best_estimator)
+        return best_estimator
 
     def dt_classification_fit(self, ccpalpha):
         
