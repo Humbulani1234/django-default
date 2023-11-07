@@ -33,7 +33,7 @@ with open('refactored_pd/glm_binomial.pkl','rb') as file:
         loaded_model = pickle.load(file)
 
 file_path = "refactored_pd/KGB.sas7bdat"
-data_types, df_loan_categorical, df_loan_float = pd_download.data_cleaning(file_path)    
+data_types, df_loan_categorical, df_loan_float = pd_download.data_cleaning_pd(file_path)    
 miss = ImputationCat(df_loan_categorical)
 imputer_cat = miss.simple_imputer_mode()
 

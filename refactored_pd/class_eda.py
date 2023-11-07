@@ -62,6 +62,14 @@ class ExploratoryDataAnalysis(OneHotEncoding, object):
         # super().plotting("Normality Test", "x", "y")
         return self.fig
 
+    def hist_float(self, target):
+    
+        self.fig, self.axs = plt.subplots(1,1)        
+        self.axs.hist(target, bins=20, density=True, alpha=0.5, color="b", edgecolor="k", label="Histogram")
+        sns.kdeplot(target, color="r", label="Density Curve")
+        plt.legend()
+        return self.fig
+
     def cat_missing_crosstab_plot(self, independent, target):
         
         """ Plot cross tab for features with missing values """
@@ -248,6 +256,7 @@ if __name__ == "__main__":
     print(df_loan_categorical.columns)
     print(df_loan_float.columns) 
     c = ExploratoryDataAnalysis(custom_rcParams, imputer_cat, "statistics", df_loan_float, df_loan_float["GB"])
+    c.hist_float(df_loan_float['AGE'])
     # print(c._get_indexes(df_loan_float, 1))
     # print(c.get_var_corr_greater(df_loan_float, 0.7))
     # print(c.correlation_plot(df_loan_float)[0])
