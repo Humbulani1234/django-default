@@ -28,11 +28,8 @@ def home(request):
         results = Item.objects.filter(menu__icontains=query)[:10] if query else []        
         suggestions = [{'menu': result.menu, 'url': result.get_absolute_url()} for result in results]
         print(suggestions)   
-
         return JsonResponse({'results': suggestions})
-
     else:
-
         return render(request, 'search/home_page.html')
     
 def about(request):

@@ -22,7 +22,7 @@ from sklearn.model_selection import train_test_split
 import warnings
 
 from class_base import Base
-from pd_download import data_cleaning
+from pd_download import data_cleaning_pd, data_cleaning_ead
 from class_missing_values import ImputationCat
 
 class OneHotEncoding(Base, object):
@@ -54,9 +54,7 @@ class OneHotEncoding(Base, object):
 
     def onehot_encoding(self):
     
-        '''One Hot Encoding Function
-        Test that no matter how you write the code the dataframe has no missing values
-        and contains zero and ones for categorical data'''
+        """ One Hot Encoding Function """
 
         if self.type == "machine":    
             encoded_dataframes = []

@@ -35,7 +35,7 @@ from typing import Type
 
 from class_traintest import OneHotEncoding
 from class_base import Base
-from pd_download import data_cleaning
+from pd_download import data_cleaning_pd
 from class_missing_values import ImputationCat
 
 decision_logger = logging.getLogger("class_decision")
@@ -247,6 +247,7 @@ class DecisionTree(OneHotEncoding, object):
             self.fig, self.axs = plt.subplots(1,1)
             y_bin = self.dt_binary_prediction(x_test, ccpalpha, threshold)
             accuracy = accuracy_score(y_test, y_bin)
+            # scores = cross_val_score(clf_dt, self.x_train_dt, self.y_train_dt, cv=5)
             f1 = f1_score(y_test, y_bin)
             auc = roc_auc_score(y_test, y_bin)
             data = pd.DataFrame({

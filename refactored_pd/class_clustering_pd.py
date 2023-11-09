@@ -20,7 +20,7 @@ diagnostics_logger.info("PROBABILITY CLUSTERING ACCORDING TO RISK")
 
 class ClusterProbability(ModelPerfomance, Base, object):
 
-    def __init__(self, custom_rcParams, df_nomiss_cat, type_, df_loan_float, target, randomstate, threshold=None):
+    def __init__(self, custom_rcParams, df_nomiss_cat, type_, df_loan_float, target, randomstate, onehot, threshold=None):
         super(ClusterProbability,self).__init__(custom_rcParams, df_nomiss_cat, type_, df_loan_float, target, randomstate, threshold)
         Base.__init__(self, custom_rcParams)
         self.x_test_glm_o = sm.add_constant(self.x_val_glm.values, has_constant='add')
