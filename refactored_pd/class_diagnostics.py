@@ -37,7 +37,7 @@ import statsmodels.stats.diagnostic as sd
 from class_modelperf import ModelPerfomance
 from class_traintest import OneHotEncoding
 from class_base import Base
-from pd_download import data_cleaning
+from pd_download import data_cleaning_pd
 from class_missing_values import ImputationCat
 from glm_binomial import glm_binomial_fit
 
@@ -47,17 +47,26 @@ console_handler = logging.StreamHandler()
 console_handler.setFormatter(logging.Formatter(fmt="{levelname}:{name}:{message}", style="{"))
 diagnostics_logger.addHandler(console_handler)
 diagnostics_logger.info("MODEL DIAGNOSTICS ARE INCLUDED")
-with open('refactored_pd/glm_binomial.pkl','rb') as file:
+with open('glm_binomial.pkl','rb') as file:
         loaded_model = pickle.load(file)
 
 class QuantileResiduals(ModelPerfomance, object):
 
-    def __init__(self, custom_rcParams, df_nomiss_cat, type_, df_loan_float, target, randomstate, threshold=None):
+    def __init__(self, 
+                 custom_rcParams, 
+                 df_nomiss_cat, 
+                 type_, 
+                 df_loan_float, 
+                 target, 
+                 randomstate, 
+                 onehot, 
+                 threshold=None
+    ):
 
         """ Object initialisation attributes """
 
         super(QuantileResiduals, self).__init__(custom_rcParams, df_nomiss_cat, type_, df_loan_float,
-                                                target, randomstate, threshold)
+                                                target, randomstate, onehot, threshold)
 
     def __str__(self):
         pattern = re.compile(r'^_')

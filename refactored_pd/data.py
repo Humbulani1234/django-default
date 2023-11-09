@@ -18,8 +18,14 @@ from class_missing_values import ImputationCat
 import class_diagnostics
 from class_modelperf import ModelPerfomance
 from class_decision_tree import DecisionTree
-from class_diagnostics import (ResidualsPlot, BreushPaganTest, NormalityTest, DurbinWatsonTest,
-                               PartialPlots, LevStudQuaRes, CooksDisQuantRes, QuantileResiduals)
+from class_diagnostics import (ResidualsPlot, 
+                               BreushPaganTest, 
+                               NormalityTest, 
+                               DurbinWatsonTest,
+                               PartialPlots, 
+                               LevStudQuaRes, 
+                               CooksDisQuantRes, 
+                               QuantileResiduals)
 from class_lgclassifier import LogRegression
 from class_comparison import ModelComparison
 from class_clustering_pd import ClusterProbability
@@ -29,10 +35,10 @@ pd.set_option('display.max_columns', 1200)
 
 #----------------------------------------------------------------Data------------------------------------------------
 
-with open('refactored_pd/glm_binomial.pkl','rb') as file:
+with open('glm_binomial.pkl','rb') as file:
         loaded_model = pickle.load(file)
 
-file_path = "refactored_pd/KGB.sas7bdat"
+file_path = "KGB.sas7bdat"
 data_types, df_loan_categorical, df_loan_float = pd_download.data_cleaning_pd(file_path)    
 miss = ImputationCat(df_loan_categorical)
 imputer_cat = miss.simple_imputer_mode()
@@ -49,12 +55,12 @@ thresholds = np.arange(0.1, 0.9, 0.05)
 
 # #-----------------------------------------------Statistics--------------------------------------------
 
-instance_stats = OneHotEncoding(custom_rcParams, imputer_cat, "statistics")
+instance_stats = OneHotEncoding(custom_rcParams, imputer_cat, "statistics", randomstate, onehot=True)
 
 m = ModelPerfomance(custom_rcParams, imputer_cat, "statistics",
-                 df_loan_float, df_loan_float["GB"], randomstate, threshold)
+                 df_loan_float, df_loan_float["GB"], randomstate, onehot=True, threshold=0.47)
 q = ClusterProbability(custom_rcParams, imputer_cat, "statistics",
-                 df_loan_float, df_loan_float["GB"], randomstate, threshold)
+                 df_loan_float, df_loan_float["GB"], randomstate, onehot=True, threshold=0.47)
 
 x_train_glm_o = sm.add_constant(m.x_train_glm.values, has_constant='add')
 x_test_glm_o = sm.add_constant(m.x_test_glm.values, has_constant='add')
@@ -96,22 +102,22 @@ x_test_glm_o = sm.add_constant(m.x_test_glm.values, has_constant='add')
 ind_var = m.x_test_glm["CHILDREN"]
 
 b = ResidualsPlot(custom_rcParams, imputer_cat, "statistics",
-                 df_loan_float, df_loan_float["GB"],randomstate, threshold)
+                  df_loan_float, df_loan_float["GB"],randomstate, onehot=True, threshold=0.47)
 b.x_test_glm = sm.add_constant(b.x_test_glm.values, has_constant='add')
 # print(b.quantile_residuals(b.x_test_glm))
 e = BreushPaganTest(custom_rcParams, imputer_cat, "statistics",
-                 df_loan_float, df_loan_float["GB"],randomstate, threshold)
+                  df_loan_float, df_loan_float["GB"],randomstate, onehot=True, threshold=0.47)
 # print(e.breush_pagan_quantile(b.x_test_glm))
 k = NormalityTest(custom_rcParams, imputer_cat, "statistics",
-                 df_loan_float, df_loan_float["GB"],randomstate, threshold)
+                  df_loan_float, df_loan_float["GB"],randomstate, onehot=True, threshold=0.47)
 g = DurbinWatsonTest(custom_rcParams, imputer_cat, "statistics",
-                 df_loan_float, df_loan_float["GB"],randomstate, threshold)
+                  df_loan_float, df_loan_float["GB"],randomstate, onehot=True, threshold=0.47)
 h = PartialPlots(custom_rcParams, imputer_cat, "statistics",
-                 df_loan_float, df_loan_float["GB"],randomstate, threshold)
+                  df_loan_float, df_loan_float["GB"],randomstate, onehot=True, threshold=0.47)
 i = LevStudQuaRes(custom_rcParams, imputer_cat, "statistics",
-                 df_loan_float, df_loan_float["GB"],randomstate, threshold)
+                  df_loan_float, df_loan_float["GB"],randomstate, onehot=True, threshold=0.47)
 j = CooksDisQuantRes(custom_rcParams, imputer_cat, "statistics",
-                 df_loan_float, df_loan_float["GB"],randomstate, threshold)
+                     df_loan_float, df_loan_float["GB"],randomstate, onehot=True, threshold=0.47)
 
 #---------------------------------------------Decision Trees-----------------------------------------
 

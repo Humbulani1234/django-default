@@ -20,9 +20,10 @@ import seaborn as sns
 import statsmodels.api as sm
 from math import *
 import re
+from matplotlib.colors import ListedColormap
 
 from class_base import Base
-from pd_download import data_cleaning
+from pd_download import data_cleaning_pd, data_cleaning_ead
 from class_missing_values import ImputationCat
 from class_traintest import OneHotEncoding
 
@@ -40,12 +41,12 @@ class ExploratoryDataAnalysis(OneHotEncoding, object):
     """ This class provides features vs target plotting and hypothesis tests to determine if the features 
     are relevant to the model"""
 
-    def __init__(self, custom_rcParams, df_nomiss_cat: pd.DataFrame, type_, df_loan_float, target):        
-        super(ExploratoryDataAnalysis, self).__init__(custom_rcParams, df_nomiss_cat, type_)
+    def __init__(self, custom_rcParams, df_nomiss_cat: pd.DataFrame, type_, df_loan_float, target, randomstate):        
+        super(ExploratoryDataAnalysis, self).__init__(custom_rcParams, df_nomiss_cat, type_, randomstate)
         self.df_loan_float_eda = df_loan_float
         self.target_eda = target 
-        self.x_eda = super(ExploratoryDataAnalysis, self).create_xy_frames(self.df_loan_float_eda, self.target_glm)[0]
-        self.y_eda = super(ExploratoryDataAnalysis, self).create_xy_frames(self.df_loan_float_eda, self.target_glm)[1]
+        self.x_eda = super(ExploratoryDataAnalysis, self).create_xy_frames(self.df_loan_float_eda, self.target_eda)[0]
+        self.y_eda = super(ExploratoryDataAnalysis, self).create_xy_frames(self.df_loan_float_eda, self.target_eda)[1]
 
     def __str__(self):        
         pattern = re.compile(r'^_')
@@ -63,18 +64,20 @@ class ExploratoryDataAnalysis(OneHotEncoding, object):
         return self.fig
 
     def hist_float(self, target):
-    
-        self.fig, self.axs = plt.subplots(1,1)        
+
+        self.fig, self.axs = plt.subplots(1,1)    
         self.axs.hist(target, bins=20, density=True, alpha=0.5, color="b", edgecolor="k", label="Histogram")
         sns.kdeplot(target, color="r", label="Density Curve")
+        self.axs.spines["top"].set_visible(False)  
+        self.axs.spines["right"].set_visible(False) 
         plt.legend()
         return self.fig
 
     def cat_missing_crosstab_plot(self, independent, target):
         
         """ Plot cross tab for features with missing values """
-
-        self.fig, self.axs = plt.subplots(1,1)
+        
+        self.fig, self.axs = plt.subplots(1,1) 
         missingness = independent.isnull()
         cross_tab = pd.crosstab(missingness, target)
         plot = cross_tab.plot(kind='bar', width=0.15, ylabel=target.name, color=["#003A5D","#A19958"],
@@ -131,13 +134,19 @@ class ExploratoryDataAnalysis(OneHotEncoding, object):
         chi_val, p_val, dof, expected = chi2_contingency(df_pivot)
         return self.fig, df_pivot, p_val
 
-    def scatter_plot(self, independent, target):
+    def scatter_plot(self, independent, target, independent2=None):
         
         """ Scatter plot between numerical variables and it can still be used between numerical and
          categorical(target)"""
 
         self.fig, self.axs = plt.subplots(1,1)
-        self.axs.scatter(independent, target)
+        if independent2 is None:
+            self.axs.scatter(independent, target, c=target, cmap='viridis')
+        else:
+            self.axs.scatter(independent, independent2, c=target, cmap='viridis')
+            # sns.scatterplot(x,y_names,hue=,data=datframe)
+        # cb = plt.colorbar(ticks=[0.25, 0.75])
+        # cb.set_ticklabels([0,1])
         return self.fig   
 
     def correlation_plot(self, dataframe):
@@ -249,19 +258,19 @@ class ExploratoryDataAnalysis(OneHotEncoding, object):
 if __name__ == "__main__":
 
     file_path = "./KGB.sas7bdat"
-    data_types, df_loan_categorical, df_loan_float = data_cleaning(file_path)
+    data_types, df_loan_categorical, df_loan_float = data_cleaning_pd(file_path)
     custom_rcParams = {"figure.figsize": (9, 8), "axes.labelsize": 12}
     miss = ImputationCat(df_loan_categorical)
     imputer_cat = miss.simple_imputer_mode()
     print(df_loan_categorical.columns)
     print(df_loan_float.columns) 
-    c = ExploratoryDataAnalysis(custom_rcParams, imputer_cat, "statistics", df_loan_float, df_loan_float["GB"])
-    c.hist_float(df_loan_float['AGE'])
+    c = ExploratoryDataAnalysis(custom_rcParams, imputer_cat, "statistics", df_loan_float, df_loan_float["GB"], randomstate=42)
+    # c.hist_float(df_loan_float['AGE'])
     # print(c._get_indexes(df_loan_float, 1))
     # print(c.get_var_corr_greater(df_loan_float, 0.7))
     # print(c.correlation_plot(df_loan_float)[0])
     # print(c.sample_imbalance())
-    # print(c.scatter_plot())
+    print(c.scatter_plot(df_loan_float['CHILDREN'], df_loan_float['GB'], df_loan_float['AGE']))
     # print(c.point_biserial_plot())
-    print(c.cat_crosstab_plot()[1])
+    # print(c.cat_crosstab_plot(df_loan_categorical["STATUS"], df_loan_float["GB"])[1])
     plt.show()

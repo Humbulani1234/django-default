@@ -18,7 +18,6 @@ class Base(object):
         for name, func in Base.__dict__.items():
             if not pattern.match(name) and callable(func):
                 method_names.append(name)
-
         return f"This is class: {self.__class__.__name__}, and it provides functionalities for others"
 
     def _plotting(self, title_, xlabel_, ylabel_):

@@ -17,7 +17,7 @@ from sklearn.preprocessing import OrdinalEncoder
 import numpy as np
 import logging
 
-from pd_download import data_cleaning 
+from pd_download import data_cleaning_pd, data_cleaning_ead 
 
 class ImputationCat:
 
@@ -80,7 +80,7 @@ class ImputationCat:
 if __name__ == "__main__":
 
     file_path = "KGB.sas7bdat"
-    data_types, df_loan_categorical, df_loan_float = data_cleaning(file_path)    
+    data_types, df_loan_categorical, df_loan_float = data_cleaning_pd(file_path)    
     miss = ImputationCat(df_loan_categorical)
     imputer_cat = miss.simple_imputer_mode()
     print(imputer_cat)
