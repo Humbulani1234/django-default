@@ -17,6 +17,7 @@ class ViewsTests(TestCase, object):
 
         url = reverse("features")
         response = self.client.get(url)
+        # response = self.client.post(url, data1)
         self.assertEqual(response.status_code, 200)
         content = json.loads(response.content)
         prob = content["probability"]

@@ -1,4 +1,3 @@
-
 # # test_factorial.py
 
 # import unittest
@@ -24,13 +23,16 @@
 def add(x, y):
     return x + y
 
+
 def subtract(x, y):
     return x - y
+
 
 # test_my_math.py
 
 import unittest
 from my_math import add, subtract
+
 
 def test_add():
     # Test addition with positive numbers
@@ -42,6 +44,7 @@ def test_add():
     # Test addition of a positive and a negative number
     assert add(5, -3) == 2
 
+
 def test_subtract():
     # Test subtraction with positive numbers
     assert subtract(5, 3) == 2
@@ -52,7 +55,8 @@ def test_subtract():
     # Test subtraction of a positive and a negative number
     assert subtract(5, -3) == 8
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     test_add()
     test_subtract()
     print("All tests passed.")
