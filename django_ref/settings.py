@@ -1,5 +1,3 @@
-
-
 """
 
 Django settings for django_ref project.
@@ -42,20 +40,17 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-
     "django_pdb",
     "users.apps.UsersConfig",
     "logistic.apps.LogisticConfig",
     "decision.apps.DecisionConfig",
     "search.apps.SearchConfig",
-
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
     "widget_tweaks",
     "clearcache",
     "crispy_bootstrap5",
@@ -63,7 +58,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -98,38 +92,31 @@ WSGI_APPLICATION = "django_ref.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-
-    'default': {
-
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django_new_db',
-        'USER': 'django_new_admin',
-        'PASSWORD': 'django_new_pass',
-        'HOST': 'localhost',
-        'PORT': '3306',
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "django_new_db",
+        "USER": "django_new_admin",
+        "PASSWORD": "django_new_pass",
+        "HOST": "localhost",
+        "PORT": "3306",
     }
 }
 
 CACHES = {
-
-      'default':{
-              
-              'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-              'LOCATION': os.path.join(BASE_DIR, 'cache_directory/'),
-              'OPTIONS': {
-
-               'MAX_ENTRIES': 1000,
-               'CULL_FREQUENCY': 2,
-              },
-      }                                            
-
+    "default": {
+        "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
+        "LOCATION": os.path.join(BASE_DIR, "cache_directory/"),
+        "OPTIONS": {
+            "MAX_ENTRIES": 1000,
+            "CULL_FREQUENCY": 2,
+        },
+    }
 }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
@@ -160,7 +147,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -169,12 +156,12 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # login redirections
 
-LOGIN_REDIRECT_URL = 'home_page'
-LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = "home_page"
+LOGIN_URL = "login"
 
 # crispy template for crispy_forms
 
-CRISPY_TEMPLATE_PACK = 'bootstrap5'
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 # email setup
 
