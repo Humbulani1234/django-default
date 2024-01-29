@@ -36,6 +36,9 @@ pd.set_option("display.max_columns", 1200)
 
 # ----------------------------------------------------------------Data------------------------------------------------
 
+#TODO: We need a design pattern to provide a suitable API so this classes and functions maybe
+# executed directly into views. 
+
 with open("glm_binomial.pkl", "rb") as file:
     loaded_model = pickle.load(file)
 
