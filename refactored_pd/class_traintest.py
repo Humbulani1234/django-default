@@ -24,6 +24,11 @@ from pd_download import data_cleaning_pd, data_cleaning_ead
 from class_missing_values import ImputationCat
 
 
+# TODO: This class forms the base which all models inherit from. Explore if this is a good idea, adhere to the
+# principles of SOLID.
+
+# We have to determine which design pattern has been followed.
+
 class OneHotEncoding(Base, object):
 
     """This class handles both the data that requires onehot encoding and data that does not
