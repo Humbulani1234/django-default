@@ -24,7 +24,6 @@ from .models import Probability, LogFeatures
 
 import data
 
-
 def image_generator(f):
     buffer = io.BytesIO()
     f.savefig(buffer, format="png")
