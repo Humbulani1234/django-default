@@ -38,6 +38,9 @@ from pd_download import data_cleaning_pd
 from class_missing_values import ImputationCat
 from glm_binomial import glm_binomial_fit
 
+
+# TODO: This requires refactoring, lots of code repetation - the whole class.
+
 modelperf_logger = logging.getLogger("class_modelperf")
 modelperf_logger.setLevel(logging.DEBUG)
 console_handler = logging.StreamHandler()

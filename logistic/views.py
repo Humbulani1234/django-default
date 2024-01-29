@@ -35,6 +35,14 @@ def image_generator(f):
 
 # ------------------------------------------------------------------ Performance measures--------------------------------------------
 
+# TODO: Refactor the code to the principles of DRY. A decorator maybe used to wrap around the 
+# functionalities of calling the following plotting requests. 
+
+# Design Pattern: We can try wrap around the functionalities using the Strategy pattern in order to access them
+# behind an interface.
+
+# Covert the views to Class base views following the principles of SOLID.
+
 
 def roc(request):
     f = data.c.roc_curve_analytics(data.m.x_test_glm, data.m.y_test_glm)[1]
@@ -102,6 +110,13 @@ def overfitting_log(request):
 # ------------------------------------------------------------------ Probability Clustering--------------------------------------------
 
 
+# TODO: Refactor the code to the principles of DRY. A decorator maybe used to wrap around the 
+# functionalities of calling the following plotting requests. 
+
+# Design Pattern: We can try wrap around the functionalities using the Strategy pattern in order to access them
+# behind an interface.
+
+
 def elbow_plot(request):
     f = data.q._elbow_max_cluster()
     cache_key = "elbow_plot"
@@ -135,6 +150,13 @@ def probability_cluster(request):
 
 
 # -------------------------------------------------------------------Model Diagnostics-----------------------------------------------------
+
+
+# TODO: Refactor the code to the principles of DRY. A decorator maybe used to wrap around the 
+# functionalities of calling the following plotting requests. 
+
+# Design Pattern: We can try wrap around the functionalities using the Strategy pattern in order to access them
+# behind an interface.
 
 
 def normal_plot(request):
@@ -224,6 +246,8 @@ def cooks(request):
 
 # -------------------------------------------------------------------Model Views-----------------------------------------------------
 
+
+# TODO: Try explore if there are ways we can use Lazy Acquisition of resources to the database.
 
 def inputs(request):
     answer = ""
