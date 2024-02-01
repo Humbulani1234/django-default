@@ -27,13 +27,26 @@ from class_missing_values import ImputationCat
 # TODO: This class forms the base which all models inherit from. Explore if this is a good idea, adhere to the
 # principles of SOLID.
 
-# We have to determine which design pattern has been followed.
+# Define carefully how this classes and functionality are supposed to be used by clients, including 
+# appropriate error handling messages.
+
+# We have to determine which design pattern has been followed. We have to find a way to decouple the system
+# where it is tightly coupled to achive or solve a certain functionality issue or design requirement.
 
 class OneHotEncoding(Base, object):
 
-    """This class handles both the data that requires onehot encoding and data that does not
-    onehot=True argument controls the behavior of the class"""
+    """
+    This class handles both the data that requires onehot encoding and data that does not
+    onehot=True argument controls the behavior of the class
 
+    Attributes
+    ----------
+
+    Methods
+    -------
+    """
+    # TODO: Organise the parameters to data and modal parameters
+    
     def __init__(self, custom_rcParams, df_nomiss_cat, type_, randomstate, onehot=True):
         super(OneHotEncoding, self).__init__(custom_rcParams)
         self.df_nomiss_cat = df_nomiss_cat
