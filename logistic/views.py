@@ -39,9 +39,16 @@ def image_generator(f):
 # functionalities of calling the following plotting requests. 
 
 # Design Pattern: We can try wrap around the functionalities using the Strategy pattern in order to access them
-# behind an interface.
+# behind an interface. This can also be applied behind the algorithms, so that algorithms may just be accesible
+# behind an interface too, and they can be added into the engine with ease.
+
+# Find a way to implement the Component Configurator and Interceptor patterns to enhance the application's
+# flexibility.
 
 # Covert the views to Class base views following the principles of SOLID.
+
+# Try implement Lazy evaluation of resource for transactions to the database or functionality that involves
+# I/O.
 
 
 def roc(request):

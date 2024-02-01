@@ -52,7 +52,7 @@ with open("glm_binomial.pkl", "rb") as file:
     loaded_model = pickle.load(file)
 
 
-#TODO: Since we are inheriting from class QuantileResiduals for each and every other class
+# TODO: Since we are inheriting from class QuantileResiduals for each and every other class
 # Dependency Injection design pattern will be much better suited for this problem, or the
 # Strategy pattern maybe more suitable.
 
