@@ -37,6 +37,9 @@ eda_logger.info("MODEL PERFOMANCE ARE INCLUDED")
 
 # ---------------------------------------------------------EDA Class-----------------------------------------------------
 
+# TODO: Refactor the class using Single responsibilty SOLID principle to have classes that performs related
+# tasks, like VIF, different hypothesis testing, etc. We can try provide an client interface for this classes
+# and an abstract interface between the client and concrete implementations.
 
 class ExploratoryDataAnalysis(OneHotEncoding, object):
 
