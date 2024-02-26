@@ -56,6 +56,8 @@ with open("glm_binomial.pkl", "rb") as file:
 # Dependency Injection design pattern will be much better suited for this problem, or the
 # Strategy pattern maybe more suitable.
 
+# __str__ method repetition: refactor using metaclass/__init_subclass__ or decorators to control
+# the construction of such classes.
 
 class QuantileResiduals(ModelPerfomance, object):
     def __init__(
