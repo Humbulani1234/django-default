@@ -49,6 +49,7 @@ decision_logger.info("MODEL DECISION TREE IS INCLUDED")
 
 # ---------------------------------------------------Class DecisionTree-------------------------------------------
 
+#TODO:
 
 class DecisionTree(OneHotEncoding, object):
 
