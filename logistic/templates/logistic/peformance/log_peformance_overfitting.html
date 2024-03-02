@@ -1,0 +1,13 @@
+
+{% extends 'logistic/peformance/base_plots.html' %}
+{% load static %}
+
+{% block static_links %}
+    <link rel="stylesheet" type="text/css" href="{% static 'logistic/css/base_plots.css' %}">
+{% endblock static_links %}
+
+{% block image %}
+    <div class="image enter text-center">
+        <img src="data:image/png;base64,{{ image_base64 }}" alt="No Picture">
+    </div>
+{% endblock image %}
