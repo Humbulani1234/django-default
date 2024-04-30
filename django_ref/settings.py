@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     "clearcache",
     "crispy_bootstrap5",
     "crispy_forms",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
@@ -65,6 +66,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = "django_ref.urls"
@@ -130,6 +132,19 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
+
+CORS_ALLOWED_ORIGINS = [
+
+    'http://127.0.0.1:8000',
+    'http://localhost:8000',
+    # Add other origins as needed
+]
+
+# Optional: Allow all methods and headers
+CORS_ALLOW_ALL_METHODS = True
+CORS_ALLOW_ALL_HEADERS = True
+
+
 
 
 # Internationalization
