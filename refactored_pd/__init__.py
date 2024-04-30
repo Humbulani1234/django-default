@@ -39,10 +39,10 @@ pd.set_option("display.max_columns", 1200)
 #TODO: We need a design pattern to provide a suitable API so this classes and functions maybe
 # executed directly into views. 
 
-with open("glm_binomial.pkl", "rb") as file:
+with open("refactored_pd/glm_binomial.pkl", "rb") as file:
     loaded_model = pickle.load(file)
 
-file_path = "KGB.sas7bdat"
+file_path = "refactored_pd/KGB.sas7bdat"
 data_types, df_loan_categorical, df_loan_float = pd_download.data_cleaning_pd(file_path)
 miss = ImputationCat(df_loan_categorical)
 imputer_cat = miss.simple_imputer_mode()

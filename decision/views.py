@@ -22,7 +22,7 @@ from class_decision_tree import DecisionTree
 from class_missing_values import ImputationCat
 from class_traintest import OneHotEncoding
 from class_base import Base
-from pd_download import data_cleaning
+# from pd_download import data_cleaning
 import data
 
 # -------------------------------------------------------------------Defined variables----------------------------------------------------

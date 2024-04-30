@@ -22,7 +22,7 @@ sys.path.append("/home/humbulani/django-pd/django_ref/refactored_pd")
 from .forms import Inputs
 from .models import Probability, LogFeatures
 
-import data
+import refactored_pd as data
 
 def image_generator(f):
     buffer = io.BytesIO()
@@ -56,19 +56,19 @@ def roc(request):
     cache_key = "roc_plot"
     cached_result = cache.get(cache_key)
     if cached_result is not None:
-        render(
+        return render(
+                     request,
+                     "logistic/peformance/log_peformance_roc.html",
+                     {"image_base64": cached_result},
+        )
+    else:
+        image_base64 = image_generator(f)
+        cache.set(cache_key, image_base64, 3600)
+        return render(
             request,
             "logistic/peformance/log_peformance_roc.html",
-            {"image_base64": cached_result},
+            {"image_base64": image_base64},
         )
-    image_base64 = image_generator(f)
-    cache.set(cache_key, image_base64, 3600)
-    return render(
-        request,
-        "logistic/peformance/log_peformance_roc.html",
-        {"image_base64": image_base64},
-    )
-
 
 def confusion_logistic(request):
     f = data.m.confusion_matrix_plot(data.m.x_test_glm, data.m.y_test_glm)
@@ -129,13 +129,16 @@ def elbow_plot(request):
     cache_key = "elbow_plot"
     cached_result = cache.get(cache_key)
     if cached_result is not None:
-        render(request, "logistic/risk/log_elbow.html", {"image_base64": cached_result})
-    image_base64 = image_generator(f)
-    cache.set(cache_key, image_base64, 3600)
-    return render(
-        request, "logistic/risk/log_elbow.html", {"image_base64": image_base64}
-    )
-
+        return render(request, 
+                      "logistic/risk/log_elbow.html", 
+                      {"image_base64": cached_result}
+               )    
+    else:    
+        image_base64 = image_generator(f)
+        cache.set(cache_key, image_base64, 3600)
+        return render(
+            request, "logistic/risk/log_elbow.html", {"image_base64": image_base64}
+        )
 
 def probability_cluster(request):
     f = data.q.kmeans_cluster_plot()

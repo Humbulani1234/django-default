@@ -32,6 +32,7 @@ from math import sqrt
 import statsmodels.api as sm
 import pickle
 import statsmodels.stats.diagnostic as sd
+# import sys
 
 from class_modelperf import ModelPerfomance
 from class_traintest import OneHotEncoding
@@ -48,7 +49,9 @@ console_handler.setFormatter(
 )
 diagnostics_logger.addHandler(console_handler)
 diagnostics_logger.info("MODEL DIAGNOSTICS ARE INCLUDED")
-with open("glm_binomial.pkl", "rb") as file:
+# sys.path.append("/home/humbulani/django-pd/django_ref/refactored_pd")
+
+with open("refactored_pd/glm_binomial.pkl", "rb") as file:
     loaded_model = pickle.load(file)
 
 
