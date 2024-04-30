@@ -14,6 +14,17 @@
     </div>
 {% endblock peformance %}
 
+{% block comparison %}
+    <span><li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Comparison</a>
+       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'conf-cmp' %}">Confusion Matrix</a> 
+          <a class="dropdown-item" href="{% url 'overfitting-cmp' %}">Overfitting Test</a> 
+          <a class="dropdown-item" href="{% url 'perf-cmp' %}">Perf Analytics</a> 
+       </div>
+    </li></span>
+{% endblock comparison %}
+
 {% block image %}
     <div class="container contained enter">
        <img src="{% static 'decision/files/data2.png' %}" alt="No Picture" class="image">
