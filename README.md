@@ -3,7 +3,7 @@
     1. Design Pattern - the Python file have a corresponding Jupyter Notebook file, so an interactive jupyter
                         notebook code layout has been adopted
     
-    2. Software Paradigm - a Functional paradigm has been adopted
+    2. Software Paradigm - a Object Oriented paradigm has been adopted
     
     3. Work in progress - the code has been developed merely to show case coding abilities, nor is it designed
                           according to software beased parctices.
