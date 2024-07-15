@@ -1,4 +1,3 @@
-
 import pandas as pd
 import numpy as np
 import sys
@@ -18,159 +17,251 @@ from django.core.cache import cache
 from django.db import transaction
 from django.contrib.auth.decorators import login_required
 
-sys.path.append('/home/humbulani/django-pd/django_ref/refactored_pd')
-
-import data
+sys.path.append("/home/humbulani/django-pd/django_ref/refactored_pd")
 
 from .forms import Inputs
-from .models import LogFeatures
-from .models import Probability
+from .models import Probability, LogFeatures
+
+import refactored_pd as data
 
 def image_generator(f):
-
     buffer = io.BytesIO()
-    f.savefig(buffer, format='png')
+    f.savefig(buffer, format="png")
     buffer.seek(0)
     image_base64 = base64.b64encode(buffer.getvalue()).decode()
     buffer.close()
-
     return image_base64
 
-#------------------------------------------------------------------ Performance measures--------------------------------------------
+
+# ------------------------------------------------------------------ Performance measures--------------------------------------------
+
+# TODO: Refactor the code to the principles of DRY. A decorator maybe used to wrap around the 
+# functionalities of calling the following plotting requests. 
+
+# Design Pattern: We can try wrap around the functionalities using the Strategy pattern in order to access them
+# behind an interface. This can also be applied behind the algorithms, so that algorithms may just be accesible
+# behind an interface too, and they can be added into the engine with ease.
+
+# Find a way to implement the Component Configurator and Interceptor patterns to enhance the application's
+# flexibility.
+
+# Covert the views to Class base views following the principles of SOLID.
+
+# Try implement Lazy evaluation of resource for transactions to the database or functionality that involves
+# I/O.
+
 
 def roc(request):
-
-    f = data.c.roc_curve_analytics()
-    cache_key = 'roc_plot'
+    f = data.c.roc_curve_analytics(data.m.x_test_glm, data.m.y_test_glm)[1]
+    cache_key = "roc_plot"
     cached_result = cache.get(cache_key)
     if cached_result is not None:
-        render (request, 'logistic/peformance/log_peformance_roc.html', {'image_base64':cached_result})
-    image_base64 = image_generator(f)
-    cache.set(cache_key, image_base64, 3600)                
-
-    return render (request, 'logistic/peformance/log_peformance_roc.html', {'image_base64':image_base64})
+        return render(
+                     request,
+                     "logistic/peformance/log_peformance_roc.html",
+                     {"image_base64": cached_result},
+        )
+    else:
+        image_base64 = image_generator(f)
+        cache.set(cache_key, image_base64, 3600)
+        return render(
+            request,
+            "logistic/peformance/log_peformance_roc.html",
+            {"image_base64": image_base64},
+        )
 
 def confusion_logistic(request):
-
-    f = data.c.confusion_matrix_plot()
-    cache_key = 'logconfusion_plot'
+    f = data.m.confusion_matrix_plot(data.m.x_test_glm, data.m.y_test_glm)
+    cache_key = "logconfusion_plot"
     cached_result = cache.get(cache_key)
     if cached_result is not None:
-        render (request, 'logistic/peformance/log_peformance_confusion.html', {'image_base64':cached_result})
+        render(
+            request,
+            "logistic/peformance/log_peformance_confusion.html",
+            {"image_base64": cached_result},
+        )
     image_base64 = image_generator(f)
     cache.set(cache_key, image_base64, 3600)
+    return render(
+        request,
+        "logistic/peformance/log_peformance_confusion.html",
+        {"image_base64": image_base64},
+    )
 
-    return render (request, 'logistic/peformance/log_peformance_confusion.html', {'image_base64':image_base64})
 
-#------------------------------------------------------------------ Probability Clustering--------------------------------------------
+def overfitting_log(request):
+    f = data.m.glm_overfitting_test(
+        data.x_train_glm_o,
+        data.m.y_train_glm,
+        data.x_test_glm_o,
+        data.m.y_test_glm,
+        *data.thresholds
+    )[1]
+    cache_key = "overfitting_log"
+    cached_result = cache.get(cache_key)
+    if cached_result is not None:
+        render(
+            request,
+            "logistic/peformance/log_overfitting.html",
+            {"image_base64": cached_result},
+        )
+    image_base64 = image_generator(f)
+    cache.set(cache_key, image_base64, 3600)
+    return render(
+        request,
+        "logistic/peformance/log_overfitting.html",
+        {"image_base64": image_base64},
+    )
+
+
+# ------------------------------------------------------------------ Probability Clustering--------------------------------------------
+
+
+# TODO: Refactor the code to the principles of DRY. A decorator maybe used to wrap around the 
+# functionalities of calling the following plotting requests. 
+
+# Design Pattern: We can try wrap around the functionalities using the Strategy pattern in order to access them
+# behind an interface.
+
 
 def elbow_plot(request):
-
     f = data.q._elbow_max_cluster()
-    cache_key = 'elbow_plot'
+    cache_key = "elbow_plot"
     cached_result = cache.get(cache_key)
     if cached_result is not None:
-        render (request, 'logistic/risk/log_elbow.html', {'image_base64':cached_result})
-    image_base64 = image_generator(f)
-    cache.set(cache_key, image_base64, 3600)                
-
-    return render (request, 'logistic/risk/log_elbow.html', {'image_base64':image_base64})
+        return render(request, 
+                      "logistic/risk/log_elbow.html", 
+                      {"image_base64": cached_result}
+               )    
+    else:    
+        image_base64 = image_generator(f)
+        cache.set(cache_key, image_base64, 3600)
+        return render(
+            request, "logistic/risk/log_elbow.html", {"image_base64": image_base64}
+        )
 
 def probability_cluster(request):
-
     f = data.q.kmeans_cluster_plot()
-    cache_key = 'probability_cluster'
+    cache_key = "probability_cluster"
     cached_result = cache.get(cache_key)
     if cached_result is not None:
-        render (request, 'logistic/risk/log_probability_cluster.html', {'image_base64':cached_result})
+        render(
+            request,
+            "logistic/risk/log_probability_cluster.html",
+            {"image_base64": cached_result},
+        )
     image_base64 = image_generator(f)
     cache.set(cache_key, image_base64, 3600)
+    return render(
+        request,
+        "logistic/risk/log_probability_cluster.html",
+        {"image_base64": image_base64},
+    )
 
-    return render (request, 'logistic/risk/log_probability_cluster.html', {'image_base64':image_base64})
 
-#-------------------------------------------------------------------Model Diagnostics-----------------------------------------------------
+# -------------------------------------------------------------------Model Diagnostics-----------------------------------------------------
+
+
+# TODO: Refactor the code to the principles of DRY. A decorator maybe used to wrap around the 
+# functionalities of calling the following plotting requests. 
+
+# Design Pattern: We can try wrap around the functionalities using the Strategy pattern in order to access them
+# behind an interface.
+
 
 def normal_plot(request):
-
-    f = data.k.plot_normality_quantile()
-    cache_key = 'normal_plot'
+    f = data.k.plot_normality_quantile(data.m.x_test_glm)
+    cache_key = "normal_plot"
     cached_result = cache.get(cache_key)
     if cached_result is not None:
-        render (request, 'logistic/diagnostics/normal_plot.html', {'image_base64':cached_result})
+        render(
+            request,
+            "logistic/diagnostics/normal_plot.html",
+            {"image_base64": cached_result},
+        )
     image_base64 = image_generator(f)
     cache.set(cache_key, image_base64, 3600)
+    return render(
+        request, "logistic/diagnostics/normal_plot.html", {"image_base64": image_base64}
+    )
 
-    return render (request, 'logistic/diagnostics/normal_plot.html', {'image_base64':image_base64})
 
 def residuals(request):
-
-    f = data.b.plot_quantile_residuals()
-    cache_key = 'residuals_plot'
+    f = data.b.plot_quantile_residuals(data.m.x_test_glm)
+    cache_key = "residuals_plot"
     cached_result = cache.get(cache_key)
     if cached_result is not None:
-        render (request, 'logistic/diagnostics/residuals.html', {'image_base64':cached_result})
+        render(
+            request,
+            "logistic/diagnostics/residuals.html",
+            {"image_base64": cached_result},
+        )
     image_base64 = image_generator(f)
     cache.set(cache_key, image_base64, 3600)
+    return render(
+        request, "logistic/diagnostics/residuals.html", {"image_base64": image_base64}
+    )
 
-    return render (request, 'logistic/diagnostics/residuals.html', {'image_base64':image_base64})
 
 def partial(request):
-
-    f = data.h.partial_plots_quantile(data.ind_var)
-    cache_key = 'partial_plot'
+    f = data.h.partial_plots_quantile(data.ind_var, data.m.x_test_glm)
+    cache_key = "partial_plot"
     cached_result = cache.get(cache_key)
     if cached_result is not None:
-        render (request, 'logistic/diagnostics/partial.html', {'image_base64':cached_result})
+        render(
+            request,
+            "logistic/diagnostics/partial.html",
+            {"image_base64": cached_result},
+        )
     image_base64 = image_generator(f)
     cache.set(cache_key, image_base64, 3600)
+    return render(
+        request, "logistic/diagnostics/partial.html", {"image_base64": image_base64}
+    )
 
-    return render (request, 'logistic/diagnostics/partial.html', {'image_base64':image_base64})
 
 def student(request):
-
-    f = data.i.plot_lev_stud_quantile()
-    cache_key = 'student_plot'
+    f = data.i.plot_lev_stud_quantile(data.m.x_test_glm)
+    cache_key = "student_plot"
     cached_result = cache.get(cache_key)
     if cached_result is not None:
-        render (request, 'logistic/diagnostics/student_residuals.html', {'image_base64':cached_result})
+        render(
+            request,
+            "logistic/diagnostics/student_residuals.html",
+            {"image_base64": cached_result},
+        )
     image_base64 = image_generator(f)
     cache.set(cache_key, image_base64, 3600)
+    return render(
+        request,
+        "logistic/diagnostics/student_residuals.html",
+        {"image_base64": image_base64},
+    )
 
-    return render (request, 'logistic/diagnostics/student_residuals.html', {'image_base64':image_base64})
 
 def cooks(request):
-
-    f = data.j.plot_cooks_dis_quantile()
-    cache_key = 'cooks_plot'
+    f = data.j.plot_cooks_dis_quantile(data.m.x_test_glm)
+    cache_key = "cooks_plot"
     cached_result = cache.get(cache_key)
     if cached_result is not None:
-        render (request, 'logistic/diagnostics/cooks.html', {'image_base64':cached_result})
+        render(
+            request, "logistic/diagnostics/cooks.html", {"image_base64": cached_result}
+        )
     image_base64 = image_generator(f)
     cache.set(cache_key, image_base64, 3600)
+    return render(
+        request, "logistic/diagnostics/cooks.html", {"image_base64": image_base64}
+    )
 
-    return render (request, 'logistic/diagnostics/cooks.html', {'image_base64':image_base64})
 
-# -------------------------------------------------------------------General Views-----------------------------------------------------
+# -------------------------------------------------------------------Model Views-----------------------------------------------------
 
-def home(request):
 
-    return render(request, 'logistic/general/home_page.html')
-    
-def about(request):
-
-    return render(request, 'logistic/general/about_page.html')
-
-@login_required
-def github_django_pd(request):
-
-    external_url = "https://github.com/Humbulani1234/Django_Anyway/"
-
-    return redirect(external_url) 
+# TODO: Try explore if there are ways we can use Lazy Acquisition of resources to the database.
 
 def inputs(request):
-
     answer = ""
-    if request.method == 'POST':
+    if request.method == "POST":
         form = Inputs(request.POST)
         if form.is_valid():
             with transaction.atomic():
@@ -178,7 +269,7 @@ def inputs(request):
                 saved_pk = instance.pk
 
             """ Float features """
-            
+
             NAME = form.cleaned_data.get("NAME")
             AGE = form.cleaned_data.get("AGE")
             CHILDREN = form.cleaned_data.get("CHILDREN")
@@ -198,157 +289,255 @@ def inputs(request):
             REGN = form.cleaned_data.get("REGN")
             DIV = form.cleaned_data.get("DIV")
             CASH = form.cleaned_data.get("CASH")
-                        
+
             """ Categorical features """
-            
+
             TITLE = form.cleaned_data.get("TITLE")
             H = 0
 
-            if TITLE == 'H':
-                H=1
+            if TITLE == "H":
+                H = 1
             else:
-                H=0
-            
+                H = 0
+
             STATUS = form.cleaned_data.get("STATUS")
-            V, U, G, E, T = 0,0,0,0,0    
+            V, U, G, E, T = 0, 0, 0, 0, 0
 
-            if STATUS == 'V':
-                V=1
-            elif STATUS == 'U':
-                U=1
-            elif STATUS == 'G':
-                G=1
-            elif STATUS == 'E':
-                E=1
-            elif STATUS=='T':
-                T=1
+            if STATUS == "V":
+                V = 1
+            elif STATUS == "U":
+                U = 1
+            elif STATUS == "G":
+                G = 1
+            elif STATUS == "E":
+                E = 1
+            elif STATUS == "T":
+                T = 1
             else:
-                V, U, G, E, T = 0,0,0,0,0  
+                V, U, G, E, T = 0, 0, 0, 0, 0
 
-            PRODUCT = form.cleaned_data.get("PRODUCT") 
-            Furniture_Carpet, Dept_Store_Mail, Leisure,Cars, OT = 0,0,0,0,0    
+            PRODUCT = form.cleaned_data.get("PRODUCT")
+            Furniture_Carpet, Dept_Store_Mail, Leisure, Cars, OT = 0, 0, 0, 0, 0
 
-            if PRODUCT=='Furniture_Carpet':
-                Furniture_Carpet=1
-            elif PRODUCT=='Dept_Store_Mail':
-                Dept_Store_Mail=1
-            elif PRODUCT=='Leisure':
-                Leisure=1
-            elif PRODUCT=='Cars':
-                Cars=1
-            elif PRODUCT=='OT':
-                OT=1
+            if PRODUCT == "Furniture_Carpet":
+                Furniture_Carpet = 1
+            elif PRODUCT == "Dept_Store_Mail":
+                Dept_Store_Mail = 1
+            elif PRODUCT == "Leisure":
+                Leisure = 1
+            elif PRODUCT == "Cars":
+                Cars = 1
+            elif PRODUCT == "OT":
+                OT = 1
             else:
-                Furniture_Carpet, Dept_Store_Mail, Leisure,Cars, OT = 0,0,0,0,0   
+                Furniture_Carpet, Dept_Store_Mail, Leisure, Cars, OT = 0, 0, 0, 0, 0
 
             RESID = form.cleaned_data.get("RESID")
-            Lease = 0    
+            Lease = 0
 
-            if RESID=='Lease':
-                Lease=1    
+            if RESID == "Lease":
+                Lease = 1
             else:
-                Lease=0
+                Lease = 0
 
             NAT = form.cleaned_data.get("NAT")
-            German, Turkish, RS, Greek ,Italian, Other_European, Spanish_Portugue = 0,0,0,0,0,0,0    
+            German, Turkish, RS, Greek, Italian, Other_European, Spanish_Portugue = (
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+            )
 
-            if NAT=='German':
-                German=1
-            elif NAT=='Turkish':
-                Turkish=1        
-            elif NAT=='RS':
-                RS=1
-            elif NAT=='Greek':
-                Greek=1
-            elif NAT=='Italian':
-                Italian=1
-            elif NAT=='Other_European':
-                Other_European=1
-            elif NAT=='Spanish_Portugue':
-                Spanish_Portugue=1
+            if NAT == "German":
+                German = 1
+            elif NAT == "Turkish":
+                Turkish = 1
+            elif NAT == "RS":
+                RS = 1
+            elif NAT == "Greek":
+                Greek = 1
+            elif NAT == "Italian":
+                Italian = 1
+            elif NAT == "Other_European":
+                Other_European = 1
+            elif NAT == "Spanish_Portugue":
+                Spanish_Portugue = 1
             else:
-                German, Turkish, RS, Greek ,Italian, Other_European, Spanish_Portugue = 0,0,0,0,0,0,0 
+                (
+                    German,
+                    Turkish,
+                    RS,
+                    Greek,
+                    Italian,
+                    Other_European,
+                    Spanish_Portugue,
+                ) = (0, 0, 0, 0, 0, 0, 0)
 
-            PROF = form.cleaned_data.get("PROF")  
-            Others, Civil_Service_M , Self_employed_pe, Food_Building_Ca, Chemical_Industr\
-            ,Pensioner ,Sea_Vojage_Gast, Military_Service = 0,0,0,0,0,0,0,0    
+            PROF = form.cleaned_data.get("PROF")
+            (
+                Others,
+                Civil_Service_M,
+                Self_employed_pe,
+                Food_Building_Ca,
+                Chemical_Industr,
+                Pensioner,
+                Sea_Vojage_Gast,
+                Military_Service,
+            ) = (0, 0, 0, 0, 0, 0, 0, 0)
 
-            if PROF=='Others':
-                Others=1
-            elif PROF=='Civil_Service_M':
-                Civil_Service_M=1
-            elif PROF=='Self_employed_pe':
-                Self_employed_pe=1
-            elif PROF=='Food_Building_Ca':
-                Food_Building_Ca=1
-            elif PROF=='Chemical_Industr':
-                Chemical_Industr=1
-            elif PROF=='Pensioner':
-                Pensioner=1
-            elif PROF=='Sea_Vojage_Gast':
-                Sea_Vojage_Gast=1
-            elif PROF=='Military_Service':
-                Military_Service=1
+            if PROF == "Others":
+                Others = 1
+            elif PROF == "Civil_Service_M":
+                Civil_Service_M = 1
+            elif PROF == "Self_employed_pe":
+                Self_employed_pe = 1
+            elif PROF == "Food_Building_Ca":
+                Food_Building_Ca = 1
+            elif PROF == "Chemical_Industr":
+                Chemical_Industr = 1
+            elif PROF == "Pensioner":
+                Pensioner = 1
+            elif PROF == "Sea_Vojage_Gast":
+                Sea_Vojage_Gast = 1
+            elif PROF == "Military_Service":
+                Military_Service = 1
             else:
-                Others, Civil_Service_M , Self_employed_pe, Food_Building_Ca, Chemical_Industr\
-                ,Pensioner ,Sea_Vojage_Gast, Military_Service = 0,0,0,0,0,0,0,0 
+                (
+                    Others,
+                    Civil_Service_M,
+                    Self_employed_pe,
+                    Food_Building_Ca,
+                    Chemical_Industr,
+                    Pensioner,
+                    Sea_Vojage_Gast,
+                    Military_Service,
+                ) = (0, 0, 0, 0, 0, 0, 0, 0)
 
-            CAR = form.cleaned_data.get("CAR")   
-            Car,Car_and_Motor_bi= 0,0    
+            CAR = form.cleaned_data.get("CAR")
+            Car, Car_and_Motor_bi = 0, 0
 
-            if CAR=='Car':
-                Car=1
-            elif CAR=='Car_and_Motor_bi':
-                Car_and_Motor_bi=1
+            if CAR == "Car":
+                Car = 1
+            elif CAR == "Car_and_Motor_bi":
+                Car_and_Motor_bi = 1
             else:
-                Car,Car_and_Motor_bi= 0,0    
+                Car, Car_and_Motor_bi = 0, 0
 
             CARDS = form.cleaned_data.get("CARDS")
-            Cheque_card, Mastercard_Euroc, VISA_mybank,VISA_Others\
-            ,Other_credit_car, American_Express = 0,0,0,0,0,0  
-  
-            if CARDS=='Cheque_card':
-                no_credit_cards=1
-            elif CARDS=='Mastercard_Euroc':
-                Mastercard_Euroc=1
-            elif CARDS == 'VISA_mybank':
-                VISA_mybank=1
-            elif CARDS=='VISA_Others':
-                VISA_Others=1
-            elif CARDS=='Other_credit_car':
-                Other_credit_car=1
-            elif CARDS=='American_Express':
-                American_Express=1
-            else:
-                Cheque_card, Mastercard_Euroc, VISA_mybank,VISA_Others\
-                ,Other_credit_car, American_Express = 0,0,0,0,0,0  
+            (
+                Cheque_card,
+                Mastercard_Euroc,
+                VISA_mybank,
+                VISA_Others,
+                Other_credit_car,
+                American_Express,
+            ) = (0, 0, 0, 0, 0, 0)
 
-            inputs1 = [H, E, G, T, U, V, Cars, Dept_Store_Mail, Furniture_Carpet, Leisure, OT, Lease, German, Greek, 
-            Italian, Other_European, RS, Spanish_Portugue, Turkish, Chemical_Industr, Civil_Service_M, 
-            Food_Building_Ca, Military_Service, Others, Pensioner, Sea_Vojage_Gast, Self_employed_pe, Car, 
-            Car_and_Motor_bi, American_Express, Cheque_card, Mastercard_Euroc, Other_credit_car, VISA_Others, VISA_mybank]
-            
-            inputs2 = [ 1, CHILDREN, PERS_H, AGE, TMADD, TMJOB1, TEL, NMBLOAN, FINLOAN, INCOME, EC_CARD, INC, INC1, BUREAU, 
-                        LOCATION, LOANS, REGN, DIV, CASH ]   
+            if CARDS == "Cheque_card":
+                no_credit_cards = 1
+            elif CARDS == "Mastercard_Euroc":
+                Mastercard_Euroc = 1
+            elif CARDS == "VISA_mybank":
+                VISA_mybank = 1
+            elif CARDS == "VISA_Others":
+                VISA_Others = 1
+            elif CARDS == "Other_credit_car":
+                Other_credit_car = 1
+            elif CARDS == "American_Express":
+                American_Express = 1
+            else:
+                (
+                    Cheque_card,
+                    Mastercard_Euroc,
+                    VISA_mybank,
+                    VISA_Others,
+                    Other_credit_car,
+                    American_Express,
+                ) = (0, 0, 0, 0, 0, 0)
+
+            inputs1 = [
+                H,
+                E,
+                G,
+                T,
+                U,
+                V,
+                Cars,
+                Dept_Store_Mail,
+                Furniture_Carpet,
+                Leisure,
+                OT,
+                Lease,
+                German,
+                Greek,
+                Italian,
+                Other_European,
+                RS,
+                Spanish_Portugue,
+                Turkish,
+                Chemical_Industr,
+                Civil_Service_M,
+                Food_Building_Ca,
+                Military_Service,
+                Others,
+                Pensioner,
+                Sea_Vojage_Gast,
+                Self_employed_pe,
+                Car,
+                Car_and_Motor_bi,
+                American_Express,
+                Cheque_card,
+                Mastercard_Euroc,
+                Other_credit_car,
+                VISA_Others,
+                VISA_mybank,
+            ]
+
+            inputs2 = [
+                1,
+                CHILDREN,
+                PERS_H,
+                AGE,
+                TMADD,
+                TMJOB1,
+                TEL,
+                NMBLOAN,
+                FINLOAN,
+                INCOME,
+                EC_CARD,
+                INC,
+                INC1,
+                BUREAU,
+                LOCATION,
+                LOANS,
+                REGN,
+                DIV,
+                CASH,
+            ]
 
             list_ = inputs2 + inputs1
-            inputs = np.array(list_).reshape(1,-1)
-            answer1 = np.array(data.loaded_model.predict(inputs.reshape(1,-1)))
-            answer = "{: .10f}".format(answer1[0])
-
+            inputs = np.array(list_).reshape(1, -1)
+            answer1 = np.array(data.m.glm_sample_prob_pred(0, inputs.reshape(1, -1)))
+            answer = "{: .10f}".format(answer1)
             try:
-                with transaction.atomic():                    
+                with transaction.atomic():
                     log_features_object = LogFeatures.objects.get(pk=saved_pk)
-                    probability_instance = Probability(CUSTOMER_ID=log_features_object) # Django class/instance creation
+                    probability_instance = Probability(
+                        CUSTOMER_ID=log_features_object
+                    )  # Django class/instance creation
                     probability_instance.probability = answer
-                    probability_instance.default = 'default' if answer1 > 0.47 else 'nodefault'
+                    probability_instance.default = (
+                        "default" if answer1 > 0.47 else "nodefault"
+                    )
                     probability_instance.save()
             except LogFeatures.DoesNotExist:
-                print('Model does not exixt')
-
+                print("Model does not exixt")
             return JsonResponse({"probability": answer})
     else:
         form = Inputs()
-
-    return render(request, 'logistic/model/log_features.html', {'form':form, 'answer':answer})
-
+    return render(
+        request, "logistic/model/log_features.html", {"form": form, "answer": answer}
+    )

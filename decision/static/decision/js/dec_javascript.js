@@ -42,7 +42,7 @@ const probabilityResult = document.getElementById('probability-result');
       const headers = new Headers();
       headers.append('X-CSRFToken', csrftoken);
 
-      fetch('http://localhost:80/logistic/features/', {
+      fetch('http://localhost:8000/decision/decisionfeatures/', {
 
         method: 'POST',
         body: formData,
