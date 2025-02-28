@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+
+{% load static %}
+
+<html>
+    <head>
+        <link rel="shortcut icon" href="#">
+        <meta name="viewpoint" content="width=device-width, initial-scale=0.1">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> 
+        <link rel="stylesheet" type="text/css" href="{% static 'logistic/css/home_style.css' %}">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Play&display=swap" rel="stylesheet"> 
+    </head>             
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
+        </button>
+         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav nav navbar-nav navbar-logo mr-auto">
+               {% if user.is_authenticated %}
+                 <span><li><a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a></li></span>
+               {% else %}
+                 <span><li><a class="nav-item nav-link" href="{% url 'login' %}">Login</a></li></span>
+                 <span><li><a class="nav-item nav-link" href="{% url 'register' %}">Register</a></li></span>
+               {% endif %}   
+            </ul>
+            <form class="form-inline my-2 my-lg-0" method="GET">
+              <input class="form-control mr-sm-2" id="search-input" list="suggestions" type="search" placeholder="Search" aria-label="Search">
+              <datalist id="suggestions"></datalist>
+            </form>
+            <button class="btn btn-outline-success my-2 my-sm-0" id="search-button" type="submit">Search</button>
+          </div>
+        </nav>
+        <!-- <div id="loading-message"> Loading...</div> -->
+        <div class="d">
+            <div><h4>PREDICTION MODELS</h4></div>
+        </div>
+        <div class="containerd">
+            <div class="box">
+                    <h4 class="e"></h4>
+                    <span class="center-link"><a href="{% url 'features-log' %}" target="_self" title="Visit Logistic"><button class="mybtn" style="margin-top: 15px;">Enter Logistic Regression</button></a></span>
+                    <legend></legend>
+                    <span class="center-link"><a href="{% url 'features-dec' %}" target="_self" title="Visit Logistic"><button class="mybtn">Enter Decision Tree</button></a></span>
+                    <legend></legend>
+                    <span class="center-link"><a href="{% url 'streamlit' %}" target="_self" title="Visit Streamlit"><button class="mybtn">Streamlit</button></a></span>
+            </div>
+            <div class="vertical-line"></div>
+            <div class="box">
+                    <h4 class="f"></h4>
+                    <span class="center-link"><a href="{% url 'github_django_pd' %}" target="_self" title="Visit Logistic"><button class="mybtn" style="margin-top: 15px;">Enter Credit PD repository</button></a></span>
+                    <legend></legend>
+                    <span class="center-link"><a href="{% url 'github_django_streamlit' %}" target="_self" title="Visit Decision"><button class="mybtn">Streamlit PD repo</button></a></span>
+                    <legend></legend>
+                    <span class="center-link"><a href="{% url 'real_analysis' %}" target="_self" title="Visit Streamlit"><button class="mybtn">Real analysis</button></a></span>
+            </div>
+        </div>
+        <footer>
+          <div class="footer">
+            <div class="row">
+                <ul>
+                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                    <li><a href="{% url 'about' %}">About</a></li>
+                    <li><a href="#">Services</a></li>
+                </ul>
+            </div>
+          </div>
+        </footer>
+        <script src="{% static 'search/js/home_javascript.js' %}"></script>
+    </body>    
+</html>
